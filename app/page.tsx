@@ -17,7 +17,7 @@ export default function Home() {
         <SiteNav light />
         <div className="hero-caption">
           <p className="eyebrow hero-eyebrow">Breaking como linguagem cênica, política e poética</p>
-          <h1 id="hero-title">Flying<br />Low</h1>
+          <h1 id="hero-title"><span>Flying</span><span>Low</span></h1>
           <p className="hero-line">Dança das periferias de São Paulo<br />para a cena, a câmera e o encontro.</p>
         </div>
         <div className="hero-footer"><span>Em atividade desde 2016</span><span>São Paulo · Brasil</span><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">Assistir teaser ↗</a></div>
