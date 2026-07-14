@@ -9,10 +9,12 @@ export function SiteNav({ light = false }: SiteNavProps) {
       <nav aria-label="Navegação principal">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/">Início</a>
+        <a href="/grupo">Grupo</a>
         <a href="/cenicas">Cênicas</a>
         <a href="/audiovisual">Audiovisual</a>
+        <a href="/formacao">Formação</a>
       </nav>
-      <a className="nav-contact" href="mailto:contato@flyinglow.art">Contato <span>↗</span></a>
+      <a className="nav-contact" href="mailto:producaoflyinglow@gmail.com">Contato <span>↗</span></a>
     </header>
   );
 }

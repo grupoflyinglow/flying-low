@@ -4,78 +4,68 @@ export default function Home() {
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
-        <video
-          className="hero-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/hero-poster.jpg"
-          aria-label="Temporary background footage of a small dance group in motion"
-        >
+        <video className="hero-video" autoPlay loop muted playsInline aria-label="Temporary background footage of a small dance group in motion">
           <source src="/media/flying-low-hero-placeholder.mp4" type="video/mp4" />
         </video>
         <div className="hero-wash" />
         <SiteNav light />
         <div className="hero-caption">
-          <p className="eyebrow hero-eyebrow">São Paulo · Brasil</p>
-          <h1 id="hero-title">Flying Low</h1>
-          <p className="hero-line">Cinco corpos em estado de escuta.</p>
+          <p className="eyebrow hero-eyebrow">Breaking como linguagem cênica, política e poética</p>
+          <h1 id="hero-title">Flying<br />Low</h1>
+          <p className="hero-line">Dança das periferias de São Paulo<br />para a cena, a câmera e o encontro.</p>
         </div>
-        <div className="hero-footer">
-          <span>Em atividade desde 2016</span>
-          <span className="hero-note">Vídeo temporário · a ser substituído por acervo Flying Low</span>
+        <div className="hero-footer"><span>Em atividade desde 2016</span><span>São Paulo · Brasil</span></div>
+      </section>
+
+      <section className="manifesto section-shell" aria-labelledby="manifesto-title">
+        <p className="eyebrow">O grupo</p>
+        <div className="manifesto-copy">
+          <h2 id="manifesto-title">Cinco artistas.<br />Uma dança que vem<br />do vivido.</h2>
+          <p>Flying Low é um coletivo de artistas das periferias de São Paulo. A pesquisa parte do breaking e atravessa danças urbanas, dramaturgias do corpo e práticas colaborativas de criação.</p>
+          <a className="text-link" href="/grupo">Conhecer o grupo <b>↗</b></a>
         </div>
       </section>
 
-      <section className="intro section-shell" aria-labelledby="about-title">
-        <p className="eyebrow">Sobre o grupo</p>
-        <div className="intro-copy">
-          <h2 id="about-title">A rua como ponto de partida.<br />A cena como campo de pesquisa.</h2>
-          <p>
-            Flying Low é um coletivo de cinco intérpretes-criadores. Desde 2016,
-            investigamos a dança urbana em diálogo com dramaturgia, música e imagem em movimento.
-          </p>
-        </div>
+      <section className="collective-image section-shell" aria-label="Flying Low em retrato">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/flying-low-collective.jpg" alt="Os cinco integrantes do coletivo Flying Low" />
+        <span className="image-label">Turtle Lee · Fioot · Manuel Victor · Emersu · Ricardo Ura</span>
       </section>
 
-      <section className="work-gates section-shell" aria-labelledby="work-title">
-        <div className="section-heading">
-          <p className="eyebrow">Duas frentes, uma prática</p>
-          <h2 id="work-title">Obras em presença<br />e em circulação.</h2>
+      <section className="featured-work section-shell" aria-labelledby="featured-title">
+        <div className="featured-work-copy">
+          <p className="eyebrow">Em destaque · 2019</p>
+          <h2 id="featured-title">Menino<br />Assum Preto</h2>
+          <p>Um manifesto em movimento sobre trabalho, aprisionamento e o direito de sonhar.</p>
+          <a className="text-link" href="/menino-assum-preto">Ver dossiê da obra <b>↗</b></a>
         </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/flying-low-assum-preto.jpg" alt="Cena de Menino Assum Preto" />
+      </section>
+
+      <section className="practice-grid section-shell" aria-labelledby="practice-title">
+        <div className="section-heading"><p className="eyebrow">Criação em movimento</p><h2 id="practice-title">Cena, imagem<br />e formação.</h2></div>
         <div className="gates-grid">
           <a className="work-gate scenic" href="/cenicas">
-            <div className="gate-visual" aria-hidden="true"><span>01</span></div>
-            <div className="gate-copy">
-              <p className="eyebrow">Cênicas</p>
-              <h3>Trabalhos para palco, rua e espaços de encontro.</h3>
-              <span className="text-link">Conhecer obras <b>↗</b></span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="gate-photo" src="/images/flying-low-stage-amber.jpg" alt="Cena de espetáculo do Flying Low" />
+            <div className="gate-copy"><p className="eyebrow">Cênicas</p><h3>Obras que misturam breaking, memória, ancestralidade e fabulação.</h3><span className="text-link">Ver obras <b>↗</b></span></div>
           </a>
           <a className="work-gate audiovisual" href="/audiovisual">
-            <div className="gate-visual" aria-hidden="true"><span>02</span></div>
-            <div className="gate-copy">
-              <p className="eyebrow">Audiovisual</p>
-              <h3>Videodança, filmes e colaborações para a câmera.</h3>
-              <span className="text-link">Ver trabalhos <b>↗</b></span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="gate-photo" src="/images/flying-low-stage-blue.jpg" alt="Cena azul de espetáculo do Flying Low" />
+            <div className="gate-copy"><p className="eyebrow">Audiovisual</p><h3>Videodança e documentário como desdobramento da pesquisa.</h3><span className="text-link">Ver trabalhos <b>↗</b></span></div>
           </a>
         </div>
       </section>
 
-      <section className="credibility section-shell" aria-label="Flying Low em números">
-        <div><strong>05</strong><span>intérpretes-criadores</span></div>
-        <div><strong>2016</strong><span>início do percurso coletivo</span></div>
-        <div><strong>02</strong><span>frentes de criação e circulação</span></div>
+      <section className="numbers section-shell" aria-label="Trajetória Flying Low">
+        <div><strong>2018</strong><span>início da trajetória autoral</span></div>
+        <div><strong>07</strong><span>cidades paulistas em Circula Assum</span></div>
+        <div><strong>45′</strong><span>duração de Menino Assum Preto</span></div>
       </section>
 
-      <section className="contact-band" id="contato">
-        <div className="section-shell contact-inner">
-          <p className="eyebrow">Convites, parcerias e circulação</p>
-          <a href="mailto:contato@flyinglow.art">Vamos conversar <span>↗</span></a>
-        </div>
-      </section>
+      <section className="contact-band" id="contato"><div className="section-shell contact-inner"><p className="eyebrow">Convites, circulação, formação e parcerias</p><a href="mailto:producaoflyinglow@gmail.com">Falar com<br />Flying Low <span>↗</span></a></div></section>
     </main>
   );
 }
