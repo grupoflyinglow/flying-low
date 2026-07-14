@@ -35,12 +35,7 @@ export default function Home() {
 
       <section className="collective-image section-shell" aria-label="Flying Low em retrato">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="collective-main" src="/images/flying-low-collective.jpg" alt="Os cinco integrantes do coletivo Flying Low" />
-        {/* Decorative visual material; the documentary portraits remain the content images. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="collective-contact-sheet" src="/images/flying-low-contact-sheet.png" alt="" aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="collective-portrait-card" src="/images/flying-low-portrait.jpg" alt="" aria-hidden="true" />
+        <img src="/images/flying-low-collective.jpg" alt="Os cinco integrantes do coletivo Flying Low" />
         <span className="image-label">Turtle Lee · Fioot · Manuel Victor · Emersu · Ricardo Ura</span>
       </section>
 

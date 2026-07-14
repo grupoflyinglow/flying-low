@@ -48,13 +48,10 @@ img { display: block; max-width: 100%; }
 .text-link, .project-detail a { border-bottom: 1px solid currentColor; font-family: var(--mono); font-size: 10px; padding-bottom: 4px; width: fit-content; }
 .text-link b, .project-detail span { color: var(--red); font-size: 14px; margin-left: 5px; }
 
-.collective-image { margin-bottom: 175px; min-height: clamp(390px, 47vw, 680px); overflow: hidden; position: relative; }
-.collective-image::before { background: radial-gradient(rgba(255,255,255,.16) .65px, transparent .65px); background-size: 6px 6px; content: ""; inset: 0; mix-blend-mode: soft-light; opacity: .45; pointer-events: none; position: absolute; z-index: 5; }
-.collective-image::after { border: 1px solid var(--red); content: ""; height: 20%; position: absolute; right: 4%; top: 9%; transform: rotate(-14deg); width: 34%; z-index: 4; }
-.collective-main { aspect-ratio: 2.2 / 1; filter: saturate(.82) contrast(1.1); height: 88%; object-fit: cover; object-position: center; position: absolute; right: 0; top: 0; width: 76%; }
-.collective-contact-sheet { aspect-ratio: 1.55 / 1; bottom: 0; filter: contrast(1.08) saturate(.88); left: 0; object-fit: cover; object-position: 58% center; position: absolute; transform: rotate(-2.5deg); width: 42%; z-index: 2; }
-.collective-portrait-card { background: var(--paper); border: 7px solid var(--paper); bottom: 9%; filter: grayscale(.15) contrast(1.15); left: 26%; object-fit: cover; position: absolute; transform: rotate(3deg); width: 19%; z-index: 3; }
-.image-label { background: var(--red); bottom: 0; color: var(--paper); font-family: var(--mono); font-size: 10px; left: 0; padding: 11px 15px; position: absolute; z-index: 6; }
+.collective-image { margin-bottom: 175px; overflow: hidden; position: relative; }
+.collective-image::after { border: 1px solid var(--red); content: ""; height: 20%; position: absolute; right: 4%; top: 9%; transform: rotate(-14deg); width: 34%; }
+.collective-image img { aspect-ratio: 2.2 / 1; filter: saturate(.86) contrast(1.08); object-fit: cover; width: 100%; }
+.image-label { background: var(--red); bottom: 0; color: var(--paper); font-family: var(--mono); font-size: 10px; left: 0; padding: 11px 15px; position: absolute; }
 
 .featured-work { align-items: end; border-top: 1px solid var(--line); display: grid; gap: 10%; grid-template-columns: 1fr 1.22fr; padding: 28px 0 180px; }
 .featured-work-copy { max-width: 470px; padding-bottom: 15px; }
@@ -179,10 +176,8 @@ img { display: block; max-width: 100%; }
   .manifesto > .eyebrow { margin-bottom: 52px; }
   .manifesto-copy { display: block; }
   .manifesto-copy > p { margin: 35px 0 30px; max-width: 440px; }
-  .collective-image { margin-bottom: 105px; min-height: 500px; }
-  .collective-main { aspect-ratio: 1 / 1; height: 78%; width: 87%; }
-  .collective-contact-sheet { bottom: 4%; left: -4%; width: 61%; }
-  .collective-portrait-card { bottom: 19%; border-width: 5px; left: 47%; width: 32%; }
+  .collective-image { margin-bottom: 105px; }
+  .collective-image img { aspect-ratio: 1 / 1; }
   .image-label { max-width: 230px; }
   .featured-work { padding-bottom: 105px; }
   .featured-work-copy { margin-bottom: 47px; }
