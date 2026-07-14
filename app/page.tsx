@@ -4,9 +4,15 @@ export default function Home() {
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
-        <video className="hero-video" autoPlay loop muted playsInline aria-label="Temporary background footage of a small dance group in motion">
-          <source src="/media/flying-low-hero-placeholder.mp4" type="video/mp4" />
-        </video>
+        <iframe
+          className="hero-youtube"
+          src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&loop=1&playlist=A244vRmQt8I&playsinline=1&controls=0&disablekb=1&iv_load_policy=3&rel=0"
+          title="Teaser de Menino Assum Preto"
+          aria-hidden="true"
+          tabIndex={-1}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
         <div className="hero-wash" />
         <SiteNav light />
         <div className="hero-caption">
@@ -14,7 +20,7 @@ export default function Home() {
           <h1 id="hero-title">Flying<br />Low</h1>
           <p className="hero-line">Dança das periferias de São Paulo<br />para a cena, a câmera e o encontro.</p>
         </div>
-        <div className="hero-footer"><span>Em atividade desde 2016</span><span>São Paulo · Brasil</span></div>
+        <div className="hero-footer"><span>Em atividade desde 2016</span><span>São Paulo · Brasil</span><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">Assistir teaser ↗</a></div>
       </section>
 
       <section className="manifesto section-shell" aria-labelledby="manifesto-title">
@@ -57,12 +63,6 @@ export default function Home() {
             <div className="gate-copy"><p className="eyebrow">Audiovisual</p><h3>Videodança e documentário como desdobramento da pesquisa.</h3><span className="text-link">Ver trabalhos <b>↗</b></span></div>
           </a>
         </div>
-      </section>
-
-      <section className="numbers section-shell" aria-label="Trajetória Flying Low">
-        <div><strong>2018</strong><span>início da trajetória autoral</span></div>
-        <div><strong>07</strong><span>cidades paulistas em Circula Assum</span></div>
-        <div><strong>45′</strong><span>duração de Menino Assum Preto</span></div>
       </section>
 
       <section className="contact-band" id="contato"><div className="section-shell contact-inner"><p className="eyebrow">Convites, circulação, formação e parcerias</p><a href="mailto:producaoflyinglow@gmail.com">Falar com<br />Flying Low <span>↗</span></a></div></section>
