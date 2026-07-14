@@ -6,10 +6,11 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <iframe
           className="hero-youtube"
-          src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&loop=1&playlist=A244vRmQt8I&playsinline=1&controls=0&disablekb=1&iv_load_policy=3&rel=0"
+          src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&playsinline=1&loop=1&playlist=A244vRmQt8I&controls=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&rel=0"
           title="Teaser de Menino Assum Preto"
           aria-hidden="true"
           tabIndex={-1}
+          loading="eager"
           allow="autoplay; encrypted-media; picture-in-picture"
           referrerPolicy="strict-origin-when-cross-origin"
         />
@@ -34,7 +35,12 @@ export default function Home() {
 
       <section className="collective-image section-shell" aria-label="Flying Low em retrato">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/flying-low-collective.jpg" alt="Os cinco integrantes do coletivo Flying Low" />
+        <img className="collective-main" src="/images/flying-low-collective.jpg" alt="Os cinco integrantes do coletivo Flying Low" />
+        {/* Decorative visual material; the documentary portraits remain the content images. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="collective-contact-sheet" src="/images/flying-low-contact-sheet.png" alt="" aria-hidden="true" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="collective-portrait-card" src="/images/flying-low-portrait.jpg" alt="" aria-hidden="true" />
         <span className="image-label">Turtle Lee · Fioot · Manuel Victor · Emersu · Ricardo Ura</span>
       </section>
 
