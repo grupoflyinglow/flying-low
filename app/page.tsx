@@ -1,5 +1,4 @@
 import { SiteNav } from "./components/SiteNav";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -46,22 +45,22 @@ export default function Home() {
           <h2 id="work-title">Obras em presença<br />e em circulação.</h2>
         </div>
         <div className="gates-grid">
-          <Link className="work-gate scenic" href="/cenicas">
+          <a className="work-gate scenic" href="/cenicas">
             <div className="gate-visual" aria-hidden="true"><span>01</span></div>
             <div className="gate-copy">
               <p className="eyebrow">Cênicas</p>
               <h3>Trabalhos para palco, rua e espaços de encontro.</h3>
               <span className="text-link">Conhecer obras <b>↗</b></span>
             </div>
-          </Link>
-          <Link className="work-gate audiovisual" href="/audiovisual">
+          </a>
+          <a className="work-gate audiovisual" href="/audiovisual">
             <div className="gate-visual" aria-hidden="true"><span>02</span></div>
             <div className="gate-copy">
               <p className="eyebrow">Audiovisual</p>
               <h3>Videodança, filmes e colaborações para a câmera.</h3>
               <span className="text-link">Ver trabalhos <b>↗</b></span>
             </div>
-          </Link>
+          </a>
         </div>
       </section>
 
