@@ -34,7 +34,7 @@ img { display: block; max-width: 100%; }
 .hero::before { background-image: radial-gradient(rgba(255,255,255,.16) .7px, transparent .7px); background-size: 7px 7px; content: ""; inset: 0; mix-blend-mode: soft-light; opacity: .42; pointer-events: none; position: absolute; z-index: 2; }
 .hero-youtube { background: var(--black); border: 0; display: block; height: 56.25vw; left: 50%; min-height: 100svh; min-width: 177.78svh; pointer-events: none; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 100vw; z-index: -3; }
 .hero-wash { background: linear-gradient(90deg, rgba(0,0,0,.77), rgba(0,0,0,.1) 68%), linear-gradient(0deg, rgba(0,0,0,.75), transparent 52%); inset: 0; position: absolute; z-index: -2; }
-.hero-caption { --hero-eyebrow-ink-offset: .2em; --hero-title-ink-offset: -.125em; --hero-copy-ink-offset: -.8em; bottom: 12%; left: 6.2%; max-width: 700px; position: absolute; z-index: 3; }
+.hero-caption { --hero-eyebrow-ink-offset: -18px; --hero-title-ink-offset: -.125em; --hero-copy-ink-offset: -.8em; bottom: 12%; left: 6.2%; max-width: 700px; position: absolute; z-index: 3; }
 .hero-eyebrow { margin: 0 0 18px var(--hero-eyebrow-ink-offset); max-width: 360px; }
 .hero h1 { font-family: var(--display); font-size: clamp(108px, 17vw, 268px); font-weight: 800; letter-spacing: -.075em; line-height: .77; margin: 0; text-transform: uppercase; }
 .hero h1 > span { display: block; margin-inline-start: var(--hero-title-ink-offset); }
