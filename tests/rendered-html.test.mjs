@@ -39,6 +39,7 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.doesNotMatch(html, /Em atividade desde 2016/);
   assert.doesNotMatch(html, /Breaking como linguagem cênica, política e poética/);
   assert.doesNotMatch(html, /class="contact-band"/);
+  assert.doesNotMatch(html, /class="nav-title"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 

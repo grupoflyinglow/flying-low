@@ -43,7 +43,6 @@ export function SiteNav({ light = false }: { light?: boolean }) {
   return (
     <header className={`site-nav ${light ? "site-nav-light" : ""}`}>
       <a className="wordmark" href="/" aria-label={t.nav.homeAria}>FL</a>
-      <a className="nav-title" href="/">Flying Low</a>
       <div className="nav-actions">
         <LanguageSwitch />
         <button className="menu-button" type="button" aria-controls="site-menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
