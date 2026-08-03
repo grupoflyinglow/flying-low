@@ -36,7 +36,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: copy.title,
     description: copy.description,
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+    icons: {
+      icon: [{ url: "/brand/favicon.png", type: "image/png", sizes: "192x192" }],
+      shortcut: "/brand/favicon.png",
+      apple: [{ url: "/brand/app-icon.png", type: "image/png", sizes: "512x512" }],
+    },
     alternates: {
       canonical: canonicalUrl,
       languages: {

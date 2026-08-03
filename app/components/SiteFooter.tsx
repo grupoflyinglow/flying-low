@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { useLocale } from "./LocaleProvider";
 import { routeFor } from "../route-localization";
 
@@ -9,7 +10,9 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="section-shell site-footer-grid">
-        <a className="footer-wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>FL</a>
+        <a className="footer-wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>
+          <img src="/brand/logo-mark-dark.png" alt="" aria-hidden="true" width={273} height={414} loading="lazy" decoding="async" />
+        </a>
         <div className="footer-intro">
           <p className="eyebrow">{t.footer.location}</p>
         </div>

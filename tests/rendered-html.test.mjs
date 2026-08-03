@@ -41,6 +41,9 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /aria-current="page" aria-label="Português" href="\/" hrefLang="pt-BR" lang="pt-BR">PT<\/a>/);
   assert.match(html, /aria-label="Inglês" href="\/en" hrefLang="en" lang="en">EN<\/a>/);
   assert.match(html, /<nav class="desktop-nav" aria-label="Navegação principal"/);
+  assert.match(html, /class="wordmark"[^>]*><img src="\/brand\/logo-mark-light\.png" alt="" aria-hidden="true" width="273" height="414"/);
+  assert.match(html, /class="footer-wordmark"[^>]*><img src="\/brand\/logo-mark-dark\.png" alt="" aria-hidden="true" width="273" height="414"/);
+  assert.match(html, /href="\/brand\/favicon\.png"/);
   assert.match(html, />Formação<\/a>/);
   assert.match(html, />Debates<\/a>/);
   assert.match(html, /class="skip-link" href="#main-content"/);
@@ -290,7 +293,11 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   assert.match(css, /\.hero-primary-cta:hover\s*\{[^}]*background:\s*var\(--red\)/);
   assert.match(css, /\.agenda-date-day\s*\{[^}]*font-size:\s*clamp\(38px/);
   assert.match(css, /\.hero-primary-cta:hover\s*\{\s*transform:\s*none/);
+  assert.match(css, /background:\s*url\("\/brand\/logo-wordmark-light\.png"\)/);
   assert.match(home, /useSyncExternalStore/);
   assert.match(home, /!prefersReducedMotion/);
   assert.match(layout, /themeColor:\s*"#0b0b0b"/);
+  assert.match(layout, /icon:\s*\[\{ url:\s*"\/brand\/favicon\.png"/);
+  assert.match(layout, /apple:\s*\[\{ url:\s*"\/brand\/app-icon\.png"/);
+  assert.doesNotMatch(layout, /favicon\.svg/);
 });

@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { alternateLocalePath, routeFor } from "../route-localization";
@@ -56,7 +57,9 @@ export function SiteNav({ light = false }: { light?: boolean }) {
 
   return (
     <header className={`site-nav ${light ? "site-nav-light" : ""}`}>
-      <a className="wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>FL</a>
+      <a className="wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>
+        <img src="/brand/logo-mark-light.png" alt="" aria-hidden="true" width={273} height={414} loading="eager" decoding="async" />
+      </a>
       <nav className="desktop-nav" aria-label={t.nav.mainNavigation}>
         {items.map((item) => {
           const href = routeFor(locale, item.routeKey);
@@ -73,7 +76,9 @@ export function SiteNav({ light = false }: { light?: boolean }) {
       <dialog className="menu-dialog" id="site-menu" ref={menuRef} aria-label={t.nav.mainMenu} onClose={closeMenu} onCancel={closeMenu}>
         <div className="menu-dialog-inner">
           <div className="menu-head">
-            <a className="footer-wordmark" href={routeFor(locale, "home")} onClick={closeMenu} aria-label={t.nav.homeAria}>FL</a>
+            <a className="menu-brand" href={routeFor(locale, "home")} onClick={closeMenu} aria-label={t.nav.homeAria}>
+              <img src="/brand/logo-mark-light.png" alt="" aria-hidden="true" width={273} height={414} loading="eager" decoding="async" />
+            </a>
             <button className="menu-close" type="button" onClick={closeMenu}>{t.nav.close} <span aria-hidden="true">×</span></button>
           </div>
           <nav className="menu-links" aria-label={t.nav.mainMenu}>

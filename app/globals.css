@@ -28,7 +28,8 @@ img { display: block; max-width: 100%; }
 .eyebrow { font-family: var(--mono); font-size: 16px; font-weight: 600; letter-spacing: .08em; line-height: 1.3; margin: 0; text-transform: uppercase; }
 
 .site-nav { align-items: center; color: var(--ink); column-gap: clamp(14px, 2vw, 32px); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; left: 50%; padding: 26px clamp(20px, 3vw, 40px); position: absolute; top: 0; transform: translateX(-50%); width: 100%; z-index: 20; }
-.wordmark { border: 1px solid currentColor; display: grid; font-family: var(--mono); font-size: 16px; font-weight: 800; height: 36px; letter-spacing: -.12em; place-items: center; width: 36px; }
+.wordmark { display: grid; height: 50px; place-items: center; width: 44px; }
+.wordmark img { height: 46px; object-fit: contain; width: auto; }
 .desktop-nav { align-items: center; display: flex; gap: clamp(10px, 1.35vw, 22px); justify-content: center; min-width: 0; }
 .desktop-nav a { border-bottom: 1px solid transparent; font-family: var(--mono); font-size: 16px; letter-spacing: -.035em; padding: 7px 0 5px; white-space: nowrap; }
 .desktop-nav a:hover { border-bottom-color: var(--red); color: var(--red); }
@@ -43,7 +44,9 @@ img { display: block; max-width: 100%; }
 .menu-dialog { background: var(--coal); border: 0; color: var(--ink); height: 100dvh; margin: 0; max-height: none; max-width: none; overflow-y: auto; overscroll-behavior: contain; padding: 0; width: 100dvw; }
 .menu-dialog::backdrop { background: rgba(0, 0, 0, .78); }
 .menu-dialog-inner { display: grid; grid-template-rows: auto 1fr auto; min-height: 100%; padding: 32px 40px 28px; position: relative; }
-.menu-dialog-inner::before { color: rgba(242, 238, 230, .025); content: "FL"; font-family: var(--display); font-size: min(68vw, 980px); font-weight: 800; letter-spacing: -.16em; line-height: .62; pointer-events: none; position: fixed; right: 2%; top: 19%; }
+.menu-dialog-inner::before { background: url("/brand/logo-mark-light.png") center / contain no-repeat; content: ""; height: min(66vw, 760px); opacity: .025; pointer-events: none; position: fixed; right: 7%; top: 15%; width: min(44vw, 500px); }
+.menu-brand { display: grid; height: 62px; place-items: center; width: 48px; }
+.menu-brand img { height: 58px; object-fit: contain; width: auto; }
 .menu-head { align-items: start; display: flex; justify-content: space-between; position: relative; }
 .menu-links { align-content: center; display: grid; font-family: var(--display); gap: 4px; grid-template-columns: 1fr 1fr; margin: 70px auto; max-width: 1180px; position: relative; width: 100%; }
 .menu-links a { align-items: baseline; border-bottom: 1px solid var(--line); display: grid; gap: 18px; grid-template-columns: 42px 1fr; padding: 12px 0 9px; transition: color .2s ease, padding-left .25s ease; }
@@ -120,9 +123,10 @@ img { display: block; max-width: 100%; }
 
 
 .site-footer { background: var(--coal); border-top: 1px solid rgba(226, 59, 44, .85); color: var(--ink); overflow: hidden; padding: 72px 0 24px; position: relative; }
-.site-footer::before { color: rgba(242, 238, 230, .03); content: "FL"; font-family: var(--display); font-size: min(37vw, 520px); font-weight: 800; letter-spacing: -.16em; line-height: .6; position: absolute; right: 4%; top: 11%; }
+.site-footer::before { background: url("/brand/logo-wordmark-light.png") center / contain no-repeat; content: ""; height: min(24vw, 310px); opacity: .035; pointer-events: none; position: absolute; right: 3%; top: 8%; width: min(58vw, 760px); }
 .site-footer-grid { align-items: start; display: grid; gap: 34px; grid-template-columns: auto minmax(210px, 1.4fr) minmax(140px, .6fr) minmax(200px, 1fr); position: relative; }
-.footer-wordmark { background: var(--red); color: var(--paper); display: grid; font-family: var(--mono); font-size: 18px; font-weight: 800; height: 54px; letter-spacing: -.16em; place-items: center; width: 54px; }
+.footer-wordmark { background: var(--red); display: grid; height: 54px; place-items: center; width: 54px; }
+.footer-wordmark img { height: 47px; object-fit: contain; width: auto; }
 .footer-intro .eyebrow { color: var(--red); }
 .site-footer nav { display: grid; font-family: var(--mono); font-size: 16px; gap: 12px; letter-spacing: .02em; }
 .site-footer nav a { width: fit-content; }
@@ -374,7 +378,7 @@ img { display: block; max-width: 100%; }
   .site-nav .nav-actions > .language-switch { display: none; }
   .menu-button { display: block; min-height: 44px; }
   .menu-dialog-inner { padding: 20px; }
-  .menu-dialog-inner::before { font-size: 105vw; right: 8%; top: 24%; }
+  .menu-dialog-inner::before { height: 86vw; right: 8%; top: 22%; width: 58vw; }
   .menu-links { display: block; margin: 65px 0; }
   .menu-links a { gap: 10px; grid-template-columns: 34px 1fr; padding: 10px 0 8px; }
   .menu-links strong { font-size: clamp(37px, 11vw, 54px); }
@@ -433,6 +437,7 @@ img { display: block; max-width: 100%; }
   .site-footer { padding: 58px 0 20px; }
   .site-footer-grid { gap: 30px; grid-template-columns: 1fr; }
   .footer-wordmark { height: 46px; width: 46px; }
+  .footer-wordmark img { height: 40px; }
   .site-footer nav { grid-template-columns: 1fr 1fr; margin-top: 8px; }
   .footer-contact { justify-self: start; }
   .footer-meta { font-size: 16px; margin-top: 52px; }
