@@ -38,8 +38,8 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /class="agenda-date-day">18—19/);
   assert.match(html, /estreia dia 18/);
   assert.match(html, /Teatro Galpão do Folias/);
-  assert.match(html, /aria-label="Português"[^>]+aria-pressed="true"/);
-  assert.match(html, /aria-label="Inglês"[^>]+aria-pressed="false"/);
+  assert.match(html, /aria-current="page" aria-label="Português" href="\/" hrefLang="pt-BR" lang="pt-BR">PT<\/a>/);
+  assert.match(html, /aria-label="Inglês" href="\/en" hrefLang="en" lang="en">EN<\/a>/);
   assert.match(html, /<nav class="desktop-nav" aria-label="Navegação principal"/);
   assert.match(html, />Formação<\/a>/);
   assert.match(html, />Debates<\/a>/);
@@ -119,6 +119,58 @@ test("server-renders the complete information architecture in Portuguese", async
   }
 });
 
+test("server-renders English at translated URLs without a Portuguese first paint", async () => {
+  const routes = [
+    ["/en", "Dance from São Paulo’s peripheries"],
+    ["/en/collective", "Five artists. Five trajectories in motion."],
+    ["/en/performances", "Menino Assum Preto"],
+    ["/en/performances/menino-assum-preto", "The captive bird meets the urban worker."],
+    ["/en/performances/the-footprints-of-kurupyra", "Traces of a living territory."],
+    ["/en/performances/revoada", "A work still finding its form."],
+    ["/en/screen", "The camera joins the circle."],
+    ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
+    ["/en/screen/in-formation", "Learning also produces memory."],
+    ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
+    ["/en/learning", "Learn in a circle. Create collectively."],
+    ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
+    ["/en/learning/residency", "From training to the emergence of a work."],
+    ["/en/conversations", "The conversation continues after the stage."],
+    ["/en/conversations/first-edition", "A circle to continue what the stage began."],
+    ["/en/history", "A line made of encounters, works, and movement."],
+    ["/en/agenda", "Upcoming encounters."],
+  ];
+
+  for (const [pathname, expectedCopy] of routes) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, /<html[^>]+lang="en"/i, pathname);
+    assert.match(html, new RegExp(expectedCopy.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+    assert.doesNotMatch(html, /Pular para o conteúdo|Navegação principal|Ver espetáculos/, pathname);
+  }
+
+  const performances = await render("/en/performances");
+  const performancesHtml = await performances.text();
+  for (const href of [
+    "/en/collective",
+    "/en/performances",
+    "/en/screen",
+    "/en/learning",
+    "/en/conversations",
+    "/en/history",
+    "/en/agenda",
+    "/en/performances/the-footprints-of-kurupyra",
+  ]) {
+    assert.match(performancesHtml, new RegExp(`href="${href}"`), href);
+  }
+  assert.match(performancesHtml, /aria-label="Portuguese" href="\/espetaculos" hrefLang="pt-BR" lang="pt-BR">PT<\/a>/);
+  assert.match(performancesHtml, /aria-current="page" aria-label="English" href="\/en\/performances" hrefLang="en" lang="en">EN<\/a>/);
+  assert.match(performancesHtml, /<title>Flying Low — dance, stage and screen<\/title>/i);
+  assert.match(performancesHtml, /rel="canonical" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
+  assert.match(performancesHtml, /hrefLang="pt-BR" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/espetaculos"/);
+  assert.match(performancesHtml, /hrefLang="en" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
+});
+
 test("gives the performances page its own image-led composition", async () => {
   const performances = await render("/espetaculos");
   assert.equal(performances.status, 200);
@@ -172,6 +224,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   const i18n = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
   const editorial = await readFile(new URL("../app/editorial-content.ts", import.meta.url), "utf8");
   const provider = await readFile(new URL("../app/components/LocaleProvider.tsx", import.meta.url), "utf8");
+  const routes = await readFile(new URL("../app/route-localization.ts", import.meta.url), "utf8");
 
   assert.match(i18n, /DEFAULT_LOCALE: Locale = "pt-BR"/);
   assert.match(i18n, /Dance from São Paulo’s peripheries/);
@@ -198,8 +251,11 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(editorial, /day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed"/);
   assert.match(editorial, /address: "Address to be confirmed"/);
   assert.match(editorial, /Venue to be confirmed/);
-  assert.match(provider, /window\.localStorage\.setItem/);
-  assert.match(provider, /document\.documentElement\.lang = locale/);
+  assert.doesNotMatch(provider, /localStorage|useSyncExternalStore|document\.documentElement\.lang/);
+  assert.match(provider, /locale: Locale/);
+  assert.match(routes, /en: "\/en\/performances\/the-footprints-of-kurupyra"/);
+  assert.match(routes, /en: "\/en\/screen\/marginal-conceptions"/);
+  assert.match(routes, /en: "\/en\/learning\/workshops"/);
 });
 
 test("keeps every pixel-based text size at 16px or larger", async () => {
@@ -223,7 +279,7 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
 
   assert.match(css, /color-scheme:\s*dark/);
-  assert.match(css, /--ink:\s*#ddd8cf/);
+  assert.match(css, /--ink:\s*#cbc5bb/);
   assert.match(css, /body\s*\{[^}]*color:\s*var\(--ink\)/);
   assert.match(css, /:where\(a, button\):focus-visible/);
   assert.match(css, /\.menu-button\s*\{\s*display:\s*none/);

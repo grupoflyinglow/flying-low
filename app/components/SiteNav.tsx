@@ -1,17 +1,31 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { alternateLocalePath, routeFor } from "../route-localization";
 import { useLocale } from "./LocaleProvider";
 
 function LanguageSwitch({ className = "" }: { className?: string }) {
-  const { locale, setLocale, t } = useLocale();
+  const pathname = usePathname();
+  const { locale, t } = useLocale();
 
   return (
     <div className={`language-switch ${className}`} role="group" aria-label={t.nav.languageSelector}>
-      <button type="button" aria-label={t.nav.portuguese} aria-pressed={locale === "pt-BR"} onClick={() => setLocale("pt-BR")}>PT</button>
+      <a
+        aria-current={locale === "pt-BR" ? "page" : undefined}
+        aria-label={t.nav.portuguese}
+        href={alternateLocalePath(pathname, "pt-BR")}
+        hrefLang="pt-BR"
+        lang="pt-BR"
+      >PT</a>
       <span aria-hidden="true">/</span>
-      <button type="button" aria-label={t.nav.english} aria-pressed={locale === "en"} onClick={() => setLocale("en")}>EN</button>
+      <a
+        aria-current={locale === "en" ? "page" : undefined}
+        aria-label={t.nav.english}
+        href={alternateLocalePath(pathname, "en")}
+        hrefLang="en"
+        lang="en"
+      >EN</a>
     </div>
   );
 }
@@ -19,16 +33,16 @@ function LanguageSwitch({ className = "" }: { className?: string }) {
 export function SiteNav({ light = false }: { light?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDialogElement>(null);
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const items = [
-    { href: "/grupo", label: t.nav.group, desktopLabel: t.nav.group },
-    { href: "/espetaculos", label: t.nav.stage, desktopLabel: t.nav.stage },
-    { href: "/audiovisual", label: t.nav.screen, desktopLabel: t.nav.screen },
-    { href: "/atividades-formativas", label: t.nav.learning, desktopLabel: t.nav.learningShort },
-    { href: "/debates-mediados", label: t.nav.debates, desktopLabel: t.nav.debatesShort },
-    { href: "/historico", label: t.nav.history, desktopLabel: t.nav.history },
-    { href: "/agenda", label: t.nav.agenda, desktopLabel: t.nav.agenda },
-  ];
+    { routeKey: "group", label: t.nav.group, desktopLabel: t.nav.group },
+    { routeKey: "performances", label: t.nav.stage, desktopLabel: t.nav.stage },
+    { routeKey: "screen", label: t.nav.screen, desktopLabel: t.nav.screen },
+    { routeKey: "learning", label: t.nav.learning, desktopLabel: t.nav.learningShort },
+    { routeKey: "debates", label: t.nav.debates, desktopLabel: t.nav.debatesShort },
+    { routeKey: "history", label: t.nav.history, desktopLabel: t.nav.history },
+    { routeKey: "agenda", label: t.nav.agenda, desktopLabel: t.nav.agenda },
+  ] as const;
 
   useEffect(() => {
     const dialog = menuRef.current;
@@ -42,9 +56,12 @@ export function SiteNav({ light = false }: { light?: boolean }) {
 
   return (
     <header className={`site-nav ${light ? "site-nav-light" : ""}`}>
-      <a className="wordmark" href="/" aria-label={t.nav.homeAria}>FL</a>
+      <a className="wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>FL</a>
       <nav className="desktop-nav" aria-label={t.nav.mainNavigation}>
-        {items.map((item) => <a href={item.href} key={item.href}>{item.desktopLabel}</a>)}
+        {items.map((item) => {
+          const href = routeFor(locale, item.routeKey);
+          return <a href={href} key={href}>{item.desktopLabel}</a>;
+        })}
       </nav>
       <div className="nav-actions">
         <LanguageSwitch />
@@ -56,16 +73,19 @@ export function SiteNav({ light = false }: { light?: boolean }) {
       <dialog className="menu-dialog" id="site-menu" ref={menuRef} aria-label={t.nav.mainMenu} onClose={closeMenu} onCancel={closeMenu}>
         <div className="menu-dialog-inner">
           <div className="menu-head">
-            <a className="footer-wordmark" href="/" onClick={closeMenu} aria-label={t.nav.homeAria}>FL</a>
+            <a className="footer-wordmark" href={routeFor(locale, "home")} onClick={closeMenu} aria-label={t.nav.homeAria}>FL</a>
             <button className="menu-close" type="button" onClick={closeMenu}>{t.nav.close} <span aria-hidden="true">×</span></button>
           </div>
           <nav className="menu-links" aria-label={t.nav.mainMenu}>
-            {items.map((item, index) => (
-              <a href={item.href} key={item.href} onClick={closeMenu}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{item.label}</strong>
-              </a>
-            ))}
+            {items.map((item, index) => {
+              const href = routeFor(locale, item.routeKey);
+              return (
+                <a href={href} key={href} onClick={closeMenu}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{item.label}</strong>
+                </a>
+              );
+            })}
           </nav>
           <div className="menu-foot">
             <LanguageSwitch />

@@ -4,7 +4,7 @@
   --black: #0b0b0b;
   --coal: #151414;
   --paper: #f2eee6;
-  --ink: #ddd8cf;
+  --ink: #cbc5bb;
   --smoke: #b9b2a8;
   --red: #e23b2c;
   --blue: #2862ff;
@@ -34,9 +34,9 @@ img { display: block; max-width: 100%; }
 .desktop-nav a:hover { border-bottom-color: var(--red); color: var(--red); }
 .nav-actions { align-items: center; display: flex; gap: 22px; justify-self: end; }
 .language-switch { align-items: center; display: flex; font-family: var(--mono); font-size: 16px; gap: 2px; letter-spacing: .04em; }
-.language-switch button { appearance: none; background: transparent; border: 0; border-bottom: 1px solid transparent; color: inherit; cursor: pointer; font: inherit; min-height: 28px; min-width: 28px; padding: 4px; }
-.language-switch button[aria-pressed="true"] { border-bottom-color: var(--red); color: var(--red); font-weight: 800; }
-.language-switch button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.language-switch a { align-items: center; border-bottom: 1px solid transparent; display: flex; min-height: 28px; min-width: 28px; padding: 4px; }
+.language-switch a[aria-current="page"] { border-bottom-color: var(--red); color: var(--red); font-weight: 800; }
+.language-switch a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .menu-button, .menu-close { appearance: none; background: transparent; border: 0; color: inherit; cursor: pointer; font-family: var(--mono); font-size: 16px; letter-spacing: .04em; padding: 7px 0; text-transform: uppercase; }
 .menu-button { display: none; }
 .menu-button span, .menu-close span { color: var(--red); font-size: 20px; margin-left: 6px; }
@@ -379,7 +379,7 @@ img { display: block; max-width: 100%; }
   .menu-links a { gap: 10px; grid-template-columns: 34px 1fr; padding: 10px 0 8px; }
   .menu-links strong { font-size: clamp(37px, 11vw, 54px); }
   .menu-foot { align-items: start; flex-direction: column; gap: 20px; }
-  .menu-foot .language-switch button { min-height: 44px; min-width: 44px; }
+  .menu-foot .language-switch a { min-height: 44px; min-width: 44px; }
   .hero { height: 760px; }
   .hero-caption { bottom: 15%; left: 20px; }
   .hero-caption { --hero-title-ink-offset: -.06em; --hero-copy-ink-offset: -.16em; }

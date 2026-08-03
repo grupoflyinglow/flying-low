@@ -1,7 +1,6 @@
 export type Locale = "pt-BR" | "en";
 
 export const DEFAULT_LOCALE: Locale = "pt-BR";
-export const LOCALE_STORAGE_KEY = "flying-low-locale";
 
 const ptBR = {
   meta: {
@@ -31,6 +30,7 @@ const ptBR = {
     languageSelector: "Selecionar idioma",
     portuguese: "Português",
     english: "Inglês",
+    skipToContent: "Pular para o conteúdo",
   },
   footer: {
     location: "Flying Low · São Paulo, Brasil",
@@ -152,6 +152,7 @@ const en: Messages = {
     languageSelector: "Select language",
     portuguese: "Portuguese",
     english: "English",
+    skipToContent: "Skip to content",
   },
   footer: {
     location: "Flying Low · São Paulo, Brazil",
@@ -239,7 +240,3 @@ export const messages: Record<Locale, Messages> = {
   "pt-BR": ptBR,
   en,
 };
-
-export function isLocale(value: string | null): value is Locale {
-  return value === "pt-BR" || value === "en";
-}

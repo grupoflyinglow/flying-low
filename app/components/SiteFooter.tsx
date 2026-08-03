@@ -1,27 +1,26 @@
 "use client";
 
 import { useLocale } from "./LocaleProvider";
+import { routeFor } from "../route-localization";
 
 export function SiteFooter() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
   return (
     <footer className="site-footer">
       <div className="section-shell site-footer-grid">
-        {/* vinext serves these as standard documents; anchors avoid client-runtime routing. */}
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="footer-wordmark" href="/" aria-label={t.nav.homeAria}>FL</a>
+        <a className="footer-wordmark" href={routeFor(locale, "home")} aria-label={t.nav.homeAria}>FL</a>
         <div className="footer-intro">
           <p className="eyebrow">{t.footer.location}</p>
         </div>
         <nav aria-label={t.nav.footerNavigation}>
-          <a href="/grupo">{t.nav.group}</a>
-          <a href="/espetaculos">{t.nav.stage}</a>
-          <a href="/audiovisual">{t.nav.screen}</a>
-          <a href="/atividades-formativas">{t.nav.learning}</a>
-          <a href="/debates-mediados">{t.nav.debates}</a>
-          <a href="/historico">{t.nav.history}</a>
-          <a href="/agenda">{t.nav.agenda}</a>
+          <a href={routeFor(locale, "group")}>{t.nav.group}</a>
+          <a href={routeFor(locale, "performances")}>{t.nav.stage}</a>
+          <a href={routeFor(locale, "screen")}>{t.nav.screen}</a>
+          <a href={routeFor(locale, "learning")}>{t.nav.learning}</a>
+          <a href={routeFor(locale, "debates")}>{t.nav.debates}</a>
+          <a href={routeFor(locale, "history")}>{t.nav.history}</a>
+          <a href={routeFor(locale, "agenda")}>{t.nav.agenda}</a>
         </nav>
         <a className="footer-contact" href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span>↗</span></a>
       </div>

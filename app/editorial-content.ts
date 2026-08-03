@@ -1,4 +1,5 @@
 import type { Locale } from "./i18n";
+import { routeFor, type RouteKey } from "./route-localization";
 
 export type ProjectKey =
   | "meninoAssumPreto"
@@ -13,17 +14,32 @@ export type ProjectKey =
 
 export type CollectionKey = "espetaculos" | "audiovisual" | "formacao" | "debates";
 
-export const projectRoutes: Record<ProjectKey, string> = {
-  meninoAssumPreto: "/espetaculos/menino-assum-preto",
-  kurupyra: "/espetaculos/as-pegadas-do-kurupyra",
-  revoada: "/espetaculos/revoada",
-  concepcoesMarginais: "/audiovisual/concepcoes-marginais",
-  emFormacao: "/audiovisual/em-formacao",
-  cantigas: "/audiovisual/cantigas-do-meu-matulao",
-  oficinas: "/atividades-formativas/oficinas",
-  residencia: "/atividades-formativas/residencia",
-  debatePrimeiraEdicao: "/debates-mediados/primeira-edicao",
+const projectRouteKeys: Record<ProjectKey, RouteKey> = {
+  meninoAssumPreto: "performanceMenino",
+  kurupyra: "performanceKurupyra",
+  revoada: "performanceRevoada",
+  concepcoesMarginais: "screenConcepcoes",
+  emFormacao: "screenEmFormacao",
+  cantigas: "screenCantigas",
+  oficinas: "learningWorkshops",
+  residencia: "learningResidency",
+  debatePrimeiraEdicao: "debateFirstEdition",
 };
+
+const collectionRouteKeys: Record<CollectionKey, RouteKey> = {
+  espetaculos: "performances",
+  audiovisual: "screen",
+  formacao: "learning",
+  debates: "debates",
+};
+
+export function projectRouteFor(locale: Locale, projectKey: ProjectKey) {
+  return routeFor(locale, projectRouteKeys[projectKey]);
+}
+
+export function collectionRouteFor(locale: Locale, collectionKey: CollectionKey) {
+  return routeFor(locale, collectionRouteKeys[collectionKey]);
+}
 
 type Link = {
   href: string;

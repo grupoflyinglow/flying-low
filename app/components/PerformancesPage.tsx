@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef } from "react";
-import { getEditorialContent, projectRoutes } from "../editorial-content";
+import { getEditorialContent, projectRouteFor } from "../editorial-content";
 import { getImageDimensions } from "../image-dimensions";
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
@@ -79,7 +79,7 @@ export function PerformancesPage() {
             {collection.projectKeys.map((projectKey, index) => {
               const project = content.projects[projectKey];
               return (
-                <a className="performance-cover" href={projectRoutes[projectKey]} key={projectKey}>
+                <a className="performance-cover" href={projectRouteFor(locale, projectKey)} key={projectKey}>
                   {project.image ? (
                     <img
                       {...getImageDimensions(project.image)}
@@ -110,7 +110,7 @@ export function PerformancesPage() {
 
           return (
             <article className="performance-chapter" key={projectKey}>
-              <a className="performance-chapter-media" href={projectRoutes[projectKey]}>
+              <a className="performance-chapter-media" href={projectRouteFor(locale, projectKey)}>
                 {chapterImage ? (
                   <img
                     {...getImageDimensions(chapterImage)}
@@ -132,7 +132,7 @@ export function PerformancesPage() {
                 <div>
                   {project.status && <p className="project-status">{project.status}</p>}
                   <p>{project.summary}</p>
-                  <a className="text-link" href={projectRoutes[projectKey]}>{content.common.openProject} <b>↗</b></a>
+                  <a className="text-link" href={projectRouteFor(locale, projectKey)}>{content.common.openProject} <b>↗</b></a>
                 </div>
               </div>
             </article>

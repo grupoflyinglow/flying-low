@@ -2,21 +2,15 @@
 
 /* eslint-disable @next/next/no-img-element */
 import {
+  collectionRouteFor,
   getEditorialContent,
-  projectRoutes,
+  projectRouteFor,
   type CollectionKey,
   type ProjectKey,
 } from "../editorial-content";
 import { getImageDimensions } from "../image-dimensions";
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
-
-const collectionRoutes: Record<CollectionKey, string> = {
-  espetaculos: "/espetaculos",
-  audiovisual: "/audiovisual",
-  formacao: "/atividades-formativas",
-  debates: "/debates-mediados",
-};
 
 export function ProjectPage({
   projectKey,
@@ -40,7 +34,7 @@ export function ProjectPage({
       <SiteNav />
       <section className="project-hero">
         <div className="section-shell project-hero-copy">
-          <a className="project-back" href={collectionRoutes[collectionKey]}>← {collection.eyebrow}</a>
+          <a className="project-back" href={collectionRouteFor(locale, collectionKey)}>← {collection.eyebrow}</a>
           <p className="eyebrow">{project.eyebrow} · {project.year}</p>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
@@ -159,8 +153,8 @@ export function ProjectPage({
       )}
 
       <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
-        {previousKey ? <a href={projectRoutes[previousKey]}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
-        {nextKey ? <a href={projectRoutes[nextKey]}><span>{content.common.next}</span><strong>{content.projects[nextKey].title} →</strong></a> : <span />}
+        {previousKey ? <a href={projectRouteFor(locale, previousKey)}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
+        {nextKey ? <a href={projectRouteFor(locale, nextKey)}><span>{content.common.next}</span><strong>{content.projects[nextKey].title} →</strong></a> : <span />}
       </nav>
     </main>
   );

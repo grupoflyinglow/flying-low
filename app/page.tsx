@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react";
 import { SiteNav } from "./components/SiteNav";
 import { useLocale } from "./components/LocaleProvider";
 import { getEditorialContent } from "./editorial-content";
+import { routeFor } from "./route-localization";
 
 function subscribeToReducedMotion(callback: () => void) {
   const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -47,7 +48,7 @@ export default function Home() {
         </div>
         <div className="hero-footer">
           <span>{t.home.location}</span>
-          <a className="hero-primary-cta" href="/espetaculos">
+          <a className="hero-primary-cta" href={routeFor(locale, "performances")}>
             {t.home.viewPerformances}<span aria-hidden="true">↗</span>
           </a>
         </div>
@@ -90,12 +91,12 @@ export default function Home() {
               </article>
             ))}
           </div>
-          <a className="text-link agenda-cta" href="/agenda">{t.home.agendaCta} <b>↗</b></a>
+          <a className="text-link agenda-cta" href={routeFor(locale, "agenda")}>{t.home.agendaCta} <b>↗</b></a>
         </div>
       </section>
 
       <section className="collective-image section-shell" aria-label={t.home.collectiveSectionLabel}>
-        <a className="collective-image-link" href="/grupo">
+        <a className="collective-image-link" href={routeFor(locale, "group")}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} width={800} height={533} loading="lazy" decoding="async" />
           <span className="image-label">{t.home.meetGroup} ↗</span>

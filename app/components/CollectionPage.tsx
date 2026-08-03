@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import {
   getEditorialContent,
-  projectRoutes,
+  projectRouteFor,
   type CollectionKey,
 } from "../editorial-content";
 import { getImageDimensions } from "../image-dimensions";
@@ -29,7 +29,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
           {collection.projectKeys.map((projectKey, index) => {
             const project = content.projects[projectKey];
             return (
-              <a className="strip-card" href={projectRoutes[projectKey]} key={projectKey}>
+              <a className="strip-card" href={projectRouteFor(locale, projectKey)} key={projectKey}>
                 <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
                 {project.image ? (
                   <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
@@ -63,7 +63,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
                 <h2>{project.title}</h2>
                 {project.status && <p className="project-status">{project.status}</p>}
                 <p>{project.summary}</p>
-                <a className="text-link" href={projectRoutes[projectKey]}>{content.common.openProject} <b>↗</b></a>
+                <a className="text-link" href={projectRouteFor(locale, projectKey)}>{content.common.openProject} <b>↗</b></a>
               </div>
             </article>
           );
