@@ -32,6 +32,8 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /<html[^>]+lang="pt-BR"/i);
   assert.match(html, /<title>Flying Low — dança, cena e imagem<\/title>/i);
   assert.match(html, /Dança das periferias de São Paulo/);
+  assert.match(html, /class="hero-primary-cta" href="\/espetaculos"/);
+  assert.match(html, /Ver espetáculos/);
   assert.match(html, /Próximos encontros\./);
   assert.match(html, /class="agenda-date-day">18—19/);
   assert.match(html, /estreia dia 18/);
@@ -49,6 +51,7 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.doesNotMatch(html, /class="contact-band"/);
   assert.doesNotMatch(html, /class="nav-title"/);
   assert.doesNotMatch(html, /Novas datas em breve/);
+  assert.doesNotMatch(html, /Assistir teaser/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
@@ -184,6 +187,7 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   assert.match(css, /\.desktop-nav\s*\{\s*display:\s*none/);
   assert.match(css, /overscroll-behavior:\s*contain/);
   assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /\.hero-primary-cta:hover\s*\{\s*transform:\s*none/);
   assert.match(home, /useSyncExternalStore/);
   assert.match(home, /!prefersReducedMotion/);
   assert.match(layout, /themeColor:\s*"#0b0b0b"/);

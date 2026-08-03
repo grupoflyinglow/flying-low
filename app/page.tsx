@@ -45,7 +45,12 @@ export default function Home() {
           <h1 id="hero-title"><span>Flying</span><span>Low</span></h1>
           <p className="hero-line">{t.home.heroLine1}<br />{t.home.heroLine2}</p>
         </div>
-        <div className="hero-footer"><span>{t.home.location}</span><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">{t.home.watchTeaser} ↗</a></div>
+        <div className="hero-footer">
+          <span>{t.home.location}</span>
+          <a className="hero-primary-cta" href="/espetaculos">
+            {t.home.viewPerformances}<span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </section>
 
       <section className="agenda section-shell" aria-labelledby="agenda-title">
