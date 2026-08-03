@@ -1,0 +1,104 @@
+"use client";
+
+/* eslint-disable @next/next/no-img-element */
+import {
+  getEditorialContent,
+  projectRoutes,
+  type CollectionKey,
+  type ProjectKey,
+} from "../editorial-content";
+import { useLocale } from "./LocaleProvider";
+import { SiteNav } from "./SiteNav";
+
+const collectionRoutes: Record<CollectionKey, string> = {
+  espetaculos: "/espetaculos",
+  audiovisual: "/audiovisual",
+  formacao: "/atividades-formativas",
+  debates: "/debates-mediados",
+};
+
+export function ProjectPage({
+  projectKey,
+  collectionKey,
+}: {
+  projectKey: ProjectKey;
+  collectionKey: CollectionKey;
+}) {
+  const { locale } = useLocale();
+  const content = getEditorialContent(locale);
+  const project = content.projects[projectKey];
+  const collection = content.collections[collectionKey];
+  const projectIndex = collection.projectKeys.indexOf(projectKey);
+  const previousKey = projectIndex > 0 ? collection.projectKeys[projectIndex - 1] : null;
+  const nextKey = projectIndex < collection.projectKeys.length - 1
+    ? collection.projectKeys[projectIndex + 1]
+    : null;
+
+  return (
+    <main className="editorial-page project-page">
+      <SiteNav />
+      <section className="project-hero">
+        <div className="section-shell project-hero-copy">
+          <a className="project-back" href={collectionRoutes[collectionKey]}>← {collection.eyebrow}</a>
+          <p className="eyebrow">{project.eyebrow} · {project.year}</p>
+          <h1>{project.title}</h1>
+          <p>{project.summary}</p>
+          {project.status && <span className="project-status">{project.status}</span>}
+        </div>
+        <div className="project-hero-media">
+          {project.image ? (
+            <img src={project.image} alt={project.imageAlt} />
+          ) : (
+            <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
+          )}
+        </div>
+      </section>
+
+      <section className="project-story section-shell" aria-labelledby="project-synopsis">
+        <div className="project-story-label">
+          <p className="eyebrow">{content.common.synopsis}</p>
+        </div>
+        <div className="project-story-copy">
+          <h2 id="project-synopsis">{project.synopsisHeading}</h2>
+          {project.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </div>
+      </section>
+
+      {project.secondaryImage && (
+        <section className="project-secondary-image section-shell">
+          <img src={project.secondaryImage} alt="" />
+        </section>
+      )}
+
+      <section className="project-facts section-shell" aria-labelledby="project-technical">
+        <p className="eyebrow" id="project-technical">{content.common.technical}</p>
+        <div className="project-facts-grid">
+          {project.facts.map((fact) => (
+            <div key={fact.label}>
+              <span>{fact.label}</span>
+              <strong>{fact.value}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {project.links.length > 0 && (
+        <section className="project-links section-shell" aria-labelledby="project-media">
+          <p className="eyebrow" id="project-media">{content.common.media}</p>
+          <div>
+            {project.links.map((link) => (
+              <a href={link.href} key={link.label} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined}>
+                {link.label} <span>↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
+        {previousKey ? <a href={projectRoutes[previousKey]}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
+        {nextKey ? <a href={projectRoutes[nextKey]}><span>{content.common.next}</span><strong>{content.projects[nextKey].title} →</strong></a> : <span />}
+      </nav>
+    </main>
+  );
+}

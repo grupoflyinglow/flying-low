@@ -1,36 +1,63 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useLocale } from "../components/LocaleProvider";
 import { SiteNav } from "../components/SiteNav";
-
-const members = ["Turtle Lee", "Fioot", "Manuel Victor", "Emersu", "Ricardo Ura"];
+import { useLocale } from "../components/LocaleProvider";
+import { getEditorialContent } from "../editorial-content";
 
 export default function Grupo() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
+  const content = getEditorialContent(locale).group;
 
   return (
-    <main className="archive-page">
+    <main className="editorial-page group-page">
       <SiteNav />
       <section className="archive-hero section-shell">
         <p className="eyebrow">{t.group.eyebrow}</p>
         <h1>{t.group.heading1}<br />{t.group.heading2}</h1>
         <p className="archive-intro">{t.group.intro}</p>
       </section>
-      <section className="group-layout section-shell">
-        <div className="group-portrait">
-          <img src="/images/flying-low-portrait.jpg" alt={t.group.portraitAlt} />
+
+      <section className="members-section section-shell" aria-labelledby="members-title">
+        <div className="members-heading">
+          <p className="eyebrow">{content.membersEyebrow}</p>
+          <h2 id="members-title">{content.membersHeading}</h2>
+          <p>{content.membersIntro}</p>
         </div>
-        <div className="group-copy">
-          <p>{t.group.body1}</p>
-          <p>{t.group.body2}</p>
-          <ul>{members.map((member) => <li key={member}>{member}</li>)}</ul>
+        <div className="members-list">
+          {content.members.map((member, index) => (
+            <article className="member-profile" key={member.name}>
+              <span className="member-number">{String(index + 1).padStart(2, "0")}</span>
+              <div className={`member-photo ${member.portraitClass}`}>
+                <img src="/images/flying-low-collective.jpg" alt={member.name} />
+              </div>
+              <div className="member-copy">
+                <h3>{member.name}</h3>
+                <p className="member-role">{member.role}</p>
+                <p>{member.bio}</p>
+                <div className="member-links">
+                  {member.links.map((link) => (
+                    <a href={link.href} key={link.label} target="_blank" rel="noreferrer">{link.label} ↗</a>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
-      <section className="research-statement">
-        <div className="section-shell">
-          <p className="eyebrow">{t.group.researchEyebrow}</p>
-          <h2>{t.group.researchStatement}</h2>
+
+      <section className="group-research" aria-labelledby="research-title">
+        <div className="section-shell group-research-grid">
+          <p className="eyebrow">{content.researchEyebrow}</p>
+          <div>
+            <h2 id="research-title">{content.researchHeading}</h2>
+            <div className="research-copy">
+              {content.researchBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+            <ol className="research-axes">
+              {content.researchAxes.map((axis, index) => <li key={axis}><span>{String(index + 1).padStart(2, "0")}</span>{axis}</li>)}
+            </ol>
+          </div>
         </div>
       </section>
     </main>

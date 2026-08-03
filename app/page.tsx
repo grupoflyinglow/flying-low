@@ -40,7 +40,7 @@ export default function Home() {
           </div>
           <div className="agenda-empty">
             <strong>{t.home.agendaStatus}</strong>
-            <p>{t.home.agendaDescription}</p>
+            <div><p>{t.home.agendaDescription}</p><a className="text-link" href="/agenda">{t.home.agendaCta} <b>↗</b></a></div>
           </div>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function Home() {
           <p className="eyebrow">{t.home.featuredEyebrow}</p>
           <h2 id="featured-title">Menino<br />Assum Preto</h2>
           <p>{t.home.featuredDescription}</p>
-          <a className="text-link" href="/menino-assum-preto">{t.home.viewDossier} <b>↗</b></a>
+          <a className="text-link" href="/espetaculos/menino-assum-preto">{t.home.viewDossier} <b>↗</b></a>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/flying-low-assum-preto.jpg" alt={t.home.featuredAlt} />
@@ -74,7 +74,7 @@ export default function Home() {
       <section className="practice-grid section-shell" aria-labelledby="practice-title">
         <div className="section-heading"><p className="eyebrow">{t.home.practiceEyebrow}</p><h2 id="practice-title">{t.home.practiceHeading1}<br />{t.home.practiceHeading2}</h2></div>
         <div className="gates-grid">
-          <a className="work-gate scenic" href="/cenicas">
+          <a className="work-gate scenic" href="/espetaculos">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="gate-photo" src="/images/flying-low-stage-amber.jpg" alt={t.home.stageAlt} />
             <div className="gate-copy"><p className="eyebrow">{t.home.stageLabel}</p><h3>{t.home.stageDescription}</h3><span className="text-link">{t.home.viewWorks} <b>↗</b></span></div>

@@ -16,9 +16,12 @@ export function SiteFooter() {
         </div>
         <nav aria-label={t.nav.footerNavigation}>
           <a href="/grupo">{t.nav.group}</a>
-          <a href="/cenicas">{t.nav.stage}</a>
+          <a href="/espetaculos">{t.nav.stage}</a>
           <a href="/audiovisual">{t.nav.screen}</a>
-          <a href="/formacao">{t.nav.learning}</a>
+          <a href="/atividades-formativas">{t.nav.learning}</a>
+          <a href="/debates-mediados">{t.nav.debates}</a>
+          <a href="/historico">{t.nav.history}</a>
+          <a href="/agenda">{t.nav.agenda}</a>
         </nav>
         <a className="footer-contact" href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span>↗</span></a>
       </div>

@@ -42,12 +42,24 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
-test("server-renders every portfolio route in Portuguese", async () => {
+test("server-renders the complete information architecture in Portuguese", async () => {
   const routes = [
-    ["/grupo", "Entre margens"],
-    ["/cenicas", "Corpos em cena"],
-    ["/audiovisual", "Quando a câmera"],
-    ["/formacao", "Aprender em roda"],
+    ["/grupo", "Cinco trajetórias"],
+    ["/espetaculos", "Trabalhos para corpos"],
+    ["/espetaculos/menino-assum-preto", "O pássaro aprisionado"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "Rastros de um território vivo"],
+    ["/espetaculos/revoada", "ainda está encontrando sua forma"],
+    ["/audiovisual", "A câmera também entra na roda"],
+    ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
+    ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
+    ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
+    ["/atividades-formativas", "Aprender em roda"],
+    ["/atividades-formativas/oficinas", "Três entradas"],
+    ["/atividades-formativas/residencia", "surgimento de uma obra"],
+    ["/debates-mediados", "A conversa continua"],
+    ["/debates-mediados/primeira-edicao", "continuar o que a cena começou"],
+    ["/historico", "Uma linha feita de encontros"],
+    ["/agenda", "Próximos encontros"],
     ["/menino-assum-preto", "O pássaro aprisionado"],
   ];
 
@@ -62,6 +74,7 @@ test("server-renders every portfolio route in Portuguese", async () => {
 
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {
   const i18n = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
+  const editorial = await readFile(new URL("../app/editorial-content.ts", import.meta.url), "utf8");
   const provider = await readFile(new URL("../app/components/LocaleProvider.tsx", import.meta.url), "utf8");
 
   assert.match(i18n, /DEFAULT_LOCALE: Locale = "pt-BR"/);
@@ -75,6 +88,13 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.doesNotMatch(i18n, /Active since 2016|Em atividade desde 2016/);
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
+  assert.match(editorial, /Works for bodies and territories in presence/);
+  assert.match(editorial, /Turtle Lee/);
+  assert.match(editorial, /Fioot/);
+  assert.match(editorial, /Manuel Victor/);
+  assert.match(editorial, /Emersu/);
+  assert.match(editorial, /Ricardo Ura/);
+  assert.match(editorial, /@grupo_flyinglow/);
   assert.match(provider, /window\.localStorage\.setItem/);
   assert.match(provider, /document\.documentElement\.lang = locale/);
 });
