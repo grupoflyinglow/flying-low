@@ -21,13 +21,13 @@ export function SiteNav({ light = false }: { light?: boolean }) {
   const menuRef = useRef<HTMLDialogElement>(null);
   const { t } = useLocale();
   const items = [
-    { href: "/grupo", label: t.nav.group },
-    { href: "/espetaculos", label: t.nav.stage },
-    { href: "/audiovisual", label: t.nav.screen },
-    { href: "/atividades-formativas", label: t.nav.learning },
-    { href: "/debates-mediados", label: t.nav.debates },
-    { href: "/historico", label: t.nav.history },
-    { href: "/agenda", label: t.nav.agenda },
+    { href: "/grupo", label: t.nav.group, desktopLabel: t.nav.group },
+    { href: "/espetaculos", label: t.nav.stage, desktopLabel: t.nav.stage },
+    { href: "/audiovisual", label: t.nav.screen, desktopLabel: t.nav.screen },
+    { href: "/atividades-formativas", label: t.nav.learning, desktopLabel: t.nav.learningShort },
+    { href: "/debates-mediados", label: t.nav.debates, desktopLabel: t.nav.debatesShort },
+    { href: "/historico", label: t.nav.history, desktopLabel: t.nav.history },
+    { href: "/agenda", label: t.nav.agenda, desktopLabel: t.nav.agenda },
   ];
 
   useEffect(() => {
@@ -43,6 +43,9 @@ export function SiteNav({ light = false }: { light?: boolean }) {
   return (
     <header className={`site-nav ${light ? "site-nav-light" : ""}`}>
       <a className="wordmark" href="/" aria-label={t.nav.homeAria}>FL</a>
+      <nav className="desktop-nav" aria-label={t.nav.mainNavigation}>
+        {items.map((item) => <a href={item.href} key={item.href}>{item.desktopLabel}</a>)}
+      </nav>
       <div className="nav-actions">
         <LanguageSwitch />
         <button className="menu-button" type="button" aria-controls="site-menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>

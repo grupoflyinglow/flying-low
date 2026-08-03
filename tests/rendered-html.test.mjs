@@ -36,6 +36,9 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /Novas datas em breve/);
   assert.match(html, /aria-label="Português"[^>]+aria-pressed="true"/);
   assert.match(html, /aria-label="Inglês"[^>]+aria-pressed="false"/);
+  assert.match(html, /<nav class="desktop-nav" aria-label="Navegação principal"/);
+  assert.match(html, />Formação<\/a>/);
+  assert.match(html, />Debates<\/a>/);
   assert.match(html, /class="skip-link" href="#main-content"/);
   assert.match(html, /<main id="main-content" tabindex="-1"/);
   assert.match(html, /width="800" height="533" loading="lazy"/);
@@ -125,6 +128,8 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
 
   assert.match(css, /color-scheme:\s*dark/);
   assert.match(css, /:where\(a, button\):focus-visible/);
+  assert.match(css, /\.menu-button\s*\{\s*display:\s*none/);
+  assert.match(css, /\.desktop-nav\s*\{\s*display:\s*none/);
   assert.match(css, /overscroll-behavior:\s*contain/);
   assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
   assert.match(home, /useSyncExternalStore/);
