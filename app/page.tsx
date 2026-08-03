@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { SiteNav } from "./components/SiteNav";
 import { useLocale } from "./components/LocaleProvider";
+import { getEditorialContent } from "./editorial-content";
 
 function subscribeToReducedMotion(callback: () => void) {
   const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -15,7 +16,8 @@ function getReducedMotionSnapshot() {
 }
 
 export default function Home() {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
+  const agenda = getEditorialContent(locale).agenda;
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
@@ -53,56 +55,35 @@ export default function Home() {
         </div>
         <div className="agenda-list">
           <div className="agenda-columns" aria-hidden="true">
-            <span>{t.home.agendaWhen}</span>
-            <span>{t.home.agendaWhere}</span>
+            <span>{agenda.when}</span>
+            <span>{agenda.where}</span>
           </div>
-          <div className="agenda-empty">
-            <strong>{t.home.agendaStatus}</strong>
-            <div><p>{t.home.agendaDescription}</p><a className="text-link" href="/agenda">{t.home.agendaCta} <b>↗</b></a></div>
+          <div className="agenda-home-events">
+            {agenda.events.map((event, index) => (
+              <article className="agenda-home-event" key={`${event.title}-${index}`}>
+                <div className="agenda-event-dates">
+                  <span className="agenda-mobile-label">{agenda.when}</span>
+                  {event.dates.map((date) => <span key={date}>{date}</span>)}
+                </div>
+                <div className="agenda-home-details">
+                  <span className="agenda-mobile-label">{agenda.where}</span>
+                  <h3>{event.title}</h3>
+                  {event.note && <p>{event.note}</p>}
+                  <strong>{event.venue}</strong>
+                </div>
+              </article>
+            ))}
           </div>
-        </div>
-      </section>
-
-      <section className="manifesto section-shell" aria-labelledby="manifesto-title">
-        <p className="eyebrow">{t.home.groupEyebrow}</p>
-        <div className="manifesto-copy">
-          <h2 id="manifesto-title">{t.home.groupHeading1}<br />{t.home.groupHeading2}<br />{t.home.groupHeading3}</h2>
-          <p>{t.home.groupDescription}</p>
-          <a className="text-link" href="/grupo">{t.home.meetGroup} <b>↗</b></a>
+          <a className="text-link agenda-cta" href="/agenda">{t.home.agendaCta} <b>↗</b></a>
         </div>
       </section>
 
       <section className="collective-image section-shell" aria-label={t.home.collectiveSectionLabel}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} width={800} height={533} loading="lazy" decoding="async" />
-        <span className="image-label">Turtle Lee · Fioot · Manuel Victor · Emersu · Ricardo Ura</span>
-      </section>
-
-      <section className="featured-work section-shell" aria-labelledby="featured-title">
-        <div className="featured-work-copy">
-          <p className="eyebrow">{t.home.featuredEyebrow}</p>
-          <h2 id="featured-title">Menino<br />Assum Preto</h2>
-          <p>{t.home.featuredDescription}</p>
-          <a className="text-link" href="/espetaculos/menino-assum-preto">{t.home.viewDossier} <b>↗</b></a>
-        </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/flying-low-assum-preto.jpg" alt={t.home.featuredAlt} width={2500} height={1667} loading="lazy" decoding="async" />
-      </section>
-
-      <section className="practice-grid section-shell" aria-labelledby="practice-title">
-        <div className="section-heading"><p className="eyebrow">{t.home.practiceEyebrow}</p><h2 id="practice-title">{t.home.practiceHeading1}<br />{t.home.practiceHeading2}</h2></div>
-        <div className="gates-grid">
-          <a className="work-gate scenic" href="/espetaculos">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="gate-photo" src="/images/flying-low-stage-amber.jpg" alt={t.home.stageAlt} width={2000} height={1334} loading="lazy" decoding="async" />
-            <div className="gate-copy"><p className="eyebrow">{t.home.stageLabel}</p><h3>{t.home.stageDescription}</h3><span className="text-link">{t.home.viewWorks} <b>↗</b></span></div>
-          </a>
-          <a className="work-gate audiovisual" href="/audiovisual">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="gate-photo" src="/images/flying-low-stage-blue.jpg" alt={t.home.screenAlt} width={1500} height={1000} loading="lazy" decoding="async" />
-            <div className="gate-copy"><p className="eyebrow">{t.home.screenLabel}</p><h3>{t.home.screenDescription}</h3><span className="text-link">{t.home.viewProjects} <b>↗</b></span></div>
-          </a>
-        </div>
+        <a className="collective-image-link" href="/grupo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} width={800} height={533} loading="lazy" decoding="async" />
+          <span className="image-label">{t.home.meetGroup} ↗</span>
+        </a>
       </section>
 
     </main>

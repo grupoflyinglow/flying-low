@@ -33,7 +33,8 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /<title>Flying Low — dança, cena e imagem<\/title>/i);
   assert.match(html, /Dança das periferias de São Paulo/);
   assert.match(html, /Próximos encontros\./);
-  assert.match(html, /Novas datas em breve/);
+  assert.match(html, /18 \(estreia\) e 19 de setembro/);
+  assert.match(html, /Teatro Galpão do Folias/);
   assert.match(html, /aria-label="Português"[^>]+aria-pressed="true"/);
   assert.match(html, /aria-label="Inglês"[^>]+aria-pressed="false"/);
   assert.match(html, /<nav class="desktop-nav" aria-label="Navegação principal"/);
@@ -46,7 +47,33 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.doesNotMatch(html, /Breaking como linguagem cênica, política e poética/);
   assert.doesNotMatch(html, /class="contact-band"/);
   assert.doesNotMatch(html, /class="nav-title"/);
+  assert.doesNotMatch(html, /Novas datas em breve/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+});
+
+test("renders the 2026 schedule and the simplified home composition", async () => {
+  const homeResponse = await render();
+  const home = await homeResponse.text();
+  assert.match(home, /class="agenda-home-events"/);
+  assert.match(home, /1 a 4 de outubro · Horário a confirmar/);
+  assert.match(home, /15 a 18 de outubro · Horário a confirmar/);
+  assert.match(home, /class="collective-image-link" href="\/grupo"/);
+  assert.match(home, /Conhecer o grupo/);
+  assert.doesNotMatch(home, /class="manifesto/);
+  assert.doesNotMatch(home, /class="featured-work/);
+  assert.doesNotMatch(home, /class="practice-grid/);
+  assert.doesNotMatch(home, /Em destaque · 2019|Criação em movimento/);
+
+  const agendaResponse = await render("/agenda");
+  assert.equal(agendaResponse.status, 200);
+  const agenda = await agendaResponse.text();
+  assert.match(agenda, /class="agenda-board-events"/);
+  assert.match(agenda, /18 \(estreia\) e 19 de setembro · 19h/);
+  assert.match(agenda, /20 de setembro · 18h/);
+  assert.match(agenda, /25 e 26 de setembro · 19h/);
+  assert.match(agenda, /27 de setembro · 18h/);
+  assert.match(agenda, /Local a confirmar/);
+  assert.match(agenda, /Menino Assum Preto/);
 });
 
 test("server-renders the complete information architecture in Portuguese", async () => {
@@ -108,7 +135,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(i18n, /Learn in a circle\./);
   assert.match(i18n, /The captive bird meets the urban worker\./);
   assert.match(i18n, /Upcoming dates\./);
-  assert.match(i18n, /New dates coming soon/);
+  assert.doesNotMatch(i18n, /New dates coming soon|Novas datas em breve/);
   assert.doesNotMatch(i18n, /Active since 2016|Em atividade desde 2016/);
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
@@ -119,6 +146,9 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(editorial, /Emersu/);
   assert.match(editorial, /Ricardo Ura/);
   assert.match(editorial, /@grupo_flyinglow/);
+  assert.match(editorial, /September 18 \(premiere\) & 19 · 7 pm/);
+  assert.match(editorial, /October 15–18 · Time to be confirmed/);
+  assert.match(editorial, /Venue to be confirmed/);
   assert.match(provider, /window\.localStorage\.setItem/);
   assert.match(provider, /document\.documentElement\.lang = locale/);
 });

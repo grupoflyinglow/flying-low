@@ -98,8 +98,12 @@ type EditorialContent = {
     intro: string;
     when: string;
     where: string;
-    status: string;
-    description: string;
+    events: Array<{
+      title: string;
+      note?: string;
+      dates: string[];
+      venue: string;
+    }>;
   };
 };
 
@@ -432,11 +436,33 @@ const ptBR: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Próximos encontros.",
-    intro: "Apresentações, oficinas, residências, debates e outras ações do Flying Low serão reunidas aqui.",
-    when: "Quando",
+    intro: "Apresentações confirmadas para setembro e outubro de 2026. Horários e locais ainda em definição serão atualizados aqui.",
+    when: "Quando · 2026",
     where: "Onde",
-    status: "Novas datas em breve",
-    description: "A agenda está sendo atualizada. Volte em breve para acompanhar os próximos encontros do grupo.",
+    events: [
+      {
+        title: "Revoada",
+        note: "Nome final a confirmar",
+        dates: [
+          "18 (estreia) e 19 de setembro · 19h",
+          "20 de setembro · 18h",
+          "25 e 26 de setembro · 19h",
+          "27 de setembro · 18h",
+        ],
+        venue: "Teatro Galpão do Folias",
+      },
+      {
+        title: "Revoada",
+        note: "Nome final a confirmar",
+        dates: ["1 a 4 de outubro · Horário a confirmar"],
+        venue: "Local a confirmar",
+      },
+      {
+        title: "Menino Assum Preto",
+        dates: ["15 a 18 de outubro · Horário a confirmar"],
+        venue: "Teatro Galpão do Folias",
+      },
+    ],
   },
 };
 
@@ -761,11 +787,33 @@ const en: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Upcoming encounters.",
-    intro: "Flying Low performances, workshops, residencies, conversations, and other activities will be gathered here.",
-    when: "When",
+    intro: "Confirmed performances for September and October 2026. Times and venues still to be confirmed will be updated here.",
+    when: "When · 2026",
     where: "Where",
-    status: "New dates coming soon",
-    description: "The agenda is being updated. Check back soon for the collective’s next encounters.",
+    events: [
+      {
+        title: "Revoada",
+        note: "Final title to be confirmed",
+        dates: [
+          "September 18 (premiere) & 19 · 7 pm",
+          "September 20 · 6 pm",
+          "September 25 & 26 · 7 pm",
+          "September 27 · 6 pm",
+        ],
+        venue: "Teatro Galpão do Folias",
+      },
+      {
+        title: "Revoada",
+        note: "Final title to be confirmed",
+        dates: ["October 1–4 · Time to be confirmed"],
+        venue: "Venue to be confirmed",
+      },
+      {
+        title: "Menino Assum Preto",
+        dates: ["October 15–18 · Time to be confirmed"],
+        venue: "Teatro Galpão do Folias",
+      },
+    ],
   },
 };
 

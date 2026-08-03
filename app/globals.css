@@ -68,10 +68,13 @@ img { display: block; max-width: 100%; }
 .agenda h2 { font-family: var(--display); font-size: clamp(54px, 6.1vw, 96px); font-weight: 800; letter-spacing: -.06em; line-height: .9; margin: 0; max-width: 620px; text-transform: uppercase; }
 .agenda-list { align-self: end; border-top: 1px solid var(--line); }
 .agenda-columns { border-bottom: 1px solid var(--line); color: var(--smoke); display: grid; font-family: var(--mono); font-size: 16px; grid-template-columns: 1fr 1fr; letter-spacing: .08em; padding: 15px 0; text-transform: uppercase; }
-.agenda-empty { display: grid; gap: 40px; grid-template-columns: 1fr 1fr; padding: 35px 0 8px; }
-.agenda-empty strong { color: var(--red); font-family: var(--display); font-size: clamp(34px, 3.8vw, 58px); font-weight: 800; letter-spacing: -.055em; line-height: .92; text-transform: uppercase; }
-.agenda-empty p { color: var(--smoke); font-size: 18px; line-height: 1.5; margin: 0; max-width: 380px; }
-.agenda-empty > div { align-items: flex-start; display: flex; flex-direction: column; gap: 24px; }
+.agenda-home-event { border-bottom: 1px solid var(--line); display: grid; gap: 40px; grid-template-columns: 1fr 1fr; padding: 28px 0 31px; }
+.agenda-event-dates { color: var(--smoke); display: flex; flex-direction: column; font-family: var(--mono); font-size: 16px; gap: 10px; line-height: 1.45; }
+.agenda-home-details h3 { color: var(--red); font-family: var(--display); font-size: clamp(34px, 3.8vw, 58px); font-weight: 800; letter-spacing: -.055em; line-height: .86; margin: 0 0 13px; text-transform: uppercase; }
+.agenda-home-details p { color: var(--smoke); font-family: var(--mono); font-size: 16px; line-height: 1.4; margin: 0 0 18px; text-transform: uppercase; }
+.agenda-home-details strong { font-size: 18px; line-height: 1.4; }
+.agenda-mobile-label { display: none; }
+.agenda-cta { display: block; margin-top: 28px; }
 
 .manifesto { display: grid; gap: 10%; grid-template-columns: 1fr 2.2fr; padding: 165px 0 125px; }
 .manifesto-copy { display: grid; gap: 45px; grid-template-columns: minmax(0, 1.45fr) minmax(220px, .72fr); }
@@ -80,8 +83,9 @@ img { display: block; max-width: 100%; }
 .text-link, .project-detail a { border-bottom: 1px solid currentColor; font-family: var(--mono); font-size: 16px; padding-bottom: 4px; width: fit-content; }
 .text-link b, .project-detail span { color: var(--red); font-size: 18px; margin-left: 5px; }
 
-.collective-image { margin-bottom: 175px; overflow: hidden; position: relative; }
+.collective-image { margin-bottom: 175px; margin-top: 120px; overflow: hidden; position: relative; }
 .collective-image::after { border: 1px solid var(--red); content: ""; height: 20%; position: absolute; right: 4%; top: 9%; transform: rotate(-14deg); width: 34%; }
+.collective-image-link { display: block; }
 .collective-image img { aspect-ratio: 2.2 / 1; filter: saturate(.86) contrast(1.08); object-fit: cover; width: 100%; }
 .image-label { background: var(--red); bottom: 0; color: var(--paper); font-family: var(--mono); font-size: 16px; left: 0; padding: 11px 15px; position: absolute; }
 
@@ -308,9 +312,11 @@ img { display: block; max-width: 100%; }
 
 .agenda-board { border-top: 1px solid var(--line); margin-bottom: 150px; }
 .agenda-board-head { border-bottom: 1px solid var(--line); color: var(--smoke); display: grid; font-family: var(--mono); font-size: 16px; grid-template-columns: 1fr 1fr; padding: 18px 0; text-transform: uppercase; }
-.agenda-board-empty { display: grid; gap: 10%; grid-template-columns: 1fr 1fr; padding: 55px 0 100px; }
-.agenda-board-empty strong { color: var(--red); font-family: var(--display); font-size: clamp(50px, 7vw, 105px); letter-spacing: -.065em; line-height: .84; text-transform: uppercase; }
-.agenda-board-empty p { color: var(--smoke); font-size: 20px; line-height: 1.52; margin: 0; max-width: 540px; }
+.agenda-board-event { border-bottom: 1px solid var(--line); display: grid; gap: 10%; grid-template-columns: 1fr 1fr; padding: 42px 0 58px; }
+.agenda-board-details { align-self: start; }
+.agenda-event-note { color: var(--smoke); font-family: var(--mono); font-size: 16px; margin: 0 0 20px; text-transform: uppercase; }
+.agenda-board-details h2 { color: var(--red); font-family: var(--display); font-size: clamp(58px, 7vw, 108px); font-weight: 800; letter-spacing: -.065em; line-height: .78; margin: 0 0 30px; text-transform: uppercase; }
+.agenda-event-venue { font-size: 20px; line-height: 1.42; margin: 0; }
 
 @media (max-width: 1180px) {
   .site-footer-grid { grid-template-columns: auto 1fr 1fr; }
@@ -340,14 +346,17 @@ img { display: block; max-width: 100%; }
   .agenda { padding: 90px 0 95px; }
   .agenda-heading { margin-bottom: 62px; }
   .agenda-heading .eyebrow { margin-bottom: 38px; }
-  .agenda-empty { display: block; padding-top: 30px; }
-  .agenda-empty > div { margin-top: 24px; }
-  .agenda-empty p { margin-bottom: 24px; }
+  .agenda-columns, .agenda-board-head { display: none; }
+  .agenda-home-event, .agenda-board-event { display: block; padding: 30px 0 36px; }
+  .agenda-home-details, .agenda-board-details { margin-top: 32px; }
+  .agenda-mobile-label { color: var(--red); display: block; font-family: var(--mono); font-size: 16px; letter-spacing: .08em; margin-bottom: 17px; text-transform: uppercase; }
+  .agenda-home-details h3 { font-size: clamp(42px, 13vw, 62px); }
+  .agenda-home-details strong { display: block; }
   .manifesto { padding: 105px 0 75px; }
   .manifesto > .eyebrow { margin-bottom: 52px; }
   .manifesto-copy { display: block; }
   .manifesto-copy > p { margin: 35px 0 30px; max-width: 440px; }
-  .collective-image { margin-bottom: 105px; }
+  .collective-image { margin-bottom: 105px; margin-top: 85px; }
   .collective-image img { aspect-ratio: 1 / 1; }
   .image-label { max-width: 230px; }
   .featured-work { padding-bottom: 105px; }
@@ -451,8 +460,7 @@ img { display: block; max-width: 100%; }
   .timeline-copy { margin-top: 65px; }
   .clipping-status { align-items: flex-start; flex-direction: column; gap: 25px; margin-bottom: 90px; }
   .agenda-board { margin-bottom: 90px; }
-  .agenda-board-empty { display: block; padding: 40px 0 75px; }
-  .agenda-board-empty p { margin-top: 35px; }
+  .agenda-board-details h2 { font-size: clamp(62px, 19vw, 98px); }
 }
 
 @media (max-width: 420px) {

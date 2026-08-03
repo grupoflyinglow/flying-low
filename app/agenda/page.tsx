@@ -18,9 +18,21 @@ export default function Agenda() {
       </section>
       <section className="agenda-board section-shell">
         <div className="agenda-board-head"><span>{agenda.when}</span><span>{agenda.where}</span></div>
-        <div className="agenda-board-empty">
-          <strong>{agenda.status}</strong>
-          <p>{agenda.description}</p>
+        <div className="agenda-board-events">
+          {agenda.events.map((event, index) => (
+            <article className="agenda-board-event" key={`${event.title}-${index}`}>
+              <div className="agenda-event-dates">
+                <span className="agenda-mobile-label">{agenda.when}</span>
+                {event.dates.map((date) => <span key={date}>{date}</span>)}
+              </div>
+              <div className="agenda-board-details">
+                <span className="agenda-mobile-label">{agenda.where}</span>
+                {event.note && <p className="agenda-event-note">{event.note}</p>}
+                <h2>{event.title}</h2>
+                <p className="agenda-event-venue">{event.venue}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </main>
