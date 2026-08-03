@@ -151,8 +151,12 @@ test("renders the supplied videos, Kurupyra photo credits, and full technical sh
   const menino = await render("/espetaculos/menino-assum-preto");
   const meninoHtml = await menino.text();
   assert.match(meninoHtml, /Ficha técnica completa/);
-  assert.match(meninoHtml, /Luciana Gandelini de Souza/);
-  assert.match(meninoHtml, /Restauração de figurino/);
+  assert.match(meninoHtml, /Emersu \(Emerson S\. Oliveira\)/);
+  assert.match(meninoHtml, /Fioot \(Jeff dos Santos Rodrigues\)/);
+  assert.match(meninoHtml, /Turtle Lee \(Lee Anderson\)/);
+  assert.match(meninoHtml, /Design de luz/);
+  assert.match(meninoHtml, /Bruna Tovian/);
+  assert.doesNotMatch(meninoHtml, /Luciana Gandelini|Restauração de figurino/);
 
   const revoada = await render("/espetaculos/revoada");
   assert.match(await revoada.text(), /Ficha técnica em atualização\./);
