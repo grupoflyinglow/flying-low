@@ -1,5 +1,5 @@
-import { CollectionPage } from "../components/CollectionPage";
+import { PerformancesPage } from "../components/PerformancesPage";
 
 export default function Espetaculos() {
-  return <CollectionPage collectionKey="espetaculos" />;
+  return <PerformancesPage />;
 }

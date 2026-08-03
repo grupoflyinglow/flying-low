@@ -52,7 +52,7 @@ test("server-renders Portuguese as the primary language", async () => {
 test("server-renders the complete information architecture in Portuguese", async () => {
   const routes = [
     ["/grupo", "Cinco trajetórias"],
-    ["/espetaculos", "Trabalhos para corpos"],
+    ["/espetaculos", "Menino Assum Preto"],
     ["/espetaculos/menino-assum-preto", "O pássaro aprisionado"],
     ["/espetaculos/as-pegadas-do-kurupyra", "Rastros de um território vivo"],
     ["/espetaculos/revoada", "ainda está encontrando sua forma"],
@@ -77,6 +77,23 @@ test("server-renders the complete information architecture in Portuguese", async
     assert.match(html, new RegExp(expectedCopy), pathname);
     assert.doesNotMatch(html, /class="archive-cta"/, pathname);
   }
+});
+
+test("gives the performances page its own image-led composition", async () => {
+  const performances = await render("/espetaculos");
+  assert.equal(performances.status, 200);
+  const performancesHtml = await performances.text();
+  assert.match(performancesHtml, /class="performances-rail"/);
+  assert.match(performancesHtml, /class="performance-chapters"/);
+  assert.match(performancesHtml, /Menino Assum Preto/);
+  assert.match(performancesHtml, /As Pegadas do Kurupyra/);
+  assert.match(performancesHtml, /Revoada/);
+  assert.doesNotMatch(performancesHtml, /class="collection-hero/);
+  assert.doesNotMatch(performancesHtml, /Trabalhos para corpos e territórios em presença/);
+
+  const audiovisual = await render("/audiovisual");
+  assert.equal(audiovisual.status, 200);
+  assert.match(await audiovisual.text(), /class="collection-hero section-shell"/);
 });
 
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {
