@@ -1,6 +1,46 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
+import { useLocale } from "../components/LocaleProvider";
 import { SiteNav } from "../components/SiteNav";
 
 export default function MeninoAssumPreto() {
-  return <main className="archive-page assum-page"><SiteNav /><section className="assum-hero"><div className="section-shell"><p className="eyebrow">Obra cênica · estreia em 2019</p><h1>Menino<br />Assum Preto</h1><p>Um manifesto em movimento.</p></div></section><section className="assum-synopsis section-shell"><p className="eyebrow">Sinopse</p><div><h2>O pássaro aprisionado encontra o trabalhador urbano.</h2><p>Inspirado na canção “Assum Preto”, de Luiz Gonzaga e Humberto Teixeira, o espetáculo cria um paralelo entre o pássaro cegado que canta sem ver o mundo e o trabalhador empurrado a sobreviver em um cotidiano de exploração e invisibilidade.</p><p>Breaking e dança contemporânea constroem uma narrativa sobre dignidade e liberdade, entre dor, poesia, acrobacia e força.</p></div></section><section className="assum-media section-shell"><img src="/images/flying-low-assum-preto.jpg" alt="Cena de Menino Assum Preto" /><div className="media-links"><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">Teaser <span>↗</span></a><a href="https://youtu.be/HoIGxT3XuSU" target="_blank" rel="noreferrer">Espetáculo na íntegra <span>↗</span></a></div></section><section className="technical-grid section-shell"><div><strong>45 min</strong><span>duração</span></div><div><strong>10 anos</strong><span>classificação indicativa</span></div><div><strong>Caixa preta</strong><span>teatros e espaços não convencionais com iluminação</span></div></section><section className="archive-cta section-shell"><p>Ficha técnica completa, rider de luz e som e condições de circulação disponíveis sob consulta.</p><a href="mailto:producaoflyinglow@gmail.com?subject=Menino%20Assum%20Preto">Falar com a produção <span>↗</span></a></section></main>;
+  const { t } = useLocale();
+
+  return (
+    <main className="archive-page assum-page">
+      <SiteNav />
+      <section className="assum-hero">
+        <div className="section-shell">
+          <p className="eyebrow">{t.assum.eyebrow}</p>
+          <h1>Menino<br />Assum Preto</h1>
+          <p>{t.assum.manifesto}</p>
+        </div>
+      </section>
+      <section className="assum-synopsis section-shell">
+        <p className="eyebrow">{t.assum.synopsis}</p>
+        <div>
+          <h2>{t.assum.synopsisHeading}</h2>
+          <p>{t.assum.body1}</p>
+          <p>{t.assum.body2}</p>
+        </div>
+      </section>
+      <section className="assum-media section-shell">
+        <img src="/images/flying-low-assum-preto.jpg" alt={t.assum.imageAlt} />
+        <div className="media-links">
+          <a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">{t.assum.teaser} <span>↗</span></a>
+          <a href="https://youtu.be/HoIGxT3XuSU" target="_blank" rel="noreferrer">{t.assum.fullPerformance} <span>↗</span></a>
+        </div>
+      </section>
+      <section className="technical-grid section-shell">
+        <div><strong>45 min</strong><span>{t.assum.duration}</span></div>
+        <div><strong>{t.assum.ageValue}</strong><span>{t.assum.ageRating}</span></div>
+        <div><strong>{t.assum.venueValue}</strong><span>{t.assum.venue}</span></div>
+      </section>
+      <section className="archive-cta section-shell">
+        <p>{t.assum.cta}</p>
+        <a href="mailto:producaoflyinglow@gmail.com?subject=Menino%20Assum%20Preto">{t.assum.contactProduction} <span>↗</span></a>
+      </section>
+    </main>
+  );
 }
