@@ -101,7 +101,12 @@ type EditorialContent = {
     events: Array<{
       title: string;
       note?: string;
-      dates: string[];
+      dates: Array<{
+        day: string;
+        month: string;
+        time: string;
+        label?: string;
+      }>;
       venue: string;
     }>;
   };
@@ -444,22 +449,22 @@ const ptBR: EditorialContent = {
         title: "Revoada",
         note: "Nome final a confirmar",
         dates: [
-          "18 (estreia) e 19 de setembro · 19h",
-          "20 de setembro · 18h",
-          "25 e 26 de setembro · 19h",
-          "27 de setembro · 18h",
+          { day: "18—19", month: "setembro", time: "19h", label: "estreia dia 18" },
+          { day: "20", month: "setembro", time: "18h" },
+          { day: "25—26", month: "setembro", time: "19h" },
+          { day: "27", month: "setembro", time: "18h" },
         ],
         venue: "Teatro Galpão do Folias",
       },
       {
         title: "Revoada",
         note: "Nome final a confirmar",
-        dates: ["1 a 4 de outubro · Horário a confirmar"],
+        dates: [{ day: "01—04", month: "outubro", time: "Horário a confirmar" }],
         venue: "Local a confirmar",
       },
       {
         title: "Menino Assum Preto",
-        dates: ["15 a 18 de outubro · Horário a confirmar"],
+        dates: [{ day: "15—18", month: "outubro", time: "Horário a confirmar" }],
         venue: "Teatro Galpão do Folias",
       },
     ],
@@ -795,22 +800,22 @@ const en: EditorialContent = {
         title: "Revoada",
         note: "Final title to be confirmed",
         dates: [
-          "September 18 (premiere) & 19 · 7 pm",
-          "September 20 · 6 pm",
-          "September 25 & 26 · 7 pm",
-          "September 27 · 6 pm",
+          { day: "18—19", month: "September", time: "7 pm", label: "premiere on the 18th" },
+          { day: "20", month: "September", time: "6 pm" },
+          { day: "25—26", month: "September", time: "7 pm" },
+          { day: "27", month: "September", time: "6 pm" },
         ],
         venue: "Teatro Galpão do Folias",
       },
       {
         title: "Revoada",
         note: "Final title to be confirmed",
-        dates: ["October 1–4 · Time to be confirmed"],
+        dates: [{ day: "01—04", month: "October", time: "Time to be confirmed" }],
         venue: "Venue to be confirmed",
       },
       {
         title: "Menino Assum Preto",
-        dates: ["October 15–18 · Time to be confirmed"],
+        dates: [{ day: "15—18", month: "October", time: "Time to be confirmed" }],
         venue: "Teatro Galpão do Folias",
       },
     ],

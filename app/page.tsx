@@ -63,7 +63,16 @@ export default function Home() {
               <article className="agenda-home-event" key={`${event.title}-${index}`}>
                 <div className="agenda-event-dates">
                   <span className="agenda-mobile-label">{agenda.when}</span>
-                  {event.dates.map((date) => <span key={date}>{date}</span>)}
+                  {event.dates.map((date) => (
+                    <div className="agenda-date" key={`${date.day}-${date.month}-${date.time}`}>
+                      <span className="agenda-date-day">{date.day}</span>
+                      <span className="agenda-date-meta">
+                        {date.label && <span className="agenda-date-label">{date.label}</span>}
+                        <span className="agenda-date-month">{date.month}</span>
+                        <strong className="agenda-date-time">{date.time}</strong>
+                      </span>
+                    </div>
+                  ))}
                 </div>
                 <div className="agenda-home-details">
                   <span className="agenda-mobile-label">{agenda.where}</span>
