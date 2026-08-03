@@ -1,24 +1,42 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { SiteNav } from "./components/SiteNav";
 import { useLocale } from "./components/LocaleProvider";
 
+function subscribeToReducedMotion(callback: () => void) {
+  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 export default function Home() {
   const { t } = useLocale();
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionSnapshot,
+    () => true,
+  );
 
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <section className="hero" aria-labelledby="hero-title">
-        <iframe
-          className="hero-youtube"
-          src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&playsinline=1&loop=1&playlist=A244vRmQt8I&controls=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&rel=0"
-          title={t.home.teaserTitle}
-          aria-hidden="true"
-          tabIndex={-1}
-          loading="eager"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
+        {!prefersReducedMotion && (
+          <iframe
+            className="hero-youtube"
+            src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&playsinline=1&loop=1&playlist=A244vRmQt8I&controls=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&rel=0"
+            title={t.home.teaserTitle}
+            aria-hidden="true"
+            tabIndex={-1}
+            loading="eager"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        )}
         <div className="hero-wash" />
         <SiteNav light />
         <div className="hero-caption">
@@ -56,7 +74,7 @@ export default function Home() {
 
       <section className="collective-image section-shell" aria-label={t.home.collectiveSectionLabel}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} />
+        <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} width={800} height={533} loading="lazy" decoding="async" />
         <span className="image-label">Turtle Lee · Fioot · Manuel Victor · Emersu · Ricardo Ura</span>
       </section>
 
@@ -68,7 +86,7 @@ export default function Home() {
           <a className="text-link" href="/espetaculos/menino-assum-preto">{t.home.viewDossier} <b>↗</b></a>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/flying-low-assum-preto.jpg" alt={t.home.featuredAlt} />
+        <img src="/images/flying-low-assum-preto.jpg" alt={t.home.featuredAlt} width={2500} height={1667} loading="lazy" decoding="async" />
       </section>
 
       <section className="practice-grid section-shell" aria-labelledby="practice-title">
@@ -76,12 +94,12 @@ export default function Home() {
         <div className="gates-grid">
           <a className="work-gate scenic" href="/espetaculos">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="gate-photo" src="/images/flying-low-stage-amber.jpg" alt={t.home.stageAlt} />
+            <img className="gate-photo" src="/images/flying-low-stage-amber.jpg" alt={t.home.stageAlt} width={2000} height={1334} loading="lazy" decoding="async" />
             <div className="gate-copy"><p className="eyebrow">{t.home.stageLabel}</p><h3>{t.home.stageDescription}</h3><span className="text-link">{t.home.viewWorks} <b>↗</b></span></div>
           </a>
           <a className="work-gate audiovisual" href="/audiovisual">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="gate-photo" src="/images/flying-low-stage-blue.jpg" alt={t.home.screenAlt} />
+            <img className="gate-photo" src="/images/flying-low-stage-blue.jpg" alt={t.home.screenAlt} width={1500} height={1000} loading="lazy" decoding="async" />
             <div className="gate-copy"><p className="eyebrow">{t.home.screenLabel}</p><h3>{t.home.screenDescription}</h3><span className="text-link">{t.home.viewProjects} <b>↗</b></span></div>
           </a>
         </div>

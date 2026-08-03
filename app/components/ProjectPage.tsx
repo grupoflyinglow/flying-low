@@ -7,6 +7,7 @@ import {
   type CollectionKey,
   type ProjectKey,
 } from "../editorial-content";
+import { getImageDimensions } from "../image-dimensions";
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
 
@@ -35,7 +36,7 @@ export function ProjectPage({
     : null;
 
   return (
-    <main className="editorial-page project-page">
+    <main className="editorial-page project-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="project-hero">
         <div className="section-shell project-hero-copy">
@@ -47,7 +48,7 @@ export function ProjectPage({
         </div>
         <div className="project-hero-media">
           {project.image ? (
-            <img src={project.image} alt={project.imageAlt} />
+            <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
@@ -66,7 +67,7 @@ export function ProjectPage({
 
       {project.secondaryImage && (
         <section className="project-secondary-image section-shell">
-          <img src={project.secondaryImage} alt="" />
+          <img {...getImageDimensions(project.secondaryImage)} src={project.secondaryImage} alt="" loading="lazy" decoding="async" />
         </section>
       )}
 

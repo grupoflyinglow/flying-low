@@ -10,7 +10,7 @@ export default function Grupo() {
   const content = getEditorialContent(locale).group;
 
   return (
-    <main className="editorial-page group-page">
+    <main className="editorial-page group-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="archive-hero section-shell">
         <p className="eyebrow">{t.group.eyebrow}</p>
@@ -29,7 +29,7 @@ export default function Grupo() {
             <article className="member-profile" key={member.name}>
               <span className="member-number">{String(index + 1).padStart(2, "0")}</span>
               <div className={`member-photo ${member.portraitClass}`}>
-                <img src="/images/flying-low-collective.jpg" alt={member.name} />
+                <img src="/images/flying-low-collective.jpg" alt={member.name} width={800} height={533} loading="lazy" decoding="async" />
               </div>
               <div className="member-copy">
                 <h3>{member.name}</h3>

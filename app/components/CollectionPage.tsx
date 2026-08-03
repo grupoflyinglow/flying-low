@@ -6,6 +6,7 @@ import {
   projectRoutes,
   type CollectionKey,
 } from "../editorial-content";
+import { getImageDimensions } from "../image-dimensions";
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
 
@@ -15,7 +16,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
   const collection = content.collections[collectionKey];
 
   return (
-    <main className="editorial-page collection-page">
+    <main className="editorial-page collection-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="collection-hero section-shell">
         <p className="eyebrow">{collection.eyebrow}</p>
@@ -31,7 +32,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
               <a className="strip-card" href={projectRoutes[projectKey]} key={projectKey}>
                 <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
                 {project.image ? (
-                  <img src={project.image} alt={project.imageAlt} />
+                  <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
                 ) : (
                   <span className="strip-placeholder">{project.placeholderLabel}</span>
                 )}
@@ -52,7 +53,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
             <article className={`collection-project ${index % 2 ? "is-reversed" : ""}`} key={projectKey}>
               <div className="collection-project-media">
                 {project.image ? (
-                  <img src={project.image} alt={project.imageAlt} />
+                  <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
                 ) : (
                   <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
                 )}

@@ -9,7 +9,7 @@ export default function Historico() {
   const history = getEditorialContent(locale).history;
 
   return (
-    <main className="editorial-page history-page">
+    <main className="editorial-page history-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="history-hero section-shell">
         <p className="eyebrow">{history.eyebrow}</p>

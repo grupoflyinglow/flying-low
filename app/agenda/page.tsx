@@ -9,7 +9,7 @@ export default function Agenda() {
   const agenda = getEditorialContent(locale).agenda;
 
   return (
-    <main className="editorial-page agenda-page">
+    <main className="editorial-page agenda-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="agenda-page-hero section-shell">
         <p className="eyebrow">{agenda.eyebrow}</p>

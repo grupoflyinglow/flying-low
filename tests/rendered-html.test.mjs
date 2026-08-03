@@ -36,6 +36,9 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /Novas datas em breve/);
   assert.match(html, /aria-label="Português"[^>]+aria-pressed="true"/);
   assert.match(html, /aria-label="Inglês"[^>]+aria-pressed="false"/);
+  assert.match(html, /class="skip-link" href="#main-content"/);
+  assert.match(html, /<main id="main-content" tabindex="-1"/);
+  assert.match(html, /width="800" height="533" loading="lazy"/);
   assert.doesNotMatch(html, /Em atividade desde 2016/);
   assert.doesNotMatch(html, /Breaking como linguagem cênica, política e poética/);
   assert.doesNotMatch(html, /class="contact-band"/);
@@ -113,4 +116,18 @@ test("keeps every pixel-based text size at 16px or larger", async () => {
       );
     }
   }
+});
+
+test("keeps interaction and motion safeguards in the visual system", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+
+  assert.match(css, /color-scheme:\s*dark/);
+  assert.match(css, /:where\(a, button\):focus-visible/);
+  assert.match(css, /overscroll-behavior:\s*contain/);
+  assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(home, /useSyncExternalStore/);
+  assert.match(home, /!prefersReducedMotion/);
+  assert.match(layout, /themeColor:\s*"#0b0b0b"/);
 });

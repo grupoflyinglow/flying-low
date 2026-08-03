@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { LocaleProvider } from "./components/LocaleProvider";
 import { SiteFooter } from "./components/SiteFooter";
@@ -33,10 +33,18 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#0b0b0b",
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body><LocaleProvider>{children}<SiteFooter /></LocaleProvider></body>
+      <body>
+        <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
+        <LocaleProvider>{children}<SiteFooter /></LocaleProvider>
+      </body>
     </html>
   );
 }
