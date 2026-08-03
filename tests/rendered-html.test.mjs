@@ -223,6 +223,8 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
 
   assert.match(css, /color-scheme:\s*dark/);
+  assert.match(css, /--ink:\s*#ddd8cf/);
+  assert.match(css, /body\s*\{[^}]*color:\s*var\(--ink\)/);
   assert.match(css, /:where\(a, button\):focus-visible/);
   assert.match(css, /\.menu-button\s*\{\s*display:\s*none/);
   assert.match(css, /\.desktop-nav\s*\{\s*display:\s*none/);
