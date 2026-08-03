@@ -136,6 +136,34 @@ test("gives the performances page its own image-led composition", async () => {
   assert.match(await audiovisual.text(), /class="collection-hero section-shell"/);
 });
 
+test("renders the supplied videos, Kurupyra photo credits, and full technical sheets", async () => {
+  const kurupyra = await render("/espetaculos/as-pegadas-do-kurupyra");
+  assert.equal(kurupyra.status, 200);
+  const kurupyraHtml = await kurupyra.text();
+  assert.match(kurupyraHtml, /youtube-nocookie\.com\/embed\/TQZI4t759ng/);
+  for (const photoId of [22, 77, 120, 193, 199, 213, 221, 261, 317]) {
+    assert.match(kurupyraHtml, new RegExp(`kurupyra-${photoId}\\.webp`));
+  }
+  assert.match(kurupyraHtml, /Fotografia · Sarará Rodrigues/);
+  assert.match(kurupyraHtml, /Ficha técnica completa/);
+  assert.match(kurupyraHtml, /Jorge Luiz dos Santos Vicente/);
+
+  const menino = await render("/espetaculos/menino-assum-preto");
+  const meninoHtml = await menino.text();
+  assert.match(meninoHtml, /Ficha técnica completa/);
+  assert.match(meninoHtml, /Luciana Gandelini de Souza/);
+  assert.match(meninoHtml, /Restauração de figurino/);
+
+  const revoada = await render("/espetaculos/revoada");
+  assert.match(await revoada.text(), /Ficha técnica em atualização\./);
+
+  const concepcoes = await render("/audiovisual/concepcoes-marginais");
+  const concepcoesHtml = await concepcoes.text();
+  assert.match(concepcoesHtml, /youtube-nocookie\.com\/embed\/cX55NPxLzxs/);
+  assert.match(concepcoesHtml, /Gerson Afrobreak/);
+  assert.match(concepcoesHtml, /Bruno Novais/);
+});
+
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {
   const i18n = await readFile(new URL("../app/i18n.ts", import.meta.url), "utf8");
   const editorial = await readFile(new URL("../app/editorial-content.ts", import.meta.url), "utf8");
@@ -153,6 +181,9 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
   assert.match(editorial, /Works for bodies and territories in presence/);
+  assert.match(editorial, /Full credits/);
+  assert.match(editorial, /Photography · Sarará Rodrigues/);
+  assert.match(editorial, /Direction and video editing/);
   assert.match(editorial, /Turtle Lee/);
   assert.match(editorial, /Fioot/);
   assert.match(editorial, /Manuel Victor/);

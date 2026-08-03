@@ -30,6 +30,24 @@ type Link = {
   label: string;
 };
 
+type Credit = {
+  role: string;
+  names: string;
+};
+
+type ProjectImage = {
+  src: string;
+  alt: string;
+  credit?: string;
+  portrait?: boolean;
+};
+
+type ProjectVideo = {
+  youtubeId: string;
+  title: string;
+  linkLabel: string;
+};
+
 export type EditorialProject = {
   title: string;
   eyebrow: string;
@@ -39,7 +57,13 @@ export type EditorialProject = {
   synopsisHeading: string;
   body: string[];
   image?: string;
+  imageCredit?: string;
   secondaryImage?: string;
+  secondaryImageCredit?: string;
+  gallery?: ProjectImage[];
+  galleryCredit?: string;
+  video?: ProjectVideo;
+  credits?: Credit[];
   imageAlt: string;
   placeholderLabel?: string;
   facts: Array<{ label: string; value: string }>;
@@ -67,6 +91,10 @@ type EditorialContent = {
     openProject: string;
     synopsis: string;
     technical: string;
+    fullCredits: string;
+    creditsPending: string;
+    gallery: string;
+    video: string;
     media: string;
     sourceNote: string;
     previous: string;
@@ -120,13 +148,19 @@ const sharedImages = {
   portrait: "/images/flying-low-portrait.jpg",
   amber: "/images/flying-low-stage-amber.jpg",
   blue: "/images/flying-low-stage-blue.jpg",
+  kurupyraHero: "/images/kurupyra/kurupyra-193.webp",
+  kurupyraSecondary: "/images/kurupyra/kurupyra-317.webp",
 };
 
 const ptBR: EditorialContent = {
   common: {
     openProject: "Abrir projeto",
     synopsis: "Sinopse",
-    technical: "Ficha técnica",
+    technical: "Informações",
+    fullCredits: "Ficha técnica completa",
+    creditsPending: "Ficha técnica em atualização.",
+    gallery: "Registros de cena",
+    video: "Em vídeo",
     media: "Vídeos e materiais",
     sourceNote: "Perfil e créditos públicos",
     previous: "Anterior",
@@ -181,6 +215,23 @@ const ptBR: EditorialContent = {
         { label: "Classificação", value: "10 anos" },
         { label: "Espaço", value: "Caixa preta e espaços não convencionais com iluminação" },
       ],
+      credits: [
+        { role: "Intérpretes e co-direção", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira e Ricardo de Assis Ura" },
+        { role: "Concepção, criação, coreografia e dramaturgia", names: "Eddie Guedes, Gustavo Teles Fagundes, Henrique Yude Furucho, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos e Ricardo de Assis Ura" },
+        { role: "Provocação artística", names: "Carla Kinzo, Douglas Iesus, Marcio Greyk e Will Versi" },
+        { role: "Criação de trilha sonora", names: "Tiago Estevan Theodoro Penalva" },
+        { role: "Criação de figurino", names: "Alma Luz Adelia" },
+        { role: "Sonoplastia", names: "Jorge Luiz dos Santos Vicente" },
+        { role: "Iluminação", names: "Bruna Vitória Gonçalves" },
+        { role: "Ensaiadora", names: "Patricia Ferreira Rodrigues" },
+        { role: "Produção executiva e de campo", names: "Jeff dos Santos Rodrigues e Laís Machado Ribeiro" },
+        { role: "Design gráfico", names: "Ricardo de Assis Ura" },
+        { role: "Fotografia", names: "Laerte Rodrigues" },
+        { role: "Assistência de fotografia", names: "Damares Oliveira" },
+        { role: "Edição de vídeo", names: "Tainan Mattei" },
+        { role: "Restauração de figurino", names: "Clara Prates" },
+        { role: "Assessoria de imprensa", names: "Luciana Gandelini de Souza" },
+      ],
       links: [
         { label: "Assistir teaser", href: "https://youtu.be/A244vRmQt8I" },
         { label: "Espetáculo na íntegra", href: "https://youtu.be/HoIGxT3XuSU" },
@@ -197,13 +248,36 @@ const ptBR: EditorialContent = {
         "Inspirada nos encantados e no bestiário do território brasileiro, a obra aproxima perspectivas afro-diaspóricas e indígenas de uma pesquisa corporal que mescla breaking e dança contemporânea.",
         "Jogos de improvisação cênica e interação com o público movem uma investigação sobre ganância e partilha, fazendo do encontro uma parte essencial da dramaturgia.",
       ],
-      image: sharedImages.blue,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Cena azul de espetáculo do Flying Low",
+      image: sharedImages.kurupyraHero,
+      imageCredit: "Foto · Sarará Rodrigues",
+      secondaryImage: sharedImages.kurupyraSecondary,
+      secondaryImageCredit: "Foto · Sarará Rodrigues",
+      imageAlt: "Elenco de As Pegadas do Kurupyra em cena",
+      galleryCredit: "Fotografia · Sarará Rodrigues",
+      gallery: [
+        { src: "/images/kurupyra/kurupyra-120.webp", alt: "Intérprete de As Pegadas do Kurupyra em gesto solo", credit: "Foto · Sarará Rodrigues", portrait: true },
+        { src: "/images/kurupyra/kurupyra-199.webp", alt: "Elenco de As Pegadas do Kurupyra em roda", credit: "Foto · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-213.webp", alt: "Elenco de As Pegadas do Kurupyra em cena", credit: "Foto · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-22.webp", alt: "Retrato do elenco de As Pegadas do Kurupyra", credit: "Foto · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-221.webp", alt: "Dois intérpretes de As Pegadas do Kurupyra em movimento", credit: "Foto · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-261.webp", alt: "Três intérpretes de As Pegadas do Kurupyra em cena", credit: "Foto · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-77.webp", alt: "Intérprete de As Pegadas do Kurupyra em cena", credit: "Foto · Sarará Rodrigues" },
+      ],
+      video: {
+        youtubeId: "TQZI4t759ng",
+        title: "Teaser de As Pegadas do Kurupyra",
+        linkLabel: "Assistir no YouTube",
+      },
       facts: [
         { label: "Duração", value: "60 min" },
         { label: "Classificação", value: "Livre" },
         { label: "Linguagens", value: "Breaking, dança contemporânea e improvisação" },
+      ],
+      credits: [
+        { role: "Direção", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira e Ricardo de Assis Ura" },
+        { role: "Coreografia", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Ricardo de Assis Ura, Jorge Luiz dos Santos Vicente e Tiago Estevan Theodoro Penalva" },
+        { role: "Elenco", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira, Ricardo de Assis Ura e Jorge Luiz dos Santos Vicente" },
+        { role: "Fotografia", names: "Sarará Rodrigues" },
       ],
       links: [
         { label: "Solicitar rider técnico", href: "mailto:producaoflyinglow@gmail.com?subject=Rider%20-%20As%20Pegadas%20do%20Kurupyra" },
@@ -233,21 +307,30 @@ const ptBR: EditorialContent = {
     concepcoesMarginais: {
       title: "Concepções Marginais",
       eyebrow: "Pesquisa audiovisual",
-      year: "Em desenvolvimento",
-      status: "Conteúdo em preparação",
-      summary: "Uma investigação sobre modos periféricos de imaginar, enquadrar e produzir imagem.",
+      year: "2024",
+      summary: "Uma investigação em breaking e dramaturgia que transforma perspectivas marginais e periféricas em videodança.",
       synopsisHeading: "A margem como lugar de invenção.",
       body: [
-        "Concepções Marginais reúne procedimentos de criação que aproximam corpo, território e câmera.",
-        "O projeto será apresentado aqui como arquivo vivo: registros de processo, escolhas de linguagem e desdobramentos públicos serão incorporados conforme a pesquisa avançar.",
+        "Direcionada por Gerson Afrobreak ao Flying Low e a artistas residentes, a pesquisa atravessa breaking, dramaturgia e fundamentos históricos do Afrobreak.",
+        "Máscaras, identidade, culturas populares e a arquitetura periférica da Grande São Paulo alimentam gestos, textos, cenas e coreografias que encontram sua forma final em videodança.",
       ],
       image: sharedImages.collective,
       secondaryImage: sharedImages.blue,
       imageAlt: "Integrantes do Flying Low em retrato coletivo",
+      video: {
+        youtubeId: "cX55NPxLzxs",
+        title: "Concepções Marginais",
+        linkLabel: "Assistir no YouTube",
+      },
       facts: [
-        { label: "Linguagem", value: "Audiovisual e performance" },
-        { label: "Etapa", value: "Pesquisa" },
-        { label: "Materiais", value: "Em atualização" },
+        { label: "Formato", value: "Videodança" },
+        { label: "Ano", value: "2024" },
+        { label: "Pesquisa", value: "Breaking, dramaturgia e Afrobreak" },
+      ],
+      credits: [
+        { role: "Residentes e intérpretes-criadores", names: "Bruno Novais, Dandara Pilar Ferreira, David Silveira, Dillyane França Freitas, Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Laís Machado, Lee Anderson Rodrigues dos Santos, Luna Well, Manuel Victor dos Santos Pereira e Ricardo Aparecido Silva" },
+        { role: "Provocadores da residência", names: "Gerson Afrobreak e Willi Verse" },
+        { role: "Direção e edição de vídeo", names: "Gerson Afrobreak" },
       ],
       links: [],
     },
@@ -480,7 +563,11 @@ const en: EditorialContent = {
   common: {
     openProject: "Open project",
     synopsis: "Synopsis",
-    technical: "Technical details",
+    technical: "Details",
+    fullCredits: "Full credits",
+    creditsPending: "Full credits are being updated.",
+    gallery: "Stage records",
+    video: "On video",
     media: "Videos and materials",
     sourceNote: "Public profile and credits",
     previous: "Previous",
@@ -535,6 +622,23 @@ const en: EditorialContent = {
         { label: "Age rating", value: "Ages 10+" },
         { label: "Space", value: "Black box and unconventional spaces with lighting" },
       ],
+      credits: [
+        { role: "Performers and co-direction", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira, and Ricardo de Assis Ura" },
+        { role: "Concept, creation, choreography, and dramaturgy", names: "Eddie Guedes, Gustavo Teles Fagundes, Henrique Yude Furucho, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, and Ricardo de Assis Ura" },
+        { role: "Artistic provocation", names: "Carla Kinzo, Douglas Iesus, Marcio Greyk, and Will Versi" },
+        { role: "Original score", names: "Tiago Estevan Theodoro Penalva" },
+        { role: "Costume design", names: "Alma Luz Adelia" },
+        { role: "Sound", names: "Jorge Luiz dos Santos Vicente" },
+        { role: "Lighting", names: "Bruna Vitória Gonçalves" },
+        { role: "Rehearsal direction", names: "Patricia Ferreira Rodrigues" },
+        { role: "Executive and field production", names: "Jeff dos Santos Rodrigues and Laís Machado Ribeiro" },
+        { role: "Graphic design", names: "Ricardo de Assis Ura" },
+        { role: "Photography", names: "Laerte Rodrigues" },
+        { role: "Photography assistance", names: "Damares Oliveira" },
+        { role: "Video editing", names: "Tainan Mattei" },
+        { role: "Costume restoration", names: "Clara Prates" },
+        { role: "Press relations", names: "Luciana Gandelini de Souza" },
+      ],
       links: [
         { label: "Watch teaser", href: "https://youtu.be/A244vRmQt8I" },
         { label: "Full performance", href: "https://youtu.be/HoIGxT3XuSU" },
@@ -551,13 +655,36 @@ const en: EditorialContent = {
         "Inspired by enchanted beings and the Brazilian bestiary, the work draws Afro-diasporic and Indigenous perspectives into bodily research blending breaking and contemporary dance.",
         "Stage improvisation and audience interaction drive an inquiry into greed and sharing, making the encounter an essential part of the dramaturgy.",
       ],
-      image: sharedImages.blue,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Blue-lit scene from a Flying Low performance",
+      image: sharedImages.kurupyraHero,
+      imageCredit: "Photo · Sarará Rodrigues",
+      secondaryImage: sharedImages.kurupyraSecondary,
+      secondaryImageCredit: "Photo · Sarará Rodrigues",
+      imageAlt: "Cast of As Pegadas do Kurupyra performing",
+      galleryCredit: "Photography · Sarará Rodrigues",
+      gallery: [
+        { src: "/images/kurupyra/kurupyra-120.webp", alt: "As Pegadas do Kurupyra performer in a solo gesture", credit: "Photo · Sarará Rodrigues", portrait: true },
+        { src: "/images/kurupyra/kurupyra-199.webp", alt: "Cast of As Pegadas do Kurupyra forming a circle", credit: "Photo · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-213.webp", alt: "Cast of As Pegadas do Kurupyra performing", credit: "Photo · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-22.webp", alt: "Cast portrait for As Pegadas do Kurupyra", credit: "Photo · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-221.webp", alt: "Two As Pegadas do Kurupyra performers in motion", credit: "Photo · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-261.webp", alt: "Three As Pegadas do Kurupyra performers on stage", credit: "Photo · Sarará Rodrigues" },
+        { src: "/images/kurupyra/kurupyra-77.webp", alt: "As Pegadas do Kurupyra performer on stage", credit: "Photo · Sarará Rodrigues" },
+      ],
+      video: {
+        youtubeId: "TQZI4t759ng",
+        title: "As Pegadas do Kurupyra teaser",
+        linkLabel: "Watch on YouTube",
+      },
       facts: [
         { label: "Running time", value: "60 min" },
         { label: "Age rating", value: "All ages" },
         { label: "Languages", value: "Breaking, contemporary dance, and improvisation" },
+      ],
+      credits: [
+        { role: "Direction", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira, and Ricardo de Assis Ura" },
+        { role: "Choreography", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Ricardo de Assis Ura, Jorge Luiz dos Santos Vicente, and Tiago Estevan Theodoro Penalva" },
+        { role: "Cast", names: "Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Lee Anderson Rodrigues dos Santos, Manuel Victor dos Santos Pereira, Ricardo de Assis Ura, and Jorge Luiz dos Santos Vicente" },
+        { role: "Photography", names: "Sarará Rodrigues" },
       ],
       links: [
         { label: "Request technical rider", href: "mailto:producaoflyinglow@gmail.com?subject=Rider%20-%20As%20Pegadas%20do%20Kurupyra" },
@@ -587,21 +714,30 @@ const en: EditorialContent = {
     concepcoesMarginais: {
       title: "Concepções Marginais",
       eyebrow: "Screen research",
-      year: "In development",
-      status: "Content in preparation",
-      summary: "An inquiry into peripheral ways of imagining, framing, and producing images.",
+      year: "2024",
+      summary: "An investigation in breaking and dramaturgy that turns marginal and peripheral perspectives into a dance film.",
       synopsisHeading: "The margin as a place of invention.",
       body: [
-        "Concepções Marginais gathers creative procedures bringing body, territory, and camera together.",
-        "The project will appear here as a living archive, incorporating process records, language choices, and public outcomes as the research develops.",
+        "Led by Gerson Afrobreak with Flying Low and resident artists, the research crosses breaking, dramaturgy, and the historical foundations of Afrobreak.",
+        "Masks, identity, popular cultures, and the peripheral architecture of Greater São Paulo feed gestures, texts, scenes, and choreographies that find their final form in a dance film.",
       ],
       image: sharedImages.collective,
       secondaryImage: sharedImages.blue,
       imageAlt: "Members of Flying Low in a group portrait",
+      video: {
+        youtubeId: "cX55NPxLzxs",
+        title: "Concepções Marginais",
+        linkLabel: "Watch on YouTube",
+      },
       facts: [
-        { label: "Language", value: "Screen and performance" },
-        { label: "Stage", value: "Research" },
-        { label: "Materials", value: "Being updated" },
+        { label: "Format", value: "Dance film" },
+        { label: "Year", value: "2024" },
+        { label: "Research", value: "Breaking, dramaturgy, and Afrobreak" },
+      ],
+      credits: [
+        { role: "Resident artists and performer-creators", names: "Bruno Novais, Dandara Pilar Ferreira, David Silveira, Dillyane França Freitas, Emerson Silva Oliveira, Jeff dos Santos Rodrigues, Laís Machado, Lee Anderson Rodrigues dos Santos, Luna Well, Manuel Victor dos Santos Pereira, and Ricardo Aparecido Silva" },
+        { role: "Residence provocateurs", names: "Gerson Afrobreak and Willi Verse" },
+        { role: "Direction and video editing", names: "Gerson Afrobreak" },
       ],
       links: [],
     },

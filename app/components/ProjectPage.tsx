@@ -52,6 +52,7 @@ export function ProjectPage({
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
+          {project.imageCredit && <span className="project-hero-credit">{project.imageCredit}</span>}
         </div>
       </section>
 
@@ -65,9 +66,52 @@ export function ProjectPage({
         </div>
       </section>
 
+      {project.video && (
+        <section className="project-video section-shell" aria-labelledby="project-video">
+          <p className="eyebrow" id="project-video">{content.common.video}</p>
+          <div className="project-video-content">
+            <div className="project-video-frame">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${project.video.youtubeId}`}
+                title={project.video.title}
+                width="1280"
+                height="720"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <a href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer">
+              {project.video.linkLabel} <span>↗</span>
+            </a>
+          </div>
+        </section>
+      )}
+
       {project.secondaryImage && (
         <section className="project-secondary-image section-shell">
-          <img {...getImageDimensions(project.secondaryImage)} src={project.secondaryImage} alt="" loading="lazy" decoding="async" />
+          <figure>
+            <img {...getImageDimensions(project.secondaryImage)} src={project.secondaryImage} alt="" loading="lazy" decoding="async" />
+            {project.secondaryImageCredit && <figcaption>{project.secondaryImageCredit}</figcaption>}
+          </figure>
+        </section>
+      )}
+
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="project-gallery section-shell" aria-labelledby="project-gallery">
+          <div className="project-gallery-heading">
+            <p className="eyebrow" id="project-gallery">{content.common.gallery}</p>
+            {project.galleryCredit && <p>{project.galleryCredit}</p>}
+          </div>
+          <div className="project-gallery-grid">
+            {project.gallery.map((image) => (
+              <figure className={image.portrait ? "is-portrait" : undefined} key={image.src}>
+                <img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                {image.credit && <figcaption>{image.credit}</figcaption>}
+              </figure>
+            ))}
+          </div>
         </section>
       )}
 
@@ -82,6 +126,24 @@ export function ProjectPage({
           ))}
         </div>
       </section>
+
+      {(collectionKey === "espetaculos" || (project.credits && project.credits.length > 0)) && (
+        <section className="project-credits section-shell" aria-labelledby="project-full-credits">
+          <p className="eyebrow" id="project-full-credits">{content.common.fullCredits}</p>
+          {project.credits && project.credits.length > 0 ? (
+            <dl className="project-credits-list">
+              {project.credits.map((credit) => (
+                <div className="project-credit-row" key={credit.role}>
+                  <dt>{credit.role}</dt>
+                  <dd>{credit.names}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : (
+            <p className="project-credits-pending">{content.common.creditsPending}</p>
+          )}
+        </section>
+      )}
 
       {project.links.length > 0 && (
         <section className="project-links section-shell" aria-labelledby="project-media">

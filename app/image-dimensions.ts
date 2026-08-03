@@ -4,6 +4,15 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/flying-low-portrait.jpg": { width: 1067, height: 1600 },
   "/images/flying-low-stage-amber.jpg": { width: 2000, height: 1334 },
   "/images/flying-low-stage-blue.jpg": { width: 1500, height: 1000 },
+  "/images/kurupyra/kurupyra-22.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-77.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-120.webp": { width: 1200, height: 1800 },
+  "/images/kurupyra/kurupyra-193.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-199.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-213.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-221.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-261.webp": { width: 1800, height: 1200 },
+  "/images/kurupyra/kurupyra-317.webp": { width: 1800, height: 1200 },
 };
 
 export function getImageDimensions(src: string) {
