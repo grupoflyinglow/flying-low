@@ -28,6 +28,7 @@ export default function Agenda() {
                     <span className="agenda-date-day">{date.day}</span>
                     <span className="agenda-date-meta">
                       {date.label && <span className="agenda-date-label">{date.label}</span>}
+                      <span className="agenda-date-weekday">{date.weekday}</span>
                       <span className="agenda-date-month">{date.month}</span>
                       <strong className="agenda-date-time">{date.time}</strong>
                     </span>
@@ -39,6 +40,7 @@ export default function Agenda() {
                 {event.note && <p className="agenda-event-note">{event.note}</p>}
                 <h2>{event.title}</h2>
                 <p className="agenda-event-venue">{event.venue}</p>
+                <address className="agenda-event-address">{event.address}</address>
               </div>
             </article>
           ))}

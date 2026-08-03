@@ -73,6 +73,7 @@ export default function Home() {
                       <span className="agenda-date-day">{date.day}</span>
                       <span className="agenda-date-meta">
                         {date.label && <span className="agenda-date-label">{date.label}</span>}
+                        <span className="agenda-date-weekday">{date.weekday}</span>
                         <span className="agenda-date-month">{date.month}</span>
                         <strong className="agenda-date-time">{date.time}</strong>
                       </span>
@@ -84,6 +85,7 @@ export default function Home() {
                   <h3>{event.title}</h3>
                   {event.note && <p>{event.note}</p>}
                   <strong>{event.venue}</strong>
+                  <address className="agenda-event-address">{event.address}</address>
                 </div>
               </article>
             ))}

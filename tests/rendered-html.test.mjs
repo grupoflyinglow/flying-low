@@ -61,6 +61,10 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(home, /class="agenda-home-events"/);
   assert.match(home, /class="agenda-date-day">01—04/);
   assert.match(home, /class="agenda-date-day">15—18/);
+  assert.match(home, /class="agenda-date-weekday">sexta e sábado/);
+  assert.match(home, /class="agenda-date-weekday">quinta a domingo/);
+  assert.match(home, /Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP/);
+  assert.match(home, /Endereço a confirmar/);
   assert.match(home, /Horário a confirmar/);
   assert.match(home, /class="collective-image-link" href="\/grupo"/);
   assert.match(home, /Conhecer o grupo/);
@@ -80,6 +84,7 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(agenda, /class="agenda-date-label">estreia dia 18/);
   assert.match(agenda, /class="agenda-date-month">setembro/);
   assert.match(agenda, /class="agenda-date-time">19h/);
+  assert.match(agenda, /class="agenda-event-address">Rua Ana Cintra, 213/);
   assert.match(agenda, /Local a confirmar/);
   assert.match(agenda, /Menino Assum Preto/);
 });
@@ -155,7 +160,8 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(editorial, /Ricardo Ura/);
   assert.match(editorial, /@grupo_flyinglow/);
   assert.match(editorial, /label: "premiere on the 18th"/);
-  assert.match(editorial, /day: "15—18", month: "October", time: "Time to be confirmed"/);
+  assert.match(editorial, /day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed"/);
+  assert.match(editorial, /address: "Address to be confirmed"/);
   assert.match(editorial, /Venue to be confirmed/);
   assert.match(provider, /window\.localStorage\.setItem/);
   assert.match(provider, /document\.documentElement\.lang = locale/);
@@ -187,6 +193,9 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   assert.match(css, /\.desktop-nav\s*\{\s*display:\s*none/);
   assert.match(css, /overscroll-behavior:\s*contain/);
   assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /\.hero-primary-cta\s*\{[^}]*background:\s*var\(--paper\)/);
+  assert.match(css, /\.hero-primary-cta:hover\s*\{[^}]*background:\s*var\(--red\)/);
+  assert.match(css, /\.agenda-date-day\s*\{[^}]*font-size:\s*clamp\(38px/);
   assert.match(css, /\.hero-primary-cta:hover\s*\{\s*transform:\s*none/);
   assert.match(home, /useSyncExternalStore/);
   assert.match(home, /!prefersReducedMotion/);

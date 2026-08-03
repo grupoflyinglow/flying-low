@@ -103,11 +103,13 @@ type EditorialContent = {
       note?: string;
       dates: Array<{
         day: string;
+        weekday: string;
         month: string;
         time: string;
         label?: string;
       }>;
       venue: string;
+      address: string;
     }>;
   };
 };
@@ -449,23 +451,26 @@ const ptBR: EditorialContent = {
         title: "Revoada",
         note: "Nome final a confirmar",
         dates: [
-          { day: "18—19", month: "setembro", time: "19h", label: "estreia dia 18" },
-          { day: "20", month: "setembro", time: "18h" },
-          { day: "25—26", month: "setembro", time: "19h" },
-          { day: "27", month: "setembro", time: "18h" },
+          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "19h", label: "estreia dia 18" },
+          { day: "20", weekday: "domingo", month: "setembro", time: "18h" },
+          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "19h" },
+          { day: "27", weekday: "domingo", month: "setembro", time: "18h" },
         ],
         venue: "Teatro Galpão do Folias",
+        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
         note: "Nome final a confirmar",
-        dates: [{ day: "01—04", month: "outubro", time: "Horário a confirmar" }],
+        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
         venue: "Local a confirmar",
+        address: "Endereço a confirmar",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", month: "outubro", time: "Horário a confirmar" }],
+        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
         venue: "Teatro Galpão do Folias",
+        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
     ],
   },
@@ -800,23 +805,26 @@ const en: EditorialContent = {
         title: "Revoada",
         note: "Final title to be confirmed",
         dates: [
-          { day: "18—19", month: "September", time: "7 pm", label: "premiere on the 18th" },
-          { day: "20", month: "September", time: "6 pm" },
-          { day: "25—26", month: "September", time: "7 pm" },
-          { day: "27", month: "September", time: "6 pm" },
+          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "7 pm", label: "premiere on the 18th" },
+          { day: "20", weekday: "Sunday", month: "September", time: "6 pm" },
+          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "7 pm" },
+          { day: "27", weekday: "Sunday", month: "September", time: "6 pm" },
         ],
         venue: "Teatro Galpão do Folias",
+        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
         note: "Final title to be confirmed",
-        dates: [{ day: "01—04", month: "October", time: "Time to be confirmed" }],
+        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
         venue: "Venue to be confirmed",
+        address: "Address to be confirmed",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", month: "October", time: "Time to be confirmed" }],
+        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
         venue: "Teatro Galpão do Folias",
+        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
     ],
   },
