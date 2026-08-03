@@ -22,11 +22,27 @@ export default function Home() {
         <div className="hero-wash" />
         <SiteNav light />
         <div className="hero-caption">
-          <p className="eyebrow hero-eyebrow">{t.home.heroEyebrow}</p>
           <h1 id="hero-title"><span>Flying</span><span>Low</span></h1>
           <p className="hero-line">{t.home.heroLine1}<br />{t.home.heroLine2}</p>
         </div>
-        <div className="hero-footer"><span>{t.home.activeSince}</span><span>{t.home.location}</span><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">{t.home.watchTeaser} ↗</a></div>
+        <div className="hero-footer"><span>{t.home.location}</span><a href="https://youtu.be/A244vRmQt8I" target="_blank" rel="noreferrer">{t.home.watchTeaser} ↗</a></div>
+      </section>
+
+      <section className="agenda section-shell" aria-labelledby="agenda-title">
+        <div className="agenda-heading">
+          <p className="eyebrow">{t.home.agendaEyebrow}</p>
+          <h2 id="agenda-title">{t.home.agendaHeading}</h2>
+        </div>
+        <div className="agenda-list">
+          <div className="agenda-columns" aria-hidden="true">
+            <span>{t.home.agendaWhen}</span>
+            <span>{t.home.agendaWhere}</span>
+          </div>
+          <div className="agenda-empty">
+            <strong>{t.home.agendaStatus}</strong>
+            <p>{t.home.agendaDescription}</p>
+          </div>
+        </div>
       </section>
 
       <section className="manifesto section-shell" aria-labelledby="manifesto-title">
@@ -71,7 +87,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact-band" id="contato"><div className="section-shell contact-inner"><p className="eyebrow">{t.home.contactEyebrow}</p><a href="mailto:producaoflyinglow@gmail.com">{t.home.contactLine1}<br />{t.home.contactLine2} <span>↗</span></a></div></section>
     </main>
   );
 }

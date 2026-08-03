@@ -15,11 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: "Flying Low — dança, cena e imagem",
-    description: "Flying Low é um coletivo de cinco intérpretes-criadores em atividade desde 2016.",
+    description: "Flying Low é um coletivo de cinco intérpretes-criadores das periferias de São Paulo.",
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       title: "Flying Low — dança, cena e imagem",
-      description: "Flying Low é um coletivo de cinco intérpretes-criadores em atividade desde 2016.",
+      description: "Flying Low é um coletivo de cinco intérpretes-criadores das periferias de São Paulo.",
       locale: "pt_BR",
       type: "website",
       images: [{ url: socialImage, width: 1200, height: 630, alt: "Flying Low — dança, cena e imagem" }],
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: "Flying Low — dança, cena e imagem",
-      description: "Flying Low é um coletivo de cinco intérpretes-criadores em atividade desde 2016.",
+      description: "Flying Low é um coletivo de cinco intérpretes-criadores das periferias de São Paulo.",
       images: [socialImage],
     },
   };

@@ -6,7 +6,7 @@ export const LOCALE_STORAGE_KEY = "flying-low-locale";
 const ptBR = {
   meta: {
     title: "Flying Low — dança, cena e imagem",
-    description: "Flying Low é um coletivo de cinco intérpretes-criadores em atividade desde 2016.",
+    description: "Flying Low é um coletivo de cinco intérpretes-criadores das periferias de São Paulo.",
     openGraphLocale: "pt_BR",
   },
   nav: {
@@ -29,17 +29,19 @@ const ptBR = {
   },
   footer: {
     location: "Flying Low · São Paulo, Brasil",
-    tagline: "Breaking como linguagem cênica, política e poética.",
-    activeSince: "Em atividade desde 2016",
   },
   home: {
     teaserTitle: "Teaser de Menino Assum Preto",
-    heroEyebrow: "Breaking como linguagem cênica, política e poética",
     heroLine1: "Dança das periferias de São Paulo",
     heroLine2: "para a cena, a câmera e o encontro.",
-    activeSince: "Em atividade desde 2016",
     location: "São Paulo · Brasil",
     watchTeaser: "Assistir teaser",
+    agendaEyebrow: "Agenda",
+    agendaHeading: "Próximos encontros.",
+    agendaWhen: "Quando",
+    agendaWhere: "Onde",
+    agendaStatus: "Novas datas em breve",
+    agendaDescription: "Apresentações, oficinas e outras ações serão publicadas aqui.",
     groupEyebrow: "O grupo",
     groupHeading1: "Cinco artistas.",
     groupHeading2: "Uma dança que vem",
@@ -63,15 +65,12 @@ const ptBR = {
     screenAlt: "Cena azul de espetáculo do Flying Low",
     screenDescription: "Videodança e documentário como desdobramento da pesquisa.",
     viewProjects: "Ver trabalhos",
-    contactEyebrow: "Convites, circulação, formação e parcerias",
-    contactLine1: "Falar com",
-    contactLine2: "Flying Low",
   },
   group: {
     eyebrow: "Sobre o Flying Low",
     heading1: "Entre margens,",
     heading2: "memória e imaginação.",
-    intro: "Coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, política e poética.",
+    intro: "Coletivo de artistas das periferias de São Paulo que pesquisa o breaking em diálogo com a cena, o audiovisual e a formação.",
     portraitAlt: "Retrato do grupo Flying Low",
     body1: "Em 2018, a criação de Menino Assum Preto, contemplada pelo Programa VAI, consolidou uma trajetória autoral que articula cena, audiovisual e formação em torno de estéticas periféricas e modos coletivos de criação.",
     body2: "A direção compartilhada e a experiência em grupo organizam uma prática feita de afetos, urgências e pesquisa corporal.",
@@ -88,8 +87,6 @@ const ptBR = {
     kurupyraNote: "Obra que cruza breaking com as histórias dos seres encantados dos povos originários do Brasil e da diáspora africana.",
     viewDossier: "Ver dossiê",
     requestMaterial: "Solicitar material",
-    cta: "Para ficha técnica, rider, disponibilidade e condições de circulação.",
-    contactProduction: "Falar com a produção",
   },
   screen: {
     eyebrow: "02 · Audiovisual",
@@ -103,8 +100,6 @@ const ptBR = {
     formacaoKind: "Série documental · 2021",
     formacaoNote: "Série realizada dentro de Na Manha com Flying Low, projeto de ações pedagógicas apoiado pelo PROAC 31/2021.",
     requestMaterial: "Solicitar material",
-    cta: "Para exibições, colaborações e informações de acesso aos trabalhos.",
-    contact: "Falar com Flying Low",
     emailSubject: "Materiais Audiovisual",
   },
   learning: {
@@ -134,8 +129,6 @@ const ptBR = {
     ageRating: "classificação indicativa",
     venueValue: "Caixa preta",
     venue: "teatros e espaços não convencionais com iluminação",
-    cta: "Ficha técnica completa, rider de luz e som e condições de circulação disponíveis sob consulta.",
-    contactProduction: "Falar com a produção",
   },
 } as const;
 
@@ -152,7 +145,7 @@ export type Messages = WidenStrings<typeof ptBR>;
 const en: Messages = {
   meta: {
     title: "Flying Low — dance, stage and screen",
-    description: "Flying Low is a collective of five dance artists active since 2016.",
+    description: "Flying Low is a collective of five dance artists from São Paulo’s peripheries.",
     openGraphLocale: "en_US",
   },
   nav: {
@@ -175,17 +168,19 @@ const en: Messages = {
   },
   footer: {
     location: "Flying Low · São Paulo, Brazil",
-    tagline: "Breaking as a scenic, political, and poetic language.",
-    activeSince: "Active since 2016",
   },
   home: {
     teaserTitle: "Menino Assum Preto teaser",
-    heroEyebrow: "Breaking as a scenic, political, and poetic language",
     heroLine1: "Dance from São Paulo’s peripheries",
     heroLine2: "for the stage, the camera, and shared encounters.",
-    activeSince: "Active since 2016",
     location: "São Paulo · Brazil",
     watchTeaser: "Watch teaser",
+    agendaEyebrow: "Agenda",
+    agendaHeading: "Upcoming dates.",
+    agendaWhen: "When",
+    agendaWhere: "Where",
+    agendaStatus: "New dates coming soon",
+    agendaDescription: "Performances, workshops, and other work will be announced here.",
     groupEyebrow: "The collective",
     groupHeading1: "Five artists.",
     groupHeading2: "A dance born from",
@@ -209,15 +204,12 @@ const en: Messages = {
     screenAlt: "Blue-lit scene from a Flying Low performance",
     screenDescription: "Dance film and documentary as extensions of the research.",
     viewProjects: "View projects",
-    contactEyebrow: "Bookings, touring, learning, and partnerships",
-    contactLine1: "Talk to",
-    contactLine2: "Flying Low",
   },
   group: {
     eyebrow: "About Flying Low",
     heading1: "Between margins,",
     heading2: "memory and imagination.",
-    intro: "A collective of artists from São Paulo’s peripheries, researching breaking as a scenic, political, and poetic language.",
+    intro: "A collective of artists from São Paulo’s peripheries, researching breaking through stage work, screen work, and learning.",
     portraitAlt: "Portrait of the Flying Low collective",
     body1: "In 2018, the creation of Menino Assum Preto, supported by the VAI Programme, consolidated an authorial trajectory connecting stage work, screen work, and learning around peripheral aesthetics and collective modes of creation.",
     body2: "Shared direction and group experience shape a practice of care, urgency, and bodily research.",
@@ -234,8 +226,6 @@ const en: Messages = {
     kurupyraNote: "A work that brings breaking into dialogue with stories of enchanted beings from Brazil’s Indigenous peoples and the African diaspora.",
     viewDossier: "View dossier",
     requestMaterial: "Request materials",
-    cta: "For technical specifications, rider, availability, and touring terms.",
-    contactProduction: "Contact production",
   },
   screen: {
     eyebrow: "02 · Screen works",
@@ -249,8 +239,6 @@ const en: Messages = {
     formacaoKind: "Documentary series · 2021",
     formacaoNote: "A series made within Na Manha com Flying Low, an educational-action project supported by PROAC 31/2021.",
     requestMaterial: "Request materials",
-    cta: "For screenings, collaborations, and access information.",
-    contact: "Talk to Flying Low",
     emailSubject: "Screen work materials",
   },
   learning: {
@@ -280,8 +268,6 @@ const en: Messages = {
     ageRating: "age rating",
     venueValue: "Black box",
     venue: "theatres and unconventional spaces with lighting",
-    cta: "Full technical specifications, lighting and sound rider, and touring terms available on request.",
-    contactProduction: "Contact production",
   },
 };
 

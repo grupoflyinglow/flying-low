@@ -49,10 +49,6 @@ export default function Cenicas() {
           </article>
         ))}
       </section>
-      <section className="archive-cta section-shell">
-        <p>{t.stage.cta}</p>
-        <a href="mailto:producaoflyinglow@gmail.com">{t.stage.contactProduction} <span>↗</span></a>
-      </section>
     </main>
   );
 }

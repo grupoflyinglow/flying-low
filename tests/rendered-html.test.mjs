@@ -32,8 +32,13 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /<html[^>]+lang="pt-BR"/i);
   assert.match(html, /<title>Flying Low — dança, cena e imagem<\/title>/i);
   assert.match(html, /Dança das periferias de São Paulo/);
+  assert.match(html, /Próximos encontros\./);
+  assert.match(html, /Novas datas em breve/);
   assert.match(html, /aria-label="Português"[^>]+aria-pressed="true"/);
   assert.match(html, /aria-label="Inglês"[^>]+aria-pressed="false"/);
+  assert.doesNotMatch(html, /Em atividade desde 2016/);
+  assert.doesNotMatch(html, /Breaking como linguagem cênica, política e poética/);
+  assert.doesNotMatch(html, /class="contact-band"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
@@ -49,7 +54,9 @@ test("server-renders every portfolio route in Portuguese", async () => {
   for (const [pathname, expectedCopy] of routes) {
     const response = await render(pathname);
     assert.equal(response.status, 200, pathname);
-    assert.match(await response.text(), new RegExp(expectedCopy), pathname);
+    const html = await response.text();
+    assert.match(html, new RegExp(expectedCopy), pathname);
+    assert.doesNotMatch(html, /class="archive-cta"/, pathname);
   }
 });
 
@@ -63,6 +70,26 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(i18n, /When the camera/);
   assert.match(i18n, /Learn in a circle\./);
   assert.match(i18n, /The captive bird meets the urban worker\./);
+  assert.match(i18n, /Upcoming dates\./);
+  assert.match(i18n, /New dates coming soon/);
+  assert.doesNotMatch(i18n, /Active since 2016|Em atividade desde 2016/);
+  assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
+  assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
   assert.match(provider, /window\.localStorage\.setItem/);
   assert.match(provider, /document\.documentElement\.lang = locale/);
+});
+
+test("keeps every pixel-based text size at 16px or larger", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const declarations = [...css.matchAll(/font-size:\s*([^;]+);/g)];
+
+  for (const declaration of declarations) {
+    const pixelValues = [...declaration[1].matchAll(/(\d+(?:\.\d+)?)px/g)];
+    for (const pixelValue of pixelValues) {
+      assert.ok(
+        Number(pixelValue[1]) >= 16,
+        `Found a font size below 16px: ${declaration[0]}`,
+      );
+    }
+  }
 });

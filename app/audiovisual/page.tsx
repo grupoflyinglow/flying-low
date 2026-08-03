@@ -43,10 +43,6 @@ export default function Audiovisual() {
           </article>
         ))}
       </section>
-      <section className="archive-cta section-shell">
-        <p>{t.screen.cta}</p>
-        <a href="mailto:producaoflyinglow@gmail.com">{t.screen.contact} <span>↗</span></a>
-      </section>
     </main>
   );
 }

@@ -37,10 +37,6 @@ export default function MeninoAssumPreto() {
         <div><strong>{t.assum.ageValue}</strong><span>{t.assum.ageRating}</span></div>
         <div><strong>{t.assum.venueValue}</strong><span>{t.assum.venue}</span></div>
       </section>
-      <section className="archive-cta section-shell">
-        <p>{t.assum.cta}</p>
-        <a href="mailto:producaoflyinglow@gmail.com?subject=Menino%20Assum%20Preto">{t.assum.contactProduction} <span>↗</span></a>
-      </section>
     </main>
   );
 }
