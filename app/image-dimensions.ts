@@ -27,6 +27,8 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/even-in-the-trash-grows-flowers/even-trash-03.webp": { width: 1200, height: 800 },
   "/images/even-in-the-trash-grows-flowers/even-trash-04.webp": { width: 1200, height: 800 },
   "/images/even-in-the-trash-grows-flowers/even-trash-05.webp": { width: 1200, height: 800 },
+  "/images/debates/fora-da-gaiola-capa.webp": { width: 1080, height: 1350 },
+  "/images/debates/fora-da-gaiola-convidados.webp": { width: 1080, height: 1350 },
 };
 
 export function getImageDimensions(src: string) {

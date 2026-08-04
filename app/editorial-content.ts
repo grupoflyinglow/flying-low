@@ -58,6 +58,7 @@ type ProjectImage = {
   alt: string;
   credit?: string;
   portrait?: boolean;
+  poster?: boolean;
 };
 
 type ProjectVideo = {
@@ -71,6 +72,7 @@ export type EditorialProject = {
   eyebrow: string;
   year: string;
   status?: string;
+  presentation?: "poster";
   summary: string;
   synopsisHeading: string;
   body: string[];
@@ -489,22 +491,41 @@ const ptBR: EditorialContent = {
       ],
     },
     debatePrimeiraEdicao: {
-      title: "Primeira edição",
-      eyebrow: "Debates mediados",
-      year: "Arquivo em construção",
-      status: "Flyer em atualização",
-      summary: "A primeira edição inaugura um espaço de conversa pública sobre corpo, território e criação periférica.",
-      synopsisHeading: "Uma roda para continuar o que a cena começou.",
+      title: "Fora da Gaiola",
+      eyebrow: "Debate mediado · Primeira edição",
+      year: "29 de maio · 19h30",
+      presentation: "poster",
+      summary: "Uma conversa pública sobre dramaturgia marginal e suas relações com a dança contemporânea.",
+      synopsisHeading: "O que a dança contemporânea tem a ver com isso?",
       body: [
-        "Os debates mediados aproximam artistas, público e pessoas convidadas em torno das questões que atravessam os trabalhos do Flying Low.",
-        "O flyer, a programação completa e os registros desta edição serão publicados aqui assim que o arquivo estiver organizado.",
+        "Fora da Gaiola reúne Márcio Greyk, Dillyane França, Maria Emilia e Manuel Victor para atravessar experiências de criação, margem e presença na dança.",
+        "A primeira edição acontece no Instituto Brasileiro de Teatro, na Bela Vista, e faz da conversa uma extensão pública das pesquisas do Grupo Flying Low.",
       ],
-      imageAlt: "Espaço reservado para o flyer da primeira edição",
-      placeholderLabel: "Flyer 01",
+      image: "/images/debates/fora-da-gaiola-capa.webp",
+      imageCredit: "Flyer · Fora da Gaiola",
+      imageAlt: "Flyer vermelho de Fora da Gaiola com quatro cadeiras brancas",
+      galleryLabel: "Flyers da primeira edição",
+      gallery: [
+        {
+          src: "/images/debates/fora-da-gaiola-capa.webp",
+          alt: "Flyer de Fora da Gaiola com data, horário, local e participantes",
+          poster: true,
+        },
+        {
+          src: "/images/debates/fora-da-gaiola-convidados.webp",
+          alt: "Flyer de Fora da Gaiola com retratos de Márcio Greyk, Dillyane França, Maria Emilia e Manuel Victor",
+          poster: true,
+        },
+      ],
       facts: [
-        { label: "Formato", value: "Conversa mediada" },
-        { label: "Arquivo", value: "Em organização" },
-        { label: "Programação", value: "Em breve" },
+        { label: "Data e horário", value: "29 de maio · 19h30" },
+        { label: "Local", value: "IBT · Instituto Brasileiro de Teatro" },
+        { label: "Endereço", value: "Av. Brigadeiro Luís Antônio, 277 · Bela Vista" },
+      ],
+      credits: [
+        { role: "Participantes", names: "Márcio Greyk, Dillyane França, Maria Emilia e Manuel Victor" },
+        { role: "Realização", names: "Grupo Flying Low" },
+        { role: "Fomento", names: "38ª Edição do Programa Municipal de Fomento à Dança para a cidade de São Paulo" },
       ],
       links: [],
     },
@@ -939,22 +960,41 @@ const en: EditorialContent = {
       ],
     },
     debatePrimeiraEdicao: {
-      title: "First edition",
-      eyebrow: "Moderated conversations",
-      year: "Archive in progress",
-      status: "Flyer being updated",
-      summary: "The first edition opens a public conversation about body, territory, and peripheral creation.",
-      synopsisHeading: "A circle to continue what the stage began.",
+      title: "Fora da Gaiola",
+      eyebrow: "Moderated conversation · First edition",
+      year: "29 May · 7:30 pm",
+      presentation: "poster",
+      summary: "A public conversation about marginal dramaturgy and its relationship with contemporary dance.",
+      synopsisHeading: "What does contemporary dance have to do with it?",
       body: [
-        "The moderated conversations bring artists, audiences, and invited guests together around the questions running through Flying Low’s works.",
-        "The flyer, full programme, and records from this edition will be published here once the archive is organised.",
+        "Fora da Gaiola brings Márcio Greyk, Dillyane França, Maria Emilia, and Manuel Victor together to explore experiences of creation, the margins, and presence in dance.",
+        "The first edition takes place at Instituto Brasileiro de Teatro in Bela Vista, making conversation a public extension of Grupo Flying Low’s research.",
       ],
-      imageAlt: "Reserved space for the first-edition flyer",
-      placeholderLabel: "Flyer 01",
+      image: "/images/debates/fora-da-gaiola-capa.webp",
+      imageCredit: "Flyer · Fora da Gaiola",
+      imageAlt: "Red Fora da Gaiola flyer with four white chairs",
+      galleryLabel: "First-edition flyers",
+      gallery: [
+        {
+          src: "/images/debates/fora-da-gaiola-capa.webp",
+          alt: "Fora da Gaiola flyer listing the date, time, venue, and participants in Portuguese",
+          poster: true,
+        },
+        {
+          src: "/images/debates/fora-da-gaiola-convidados.webp",
+          alt: "Fora da Gaiola flyer with portraits of Márcio Greyk, Dillyane França, Maria Emilia, and Manuel Victor",
+          poster: true,
+        },
+      ],
       facts: [
-        { label: "Format", value: "Moderated conversation" },
-        { label: "Archive", value: "Being organised" },
-        { label: "Programme", value: "Coming soon" },
+        { label: "Date and time", value: "29 May · 7:30 pm" },
+        { label: "Venue", value: "IBT · Instituto Brasileiro de Teatro" },
+        { label: "Address", value: "Av. Brigadeiro Luís Antônio, 277 · Bela Vista" },
+      ],
+      credits: [
+        { role: "Participants", names: "Márcio Greyk, Dillyane França, Maria Emilia, and Manuel Victor" },
+        { role: "Presented by", names: "Grupo Flying Low" },
+        { role: "Public funding", names: "38th edition of São Paulo’s Municipal Dance Development Programme" },
       ],
       links: [],
     },

@@ -30,7 +30,7 @@ export function ProjectPage({
     : null;
 
   return (
-    <main className="editorial-page project-page" id="main-content" tabIndex={-1}>
+    <main className={`editorial-page project-page ${project.presentation === "poster" ? "project-page--poster" : ""}`} id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="project-hero">
         <div className="section-shell project-hero-copy">
@@ -40,7 +40,7 @@ export function ProjectPage({
           <p>{project.summary}</p>
           {project.status && <span className="project-status">{project.status}</span>}
         </div>
-        <div className="project-hero-media">
+        <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
           {project.image ? (
             <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
@@ -100,7 +100,7 @@ export function ProjectPage({
           </div>
           <div className="project-gallery-grid">
             {project.gallery.map((image) => (
-              <figure className={image.portrait ? "is-portrait" : undefined} key={image.src}>
+              <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}>
                 <img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />
                 {image.credit && <figcaption>{image.credit}</figcaption>}
               </figure>

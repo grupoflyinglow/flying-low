@@ -108,7 +108,7 @@ test("server-renders the complete information architecture in Portuguese", async
     ["/atividades-formativas/oficinas", "Três entradas"],
     ["/atividades-formativas/residencia", "surgimento de uma obra"],
     ["/debates-mediados", "A conversa continua"],
-    ["/debates-mediados/primeira-edicao", "continuar o que a cena começou"],
+    ["/debates-mediados/primeira-edicao", "O que a dança contemporânea tem a ver com isso"],
     ["/historico", "Uma linha feita de encontros"],
     ["/agenda", "Próximos encontros"],
     ["/menino-assum-preto", "O pássaro aprisionado"],
@@ -140,7 +140,7 @@ test("server-renders English at translated URLs without a Portuguese first paint
     ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
     ["/en/learning/residency", "From training to the emergence of a work."],
     ["/en/conversations", "The conversation continues after the stage."],
-    ["/en/conversations/first-edition", "A circle to continue what the stage began."],
+    ["/en/conversations/first-edition", "What does contemporary dance have to do with it?"],
     ["/en/history", "A line made of encounters, works, and movement."],
     ["/en/agenda", "Upcoming encounters."],
   ];
@@ -253,6 +253,30 @@ test("renders the supplied videos, Kurupyra photo credits, and full technical sh
   assert.match(evenTrashEnglishHtml, /Flowers can grow even in the trash\./);
   assert.match(evenTrashEnglishHtml, /Film stills/);
   assert.match(evenTrashEnglishHtml, /href="\/audiovisual\/mesmo-no-lixo-nascem-flores" hrefLang="pt-BR"/);
+});
+
+test("renders both Fora da Gaiola flyers and confirmed event details", async () => {
+  const debate = await render("/debates-mediados/primeira-edicao");
+  assert.equal(debate.status, 200);
+  const debateHtml = await debate.text();
+  assert.match(debateHtml, /project-page--poster/);
+  assert.match(debateHtml, /width="1080" height="1350" src="\/images\/debates\/fora-da-gaiola-capa\.webp"/);
+  assert.match(debateHtml, /fora-da-gaiola-convidados\.webp/);
+  assert.match(debateHtml, /Flyers da primeira edição/);
+  assert.match(debateHtml, /29 de maio · 19h30/);
+  assert.match(debateHtml, /IBT · Instituto Brasileiro de Teatro/);
+  assert.match(debateHtml, /Márcio Greyk, Dillyane França, Maria Emilia e Manuel Victor/);
+  assert.match(debateHtml, /38ª Edição do Programa Municipal de Fomento à Dança/);
+  assert.doesNotMatch(debateHtml, /Flyer 01|Flyer em atualização|Arquivo em construção|Espaço reservado/);
+
+  const conversation = await render("/en/conversations/first-edition");
+  assert.equal(conversation.status, 200);
+  const conversationHtml = await conversation.text();
+  assert.match(conversationHtml, /First-edition flyers/);
+  assert.match(conversationHtml, /29 May · 7:30 pm/);
+  assert.match(conversationHtml, /Red Fora da Gaiola flyer with four white chairs/);
+  assert.match(conversationHtml, /38th edition of São Paulo’s Municipal Dance Development Programme/);
+  assert.doesNotMatch(conversationHtml, /Flyer being updated|Archive in progress|Reserved space/);
 });
 
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {

@@ -29,7 +29,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
           {collection.projectKeys.map((projectKey, index) => {
             const project = content.projects[projectKey];
             return (
-              <a className="strip-card" href={projectRouteFor(locale, projectKey)} key={projectKey}>
+              <a className={`strip-card ${project.presentation === "poster" ? "is-poster" : ""}`} href={projectRouteFor(locale, projectKey)} key={projectKey}>
                 <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
                 {project.image ? (
                   <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
@@ -51,7 +51,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
           const project = content.projects[projectKey];
           return (
             <article className={`collection-project ${index % 2 ? "is-reversed" : ""}`} key={projectKey}>
-              <div className="collection-project-media">
+              <div className={`collection-project-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
                 {project.image ? (
                   <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
                 ) : (
