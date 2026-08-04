@@ -7,6 +7,7 @@ export type ProjectKey =
   | "revoada"
   | "concepcoesMarginais"
   | "emFormacao"
+  | "evenInTheTrash"
   | "cantigas"
   | "oficinas"
   | "residencia"
@@ -20,6 +21,7 @@ const projectRouteKeys: Record<ProjectKey, RouteKey> = {
   revoada: "performanceRevoada",
   concepcoesMarginais: "screenConcepcoes",
   emFormacao: "screenEmFormacao",
+  evenInTheTrash: "screenEvenTrash",
   cantigas: "screenCantigas",
   oficinas: "learningWorkshops",
   residencia: "learningResidency",
@@ -169,6 +171,8 @@ const sharedImages = {
   kurupyraSecondary: "/images/kurupyra/kurupyra-317.webp",
   concepcoesHero: "/images/concepcoes-marginais/concepcoes-marginais-hero.webp",
   concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
+  evenTrashHero: "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp",
+  evenTrashWide: "/images/even-in-the-trash-grows-flowers/even-trash-wide.webp",
 };
 
 const ptBR: EditorialContent = {
@@ -198,7 +202,7 @@ const ptBR: EditorialContent = {
       heading: "A câmera também entra na roda.",
       intro: "Filmes, séries e experimentos que transportam a pesquisa do grupo para outros enquadramentos, tempos e modos de circulação.",
       stripLabel: "Projetos audiovisuais",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "cantigas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "cantigas"],
     },
     formacao: {
       eyebrow: "Atividades formativas",
@@ -376,6 +380,47 @@ const ptBR: EditorialContent = {
       links: [
         { label: "Solicitar materiais", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
       ],
+    },
+    evenInTheTrash: {
+      title: "Even in the Trash Grows Flowers",
+      eyebrow: "Videodança",
+      year: "2021",
+      summary: "Em uma situação-limite, o encontro entre duas pessoas transforma a amizade em abrigo e possibilidade de permanência.",
+      synopsisHeading: "Mesmo no lixo nascem flores.",
+      body: [
+        "Uma pessoa se aproxima de um limite sem retorno. O encontro com outra interrompe esse trajeto e abre espaço para permanecer.",
+        "Interpretada por Koide Ura e Lee Anderson, a videodança trata a amizade como presença, porto seguro e possibilidade de vida — uma flor que insiste em nascer onde parecia não haver terreno.",
+      ],
+      image: sharedImages.evenTrashHero,
+      imageCredit: "Still do filme · Even in the Trash Grows Flowers (2021)",
+      secondaryImage: sharedImages.evenTrashWide,
+      secondaryImageCredit: "Still do filme · Produção: Grupo Flying Low",
+      imageAlt: "Koide Ura e Lee Anderson dançam juntos em uma quadra aberta",
+      galleryLabel: "Stills do filme",
+      galleryCredit: "Even in the Trash Grows Flowers (2021) · Grupo Flying Low",
+      gallery: [
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-01.webp", alt: "Lee Anderson encara a câmera sob uma estrutura de concreto" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-02.webp", alt: "Koide Ura e Lee Anderson se apoiam durante a dança" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-03.webp", alt: "Um intérprete se aproxima enquanto o outro está sentado na quadra" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-04.webp", alt: "Lee Anderson dança diante da arquibancada grafitada" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-05.webp", alt: "Koide Ura projeta o corpo para trás durante um solo" },
+      ],
+      video: {
+        youtubeId: "HlWvODEryF4",
+        title: "Even in the Trash Grows Flowers",
+        linkLabel: "Assistir no YouTube",
+      },
+      facts: [
+        { label: "Formato", value: "Videodança" },
+        { label: "Ano", value: "2021" },
+        { label: "Duração", value: "4 min 28 s" },
+      ],
+      credits: [
+        { role: "Produção", names: "Grupo Flying Low" },
+        { role: "Intérpretes", names: "Koide Ura e Lee Anderson" },
+        { role: "Composição musical", names: "Tiago Penalva e Rafaela Maciel" },
+      ],
+      links: [],
     },
     cantigas: {
       title: "Cantigas do Meu Matulão",
@@ -607,7 +652,7 @@ const en: EditorialContent = {
       heading: "The camera joins the circle.",
       intro: "Films, series, and experiments carrying the collective’s research into other frames, temporalities, and forms of circulation.",
       stripLabel: "Screen projects",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "cantigas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "cantigas"],
     },
     formacao: {
       eyebrow: "Learning activities",
@@ -785,6 +830,47 @@ const en: EditorialContent = {
       links: [
         { label: "Request materials", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
       ],
+    },
+    evenInTheTrash: {
+      title: "Even in the Trash Grows Flowers",
+      eyebrow: "Dance film",
+      year: "2021",
+      summary: "At a moment of crisis, the meeting of two people turns friendship into shelter and a reason to remain.",
+      synopsisHeading: "Flowers can grow even in the trash.",
+      body: [
+        "One person approaches a point of no return. Meeting another interrupts that path and opens up the possibility of staying.",
+        "Performed by Koide Ura and Lee Anderson, the dance film treats friendship as presence, safe harbour, and the possibility of life — a flower insisting on growing where there seemed to be no ground.",
+      ],
+      image: sharedImages.evenTrashHero,
+      imageCredit: "Film still · Even in the Trash Grows Flowers (2021)",
+      secondaryImage: sharedImages.evenTrashWide,
+      secondaryImageCredit: "Film still · Produced by Grupo Flying Low",
+      imageAlt: "Koide Ura and Lee Anderson dance together on an outdoor court",
+      galleryLabel: "Film stills",
+      galleryCredit: "Even in the Trash Grows Flowers (2021) · Grupo Flying Low",
+      gallery: [
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-01.webp", alt: "Lee Anderson faces the camera beneath a concrete structure" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-02.webp", alt: "Koide Ura and Lee Anderson support one another during the dance" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-03.webp", alt: "One performer approaches while the other sits on the court" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-04.webp", alt: "Lee Anderson dances before the graffiti-covered stands" },
+        { src: "/images/even-in-the-trash-grows-flowers/even-trash-05.webp", alt: "Koide Ura leans backwards during a solo" },
+      ],
+      video: {
+        youtubeId: "HlWvODEryF4",
+        title: "Even in the Trash Grows Flowers",
+        linkLabel: "Watch on YouTube",
+      },
+      facts: [
+        { label: "Format", value: "Dance film" },
+        { label: "Year", value: "2021" },
+        { label: "Running time", value: "4 min 28 sec" },
+      ],
+      credits: [
+        { role: "Production", names: "Grupo Flying Low" },
+        { role: "Performers", names: "Koide Ura and Lee Anderson" },
+        { role: "Music composition", names: "Tiago Penalva and Rafaela Maciel" },
+      ],
+      links: [],
     },
     cantigas: {
       title: "Cantigas do Meu Matulão",

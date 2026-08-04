@@ -102,6 +102,7 @@ test("server-renders the complete information architecture in Portuguese", async
     ["/audiovisual", "A câmera também entra na roda"],
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
     ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
+    ["/audiovisual/mesmo-no-lixo-nascem-flores", "Mesmo no lixo nascem flores"],
     ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
     ["/atividades-formativas", "Aprender em roda"],
     ["/atividades-formativas/oficinas", "Três entradas"],
@@ -133,6 +134,7 @@ test("server-renders English at translated URLs without a Portuguese first paint
     ["/en/screen", "The camera joins the circle."],
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
     ["/en/screen/in-formation", "Learning also produces memory."],
+    ["/en/screen/even-in-the-trash-grows-flowers", "Flowers can grow even in the trash."],
     ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
     ["/en/learning", "Learn in a circle. Create collectively."],
     ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
@@ -233,6 +235,24 @@ test("renders the supplied videos, Kurupyra photo credits, and full technical sh
   const marginalConceptionsHtml = await marginalConceptions.text();
   assert.match(marginalConceptionsHtml, /Film stills/);
   assert.match(marginalConceptionsHtml, /Direction and editing: Gerson Afrobreak/);
+
+  const evenTrash = await render("/audiovisual/mesmo-no-lixo-nascem-flores");
+  const evenTrashHtml = await evenTrash.text();
+  assert.match(evenTrashHtml, /youtube-nocookie\.com\/embed\/HlWvODEryF4/);
+  assert.match(evenTrashHtml, /even-trash-hero\.webp/);
+  assert.match(evenTrashHtml, /even-trash-wide\.webp/);
+  for (const stillId of ["01", "02", "03", "04", "05"]) {
+    assert.match(evenTrashHtml, new RegExp(`even-trash-${stillId}\\.webp`));
+  }
+  assert.match(evenTrashHtml, /Stills do filme/);
+  assert.match(evenTrashHtml, /Koide Ura e Lee Anderson/);
+  assert.match(evenTrashHtml, /Tiago Penalva e Rafaela Maciel/);
+
+  const evenTrashEnglish = await render("/en/screen/even-in-the-trash-grows-flowers");
+  const evenTrashEnglishHtml = await evenTrashEnglish.text();
+  assert.match(evenTrashEnglishHtml, /Flowers can grow even in the trash\./);
+  assert.match(evenTrashEnglishHtml, /Film stills/);
+  assert.match(evenTrashEnglishHtml, /href="\/audiovisual\/mesmo-no-lixo-nascem-flores" hrefLang="pt-BR"/);
 });
 
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {
@@ -270,6 +290,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(provider, /locale: Locale/);
   assert.match(routes, /en: "\/en\/performances\/the-footprints-of-kurupyra"/);
   assert.match(routes, /en: "\/en\/screen\/marginal-conceptions"/);
+  assert.match(routes, /en: "\/en\/screen\/even-in-the-trash-grows-flowers"/);
   assert.match(routes, /en: "\/en\/learning\/workshops"/);
 });
 

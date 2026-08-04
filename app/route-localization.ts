@@ -10,6 +10,7 @@ export type RouteKey =
   | "screen"
   | "screenConcepcoes"
   | "screenEmFormacao"
+  | "screenEvenTrash"
   | "screenCantigas"
   | "learning"
   | "learningWorkshops"
@@ -43,6 +44,10 @@ export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
   screenEmFormacao: {
     "pt-BR": "/audiovisual/em-formacao",
     en: "/en/screen/in-formation",
+  },
+  screenEvenTrash: {
+    "pt-BR": "/audiovisual/mesmo-no-lixo-nascem-flores",
+    en: "/en/screen/even-in-the-trash-grows-flowers",
   },
   screenCantigas: {
     "pt-BR": "/audiovisual/cantigas-do-meu-matulao",

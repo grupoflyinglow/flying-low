@@ -20,6 +20,13 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/concepcoes-marginais/concepcoes-marginais-03.webp": { width: 1600, height: 1067 },
   "/images/concepcoes-marginais/concepcoes-marginais-04.webp": { width: 1600, height: 1067 },
   "/images/concepcoes-marginais/concepcoes-marginais-05.webp": { width: 1600, height: 1067 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp": { width: 1280, height: 720 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-wide.webp": { width: 1280, height: 640 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-01.webp": { width: 1200, height: 800 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-02.webp": { width: 1200, height: 800 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-03.webp": { width: 1200, height: 800 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-04.webp": { width: 1200, height: 800 },
+  "/images/even-in-the-trash-grows-flowers/even-trash-05.webp": { width: 1200, height: 800 },
 };
 
 export function getImageDimensions(src: string) {
