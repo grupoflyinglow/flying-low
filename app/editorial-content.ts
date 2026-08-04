@@ -328,7 +328,7 @@ const ptBR: EditorialContent = {
       imageCredit: "Still do filme · Concepções Marginais (2024)",
       secondaryImage: sharedImages.concepcoesWide,
       secondaryImageCredit: "Still do filme · Direção e edição: Gerson Afrobreak",
-      imageAlt: "Pessoa mascarada com fitas coloridas diante de uma grade",
+      imageAlt: "Artista com máscara de papel dança com a perna estendida na calçada",
       galleryLabel: "Stills do filme",
       galleryCredit: "Concepções Marginais (2024) · Direção e edição: Gerson Afrobreak",
       gallery: [
@@ -737,7 +737,7 @@ const en: EditorialContent = {
       imageCredit: "Film still · Concepções Marginais (2024)",
       secondaryImage: sharedImages.concepcoesWide,
       secondaryImageCredit: "Film still · Direction and editing: Gerson Afrobreak",
-      imageAlt: "Masked person with colourful ribbons standing in front of a metal grid",
+      imageAlt: "Performer in a paper mask dances with one leg extended on the pavement",
       galleryLabel: "Film stills",
       galleryCredit: "Concepções Marginais (2024) · Direction and editing: Gerson Afrobreak",
       gallery: [
