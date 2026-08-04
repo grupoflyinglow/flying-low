@@ -31,11 +31,13 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
             return (
               <a className={`strip-card ${project.presentation === "poster" ? "is-poster" : ""}`} href={projectRouteFor(locale, projectKey)} key={projectKey}>
                 <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
-                {project.image ? (
-                  <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
-                ) : (
-                  <span className="strip-placeholder">{project.placeholderLabel}</span>
-                )}
+                <span className="strip-media">
+                  {project.image ? (
+                    <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+                  ) : (
+                    <span className="strip-placeholder">{project.placeholderLabel}</span>
+                  )}
+                </span>
                 <span className="strip-copy">
                   <span>{project.year}</span>
                   <strong>{project.title}</strong>
