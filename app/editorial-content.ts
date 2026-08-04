@@ -77,6 +77,7 @@ export type EditorialProject = {
   secondaryImage?: string;
   secondaryImageCredit?: string;
   gallery?: ProjectImage[];
+  galleryLabel?: string;
   galleryCredit?: string;
   video?: ProjectVideo;
   credits?: Credit[];
@@ -166,6 +167,8 @@ const sharedImages = {
   blue: "/images/flying-low-stage-blue.jpg",
   kurupyraHero: "/images/kurupyra/kurupyra-193.webp",
   kurupyraSecondary: "/images/kurupyra/kurupyra-317.webp",
+  concepcoesHero: "/images/concepcoes-marginais/concepcoes-marginais-hero.webp",
+  concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
 };
 
 const ptBR: EditorialContent = {
@@ -321,9 +324,20 @@ const ptBR: EditorialContent = {
         "Direcionada por Gerson Afrobreak ao Flying Low e a artistas residentes, a pesquisa atravessa breaking, dramaturgia e fundamentos históricos do Afrobreak.",
         "Máscaras, identidade, culturas populares e a arquitetura periférica da Grande São Paulo alimentam gestos, textos, cenas e coreografias que encontram sua forma final em videodança.",
       ],
-      image: sharedImages.collective,
-      secondaryImage: sharedImages.blue,
-      imageAlt: "Integrantes do Flying Low em retrato coletivo",
+      image: sharedImages.concepcoesHero,
+      imageCredit: "Still do filme · Concepções Marginais (2024)",
+      secondaryImage: sharedImages.concepcoesWide,
+      secondaryImageCredit: "Still do filme · Direção e edição: Gerson Afrobreak",
+      imageAlt: "Pessoa mascarada com fitas coloridas diante de uma grade",
+      galleryLabel: "Stills do filme",
+      galleryCredit: "Concepções Marginais (2024) · Direção e edição: Gerson Afrobreak",
+      gallery: [
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-01.webp", alt: "Artista mascarada em cena em preto e branco" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-02.webp", alt: "Artista com capuz vermelho se movimenta junto a uma grade" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-03.webp", alt: "Artista com máscara de papel em composição na calçada" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-04.webp", alt: "Artista com máscara de papel dança em cena em preto e branco" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-05.webp", alt: "Artista mascarada dança no asfalto diante de um caminhão amarelo" },
+      ],
       video: {
         youtubeId: "cX55NPxLzxs",
         title: "Concepções Marginais",
@@ -719,9 +733,20 @@ const en: EditorialContent = {
         "Led by Gerson Afrobreak with Flying Low and resident artists, the research crosses breaking, dramaturgy, and the historical foundations of Afrobreak.",
         "Masks, identity, popular cultures, and the peripheral architecture of Greater São Paulo feed gestures, texts, scenes, and choreographies that find their final form in a dance film.",
       ],
-      image: sharedImages.collective,
-      secondaryImage: sharedImages.blue,
-      imageAlt: "Members of Flying Low in a group portrait",
+      image: sharedImages.concepcoesHero,
+      imageCredit: "Film still · Concepções Marginais (2024)",
+      secondaryImage: sharedImages.concepcoesWide,
+      secondaryImageCredit: "Film still · Direction and editing: Gerson Afrobreak",
+      imageAlt: "Masked person with colourful ribbons standing in front of a metal grid",
+      galleryLabel: "Film stills",
+      galleryCredit: "Concepções Marginais (2024) · Direction and editing: Gerson Afrobreak",
+      gallery: [
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-01.webp", alt: "Masked performer in a black-and-white scene" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-02.webp", alt: "Performer in a red hood moving beside a metal grid" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-03.webp", alt: "Performer in a paper mask posing on the pavement" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-04.webp", alt: "Performer in a paper mask dancing in a black-and-white scene" },
+        { src: "/images/concepcoes-marginais/concepcoes-marginais-05.webp", alt: "Masked performer dancing on the street in front of a yellow truck" },
+      ],
       video: {
         youtubeId: "cX55NPxLzxs",
         title: "Concepções Marginais",

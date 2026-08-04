@@ -219,8 +219,20 @@ test("renders the supplied videos, Kurupyra photo credits, and full technical sh
   const concepcoes = await render("/audiovisual/concepcoes-marginais");
   const concepcoesHtml = await concepcoes.text();
   assert.match(concepcoesHtml, /youtube-nocookie\.com\/embed\/cX55NPxLzxs/);
+  assert.match(concepcoesHtml, /concepcoes-marginais-hero\.webp/);
+  assert.match(concepcoesHtml, /concepcoes-marginais-wide\.webp/);
+  for (const stillId of ["01", "02", "03", "04", "05"]) {
+    assert.match(concepcoesHtml, new RegExp(`concepcoes-marginais-${stillId}\\.webp`));
+  }
+  assert.match(concepcoesHtml, /Stills do filme/);
+  assert.match(concepcoesHtml, /Direção e edição: Gerson Afrobreak/);
   assert.match(concepcoesHtml, /Gerson Afrobreak/);
   assert.match(concepcoesHtml, /Bruno Novais/);
+
+  const marginalConceptions = await render("/en/screen/marginal-conceptions");
+  const marginalConceptionsHtml = await marginalConceptions.text();
+  assert.match(marginalConceptionsHtml, /Film stills/);
+  assert.match(marginalConceptionsHtml, /Direction and editing: Gerson Afrobreak/);
 });
 
 test("keeps complete Portuguese and English copy in one typed dictionary", async () => {

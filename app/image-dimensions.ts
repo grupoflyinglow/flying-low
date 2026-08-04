@@ -13,6 +13,13 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/kurupyra/kurupyra-221.webp": { width: 1800, height: 1200 },
   "/images/kurupyra/kurupyra-261.webp": { width: 1800, height: 1200 },
   "/images/kurupyra/kurupyra-317.webp": { width: 1800, height: 1200 },
+  "/images/concepcoes-marginais/concepcoes-marginais-hero.webp": { width: 1920, height: 1080 },
+  "/images/concepcoes-marginais/concepcoes-marginais-wide.webp": { width: 1920, height: 960 },
+  "/images/concepcoes-marginais/concepcoes-marginais-01.webp": { width: 1600, height: 1067 },
+  "/images/concepcoes-marginais/concepcoes-marginais-02.webp": { width: 1600, height: 1067 },
+  "/images/concepcoes-marginais/concepcoes-marginais-03.webp": { width: 1600, height: 1067 },
+  "/images/concepcoes-marginais/concepcoes-marginais-04.webp": { width: 1600, height: 1067 },
+  "/images/concepcoes-marginais/concepcoes-marginais-05.webp": { width: 1600, height: 1067 },
 };
 
 export function getImageDimensions(src: string) {

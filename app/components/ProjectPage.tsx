@@ -95,7 +95,7 @@ export function ProjectPage({
       {project.gallery && project.gallery.length > 0 && (
         <section className="project-gallery section-shell" aria-labelledby="project-gallery">
           <div className="project-gallery-heading">
-            <p className="eyebrow" id="project-gallery">{content.common.gallery}</p>
+            <p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>
             {project.galleryCredit && <p>{project.galleryCredit}</p>}
           </div>
           <div className="project-gallery-grid">
