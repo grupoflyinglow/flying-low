@@ -48,9 +48,21 @@ export function SiteNav({ light = false }: { light?: boolean }) {
   useEffect(() => {
     const dialog = menuRef.current;
     if (!dialog) return;
+    const previousRootOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+
     if (menuOpen && !dialog.open) dialog.showModal();
     if (!menuOpen && dialog.open) dialog.close();
-    return () => { if (dialog.open) dialog.close(); };
+    if (menuOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.documentElement.style.overflow = previousRootOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      if (dialog.open) dialog.close();
+    };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -79,7 +91,7 @@ export function SiteNav({ light = false }: { light?: boolean }) {
             <a className="menu-brand" href={routeFor(locale, "home")} onClick={closeMenu} aria-label={t.nav.homeAria}>
               <img src="/brand/logo-mark-light.png" alt="" aria-hidden="true" width={273} height={414} loading="eager" decoding="async" />
             </a>
-            <button className="menu-close" type="button" onClick={closeMenu}>{t.nav.close} <span aria-hidden="true">×</span></button>
+            <button autoFocus className="menu-close" type="button" onClick={closeMenu}>{t.nav.close} <span aria-hidden="true">×</span></button>
           </div>
           <nav className="menu-links" aria-label={t.nav.mainMenu}>
             {items.map((item, index) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { SiteNav } from "./components/SiteNav";
 import { useLocale } from "./components/LocaleProvider";
 import { getEditorialContent } from "./editorial-content";
@@ -19,6 +19,7 @@ function getReducedMotionSnapshot() {
 export default function Home() {
   const { locale, t } = useLocale();
   const agenda = getEditorialContent(locale).agenda;
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
@@ -30,7 +31,7 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         {!prefersReducedMotion && (
           <iframe
-            className="hero-youtube"
+            className={`hero-youtube ${heroVideoReady ? "is-ready" : ""}`}
             src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&playsinline=1&loop=1&playlist=A244vRmQt8I&controls=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&rel=0"
             title={t.home.teaserTitle}
             aria-hidden="true"
@@ -38,6 +39,7 @@ export default function Home() {
             loading="eager"
             allow="autoplay; encrypted-media; picture-in-picture"
             referrerPolicy="strict-origin-when-cross-origin"
+            onLoad={() => setHeroVideoReady(true)}
           />
         )}
         <div className="hero-wash" />
