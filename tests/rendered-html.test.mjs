@@ -67,8 +67,12 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(home, /class="agenda-date-weekday">sexta e sábado/);
   assert.match(home, /class="agenda-date-weekday">quinta a domingo/);
   assert.match(home, /Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP/);
-  assert.match(home, /Em atualização/);
-  assert.match(home, /Horário TBC/);
+  assert.match(home, /class="agenda-date-day">18—19[\s\S]*class="agenda-date-time">19h/);
+  assert.match(home, /class="agenda-date-day">20[\s\S]*class="agenda-date-time">18h/);
+  assert.match(home, /class="agenda-date-day">25—26[\s\S]*class="agenda-date-time">19h/);
+  assert.match(home, /class="agenda-date-day">27[\s\S]*class="agenda-date-time">18h/);
+  assert.match(home, /Nome final a confirmar/);
+  assert.match(home, /Horário a confirmar/);
   assert.match(home, /class="collective-image-link" href="\/grupo"/);
   assert.match(home, /Conhecer o grupo/);
   assert.doesNotMatch(home, /class="manifesto/);
@@ -86,9 +90,12 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(agenda, /class="agenda-date-day">27/);
   assert.match(agenda, /class="agenda-date-label">estreia dia 18/);
   assert.match(agenda, /class="agenda-date-month">setembro/);
-  assert.match(agenda, /class="agenda-date-time">Horário TBC/);
+  assert.match(agenda, /class="agenda-date-day">18—19[\s\S]*class="agenda-date-time">19h/);
+  assert.match(agenda, /class="agenda-date-day">20[\s\S]*class="agenda-date-time">18h/);
+  assert.match(agenda, /class="agenda-date-day">25—26[\s\S]*class="agenda-date-time">19h/);
+  assert.match(agenda, /class="agenda-date-day">27[\s\S]*class="agenda-date-time">18h/);
   assert.match(agenda, /class="agenda-event-address">Rua Ana Cintra, 213/);
-  assert.match(agenda, /Em atualização/);
+  assert.match(agenda, /Nome final a confirmar/);
   assert.match(agenda, /Menino Assum Preto/);
 });
 
@@ -103,6 +110,7 @@ test("server-renders the complete information architecture in Portuguese", async
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
     ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
     ["/audiovisual/mesmo-no-lixo-nascem-flores", "Mesmo no lixo nascem flores"],
+    ["/audiovisual/brigando-por-uma-touca", "Brigando por uma touca."],
     ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
     ["/atividades-formativas", "Aprender em roda"],
     ["/atividades-formativas/oficinas", "Três entradas"],
@@ -135,6 +143,7 @@ test("server-renders English at translated URLs without a Portuguese first paint
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
     ["/en/screen/in-formation", "Learning also produces memory."],
     ["/en/screen/even-in-the-trash-grows-flowers", "Flowers can grow even in the trash."],
+    ["/en/screen/fighting-over-a-cap", "Fighting Over a Cap."],
     ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
     ["/en/learning", "Learn in a circle. Create collectively."],
     ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
@@ -193,6 +202,23 @@ test("gives the performances page its own image-led composition", async () => {
   assert.match(await audiovisual.text(), /class="collection-hero section-shell"/);
 });
 
+test("keeps only the horizontal project section for moderated conversations", async () => {
+  for (const [pathname, projectPath] of [
+    ["/debates-mediados", "/debates-mediados/primeira-edicao"],
+    ["/en/conversations", "/en/conversations/first-edition"],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, /class="collection-projects section-shell"/, pathname);
+    assert.match(html, new RegExp(`href="${projectPath}"`), pathname);
+    assert.doesNotMatch(html, /class="project-strip"/, pathname);
+  }
+
+  const audiovisual = await render("/audiovisual");
+  assert.match(await audiovisual.text(), /class="project-strip"/);
+});
+
 test("renders clickable video thumbnails, Kurupyra photo credits, and full technical sheets", async () => {
   const kurupyra = await render("/espetaculos/as-pegadas-do-kurupyra");
   assert.equal(kurupyra.status, 200);
@@ -218,7 +244,10 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.doesNotMatch(meninoHtml, /Luciana Gandelini|Restauração de figurino/);
 
   const revoada = await render("/espetaculos/revoada");
-  assert.match(await revoada.text(), /Ficha técnica em atualização\./);
+  const revoadaHtml = await revoada.text();
+  assert.match(revoadaHtml, /Ficha técnica em atualização\./);
+  assert.match(revoadaHtml, /src="\/images\/flying-low-stage-amber\.jpg"/);
+  assert.match(revoadaHtml, /19h às sextas e sábados · 18h aos domingos/);
 
   const concepcoes = await render("/audiovisual/concepcoes-marginais");
   const concepcoesHtml = await concepcoes.text();
@@ -243,7 +272,7 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   const evenTrash = await render("/audiovisual/mesmo-no-lixo-nascem-flores");
   const evenTrashHtml = await evenTrash.text();
   assert.match(evenTrashHtml, /class="project-teaser-card" href="https:\/\/www\.youtube\.com\/watch\?v=HlWvODEryF4" target="_blank" rel="noreferrer"/);
-  assert.match(evenTrashHtml, /src="\/images\/even-in-the-trash-grows-flowers\/even-trash-hero\.webp"/);
+  assert.match(evenTrashHtml, /src="\/images\/even-in-the-trash-grows-flowers\/even-trash-youtube\.webp"/);
   assert.doesNotMatch(evenTrashHtml, /youtube-nocookie\.com\/embed\/HlWvODEryF4/);
   assert.match(evenTrashHtml, /even-trash-hero\.webp/);
   assert.match(evenTrashHtml, /even-trash-wide\.webp/);
@@ -259,6 +288,23 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.match(evenTrashEnglishHtml, /Flowers can grow even in the trash\./);
   assert.match(evenTrashEnglishHtml, /Film stills/);
   assert.match(evenTrashEnglishHtml, /href="\/audiovisual\/mesmo-no-lixo-nascem-flores" hrefLang="pt-BR"/);
+
+  const fightingOverACap = await render("/audiovisual/brigando-por-uma-touca");
+  const fightingOverACapHtml = await fightingOverACap.text();
+  assert.match(fightingOverACapHtml, /class="project-teaser-card" href="https:\/\/www\.youtube\.com\/watch\?v=6m865ISf3to" target="_blank" rel="noreferrer"/);
+  assert.match(fightingOverACapHtml, /src="\/images\/fighting-over-a-cap\/fighting-over-a-cap-youtube\.webp"/);
+  assert.match(fightingOverACapHtml, /Jeff dos Santos Rodrigues \(Fioot\) e Gustavo Teles Fagundes/);
+
+  const danceFilms = await render("/audiovisual/videodancas");
+  const danceFilmsHtml = await danceFilms.text();
+  assert.match(danceFilmsHtml, /class="project-teaser-card" href="\/audiovisual\/mesmo-no-lixo-nascem-flores"/);
+  assert.match(danceFilmsHtml, /class="project-teaser-card" href="\/audiovisual\/brigando-por-uma-touca"/);
+  assert.doesNotMatch(danceFilmsHtml, /href="https:\/\/youtu\.be\/(HlWvODEryF4|6m865ISf3to)"/);
+
+  const cantigas = await render("/audiovisual/cantigas-do-meu-matulao");
+  assert.match(await cantigas.text(), /<meta name="robots" content="noindex, nofollow"\/>/);
+  assert.doesNotMatch(evenTrashHtml, /<meta name="robots" content="noindex, nofollow"\/>/);
+  assert.doesNotMatch(fightingOverACapHtml, /<meta name="robots" content="noindex, nofollow"\/>/);
 });
 
 test("renders both Fora da Gaiola flyers and confirmed event details", async () => {
@@ -313,9 +359,9 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(editorial, /Ricardo Ura/);
   assert.match(editorial, /@grupo_flyinglow/);
   assert.match(editorial, /label: "premiere on the 18th"/);
-  assert.match(editorial, /day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time TBC"/);
-  assert.match(editorial, /address: "Being updated"/);
-  assert.match(editorial, /venue: "Being updated"/);
+  assert.match(editorial, /day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed"/);
+  assert.match(editorial, /address: "Address to be confirmed"/);
+  assert.match(editorial, /venue: "Venue to be confirmed"/);
   assert.doesNotMatch(provider, /localStorage|useSyncExternalStore|document\.documentElement\.lang/);
   assert.match(provider, /locale: Locale/);
   assert.match(routes, /en: "\/en\/performances\/the-footprints-of-kurupyra"/);

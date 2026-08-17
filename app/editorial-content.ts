@@ -9,6 +9,7 @@ export type ProjectKey =
   | "emFormacao"
   | "videodancas"
   | "evenInTheTrash"
+  | "fightingOverACap"
   | "cantigas"
   | "oficinas"
   | "residencia"
@@ -24,6 +25,7 @@ const projectRouteKeys: Record<ProjectKey, RouteKey> = {
   emFormacao: "screenEmFormacao",
   videodancas: "screenVideodances",
   evenInTheTrash: "screenEvenTrash",
+  fightingOverACap: "screenFightingOverACap",
   cantigas: "screenCantigas",
   oficinas: "learningWorkshops",
   residencia: "learningResidency",
@@ -75,6 +77,7 @@ type VideoWork = {
   title: string;
   year: string;
   href: string;
+  projectKey?: ProjectKey;
   description?: string;
   image?: string;
   credits: Credit[];
@@ -192,6 +195,8 @@ const sharedImages = {
   concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
   evenTrashHero: "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp",
   evenTrashWide: "/images/even-in-the-trash-grows-flowers/even-trash-wide.webp",
+  evenTrashYouTube: "/images/even-in-the-trash-grows-flowers/even-trash-youtube.webp",
+  fightingOverACapYouTube: "/images/fighting-over-a-cap/fighting-over-a-cap-youtube.webp",
 };
 
 const ptBR: EditorialContent = {
@@ -335,7 +340,7 @@ const ptBR: EditorialContent = {
       status: "Em atualização",
       summary: "Estreia em 18 de setembro de 2026, no Teatro Galpão do Folias.",
       body: [
-        "Horário TBC · Teatro Galpão do Folias · R. Ana Cintra, 213.",
+        "19h às sextas e sábados · 18h aos domingos · Teatro Galpão do Folias · R. Ana Cintra, 213.",
         "Mais informações em breve.",
       ],
       image: sharedImages.amber,
@@ -343,7 +348,7 @@ const ptBR: EditorialContent = {
       imageAlt: "Flying Low em processo cênico",
       facts: [
         { label: "Estreia", value: "18 de setembro de 2026" },
-        { label: "Horário", value: "TBC" },
+        { label: "Horários", value: "19h às sextas e sábados · 18h aos domingos" },
         { label: "Local", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
       ],
       links: [],
@@ -426,12 +431,12 @@ const ptBR: EditorialContent = {
       facts: [{ label: "Formato", value: "Videodanças" }],
       links: [],
       videoWorks: [
-        { title: "Até no lixo crescem flores", year: "2022", href: "https://youtu.be/HlWvODEryF4", image: sharedImages.evenTrashHero, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Lee Anderson e Ricardo Ura" }] },
-        { title: "Brigando por uma touca", year: "2021", href: "https://youtu.be/6m865ISf3to", image: sharedImages.blue, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
+        { title: "Até no lixo crescem flores", year: "2021", href: "/audiovisual/mesmo-no-lixo-nascem-flores", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Produção", names: "Grupo Flying Low" }, { role: "Intérpretes", names: "Koide Ura e Lee Anderson" }] },
+        { title: "Brigando por uma touca", year: "2021", href: "/audiovisual/brigando-por-uma-touca", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
-      title: "Even in the Trash Grows Flowers",
+      title: "Até no lixo crescem flores",
       eyebrow: "Videodança",
       year: "2021",
       summary: "Em uma situação-limite, o encontro entre duas pessoas transforma a amizade em abrigo e possibilidade de permanência.",
@@ -458,6 +463,7 @@ const ptBR: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Assistir no YouTube",
+        thumbnail: sharedImages.evenTrashYouTube,
       },
       facts: [
         { label: "Formato", value: "Videodança" },
@@ -468,6 +474,33 @@ const ptBR: EditorialContent = {
         { role: "Produção", names: "Grupo Flying Low" },
         { role: "Intérpretes", names: "Koide Ura e Lee Anderson" },
         { role: "Composição musical", names: "Tiago Penalva e Rafaela Maciel" },
+      ],
+      links: [],
+    },
+    fightingOverACap: {
+      title: "Brigando por uma touca",
+      eyebrow: "Videodança",
+      year: "2021",
+      status: "Em atualização",
+      summary: "Videodança do Flying Low com Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes.",
+      synopsisHeading: "Brigando por uma touca.",
+      body: ["Informações de processo e ficha ampliada estão em atualização."],
+      image: sharedImages.fightingOverACapYouTube,
+      imageCredit: "Imagem do vídeo · Grupo Flying Low",
+      imageAlt: "Imagem de Brigando por uma touca",
+      video: {
+        youtubeId: "6m865ISf3to",
+        title: "Brigando por uma touca",
+        linkLabel: "Assistir no YouTube",
+        thumbnail: sharedImages.fightingOverACapYouTube,
+      },
+      facts: [
+        { label: "Formato", value: "Videodança" },
+        { label: "Ano", value: "2021" },
+      ],
+      credits: [
+        { role: "Direção", names: "Grupo Flying Low" },
+        { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" },
       ],
       links: [],
     },
@@ -663,33 +696,32 @@ const ptBR: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Próximos encontros.",
-    intro: "Agenda em atualização. Datas, horários e locais serão confirmados aqui assim que os detalhes estiverem fechados.",
+    intro: "Apresentações confirmadas para setembro e outubro de 2026. Horários e locais ainda em definição serão atualizados aqui.",
     when: "Quando · 2026",
     where: "Onde",
     events: [
       {
         title: "Revoada",
-        note: "Em atualização",
+        note: "Nome final a confirmar",
         dates: [
-          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "Horário TBC", label: "estreia dia 18" },
-          { day: "20", weekday: "domingo", month: "setembro", time: "Horário TBC" },
-          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "Horário TBC" },
-          { day: "27", weekday: "domingo", month: "setembro", time: "Horário TBC" },
+          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "19h", label: "estreia dia 18" },
+          { day: "20", weekday: "domingo", month: "setembro", time: "18h" },
+          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "19h" },
+          { day: "27", weekday: "domingo", month: "setembro", time: "18h" },
         ],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
-        note: "Em atualização",
-        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário TBC" }],
-        venue: "Em atualização",
-        address: "Em atualização",
+        note: "Nome final a confirmar",
+        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
+        venue: "Local a confirmar",
+        address: "Endereço a confirmar",
       },
       {
         title: "Menino Assum Preto",
-        note: "Em atualização",
-        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário TBC" }],
+        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
@@ -832,7 +864,7 @@ const en: EditorialContent = {
       status: "Being updated",
       summary: "Premieres on 18 September 2026 at Teatro Galpão do Folias.",
       body: [
-        "Time TBC · Teatro Galpão do Folias · R. Ana Cintra, 213.",
+        "7 pm on Fridays and Saturdays · 6 pm on Sundays · Teatro Galpão do Folias · R. Ana Cintra, 213.",
         "More information soon.",
       ],
       image: sharedImages.amber,
@@ -840,7 +872,7 @@ const en: EditorialContent = {
       imageAlt: "Flying Low in a stage process",
       facts: [
         { label: "Premiere", value: "18 September 2026" },
-        { label: "Time", value: "TBC" },
+        { label: "Times", value: "7 pm on Fridays and Saturdays · 6 pm on Sundays" },
         { label: "Venue", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
       ],
       links: [],
@@ -923,8 +955,8 @@ const en: EditorialContent = {
       facts: [{ label: "Format", value: "Dance films" }],
       links: [],
       videoWorks: [
-        { title: "Even in the Trash Grows Flowers", year: "2022", href: "https://youtu.be/HlWvODEryF4", image: sharedImages.evenTrashHero, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Lee Anderson and Ricardo Ura" }] },
-        { title: "Fighting Over a Cap", year: "2021", href: "https://youtu.be/6m865ISf3to", image: sharedImages.blue, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
+        { title: "Even in the Trash Grows Flowers", year: "2021", href: "/en/screen/even-in-the-trash-grows-flowers", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Production", names: "Grupo Flying Low" }, { role: "Performers", names: "Koide Ura and Lee Anderson" }] },
+        { title: "Fighting Over a Cap", year: "2021", href: "/en/screen/fighting-over-a-cap", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
@@ -955,6 +987,7 @@ const en: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Watch on YouTube",
+        thumbnail: sharedImages.evenTrashYouTube,
       },
       facts: [
         { label: "Format", value: "Dance film" },
@@ -965,6 +998,33 @@ const en: EditorialContent = {
         { role: "Production", names: "Grupo Flying Low" },
         { role: "Performers", names: "Koide Ura and Lee Anderson" },
         { role: "Music composition", names: "Tiago Penalva and Rafaela Maciel" },
+      ],
+      links: [],
+    },
+    fightingOverACap: {
+      title: "Fighting Over a Cap",
+      eyebrow: "Dance film",
+      year: "2021",
+      status: "Being updated",
+      summary: "A Flying Low dance film with Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes.",
+      synopsisHeading: "Fighting Over a Cap.",
+      body: ["Process information and expanded credits are being updated."],
+      image: sharedImages.fightingOverACapYouTube,
+      imageCredit: "Image from the video · Grupo Flying Low",
+      imageAlt: "Image from Fighting Over a Cap",
+      video: {
+        youtubeId: "6m865ISf3to",
+        title: "Fighting Over a Cap",
+        linkLabel: "Watch on YouTube",
+        thumbnail: sharedImages.fightingOverACapYouTube,
+      },
+      facts: [
+        { label: "Format", value: "Dance film" },
+        { label: "Year", value: "2021" },
+      ],
+      credits: [
+        { role: "Direction", names: "Grupo Flying Low" },
+        { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" },
       ],
       links: [],
     },
@@ -1160,33 +1220,32 @@ const en: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Upcoming encounters.",
-    intro: "Agenda being updated. Dates, times, and venues will be confirmed here as details are finalised.",
+    intro: "Confirmed performances for September and October 2026. Times and venues still to be confirmed will be updated here.",
     when: "When · 2026",
     where: "Where",
     events: [
       {
         title: "Revoada",
-        note: "Being updated",
+        note: "Final title to be confirmed",
         dates: [
-          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "Time TBC", label: "premiere on the 18th" },
-          { day: "20", weekday: "Sunday", month: "September", time: "Time TBC" },
-          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "Time TBC" },
-          { day: "27", weekday: "Sunday", month: "September", time: "Time TBC" },
+          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "7 pm", label: "premiere on the 18th" },
+          { day: "20", weekday: "Sunday", month: "September", time: "6 pm" },
+          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "7 pm" },
+          { day: "27", weekday: "Sunday", month: "September", time: "6 pm" },
         ],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
-        note: "Being updated",
-        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time TBC" }],
-        venue: "Being updated",
-        address: "Being updated",
+        note: "Final title to be confirmed",
+        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
+        venue: "Venue to be confirmed",
+        address: "Address to be confirmed",
       },
       {
         title: "Menino Assum Preto",
-        note: "Being updated",
-        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time TBC" }],
+        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },

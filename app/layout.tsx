@@ -27,6 +27,7 @@ const projectKeyByRoute: Partial<Record<RouteKey, ProjectKey>> = {
   screenEmFormacao: "emFormacao",
   screenVideodances: "videodancas",
   screenEvenTrash: "evenInTheTrash",
+  screenFightingOverACap: "fightingOverACap",
   screenCantigas: "cantigas",
   learningWorkshops: "oficinas",
   learningResidency: "residencia",
@@ -35,7 +36,6 @@ const projectKeyByRoute: Partial<Record<RouteKey, ProjectKey>> = {
 
 const noIndexRouteKeys = new Set<RouteKey>([
   "history",
-  "screenEvenTrash",
   "screenCantigas",
 ]);
 

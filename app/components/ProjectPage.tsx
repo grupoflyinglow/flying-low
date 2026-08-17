@@ -25,8 +25,9 @@ export function ProjectPage({
   const collection = content.collections[collectionKey];
   const isPerformance = collectionKey === "espetaculos";
   const projectIndex = collection.projectKeys.indexOf(projectKey);
+  const isCollectionProject = projectIndex >= 0;
   const previousKey = projectIndex > 0 ? collection.projectKeys[projectIndex - 1] : null;
-  const nextKey = projectIndex < collection.projectKeys.length - 1
+  const nextKey = isCollectionProject && projectIndex < collection.projectKeys.length - 1
     ? collection.projectKeys[projectIndex + 1]
     : null;
   const synopsisLabelId = project.synopsisHeading
@@ -51,7 +52,7 @@ export function ProjectPage({
             </a>
           )}
         </div>
-        {!isPerformance && <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
+        {(!isPerformance || !project.video) && <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
           {project.image ? (
             <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
@@ -127,7 +128,7 @@ export function ProjectPage({
         <section className="project-video-works section-shell" aria-label={project.title}>
           {project.videoWorks.map((work) => (
             <article key={work.href}>
-              <a className="project-teaser-card" href={work.href} target="_blank" rel="noreferrer">
+              <a className="project-teaser-card" href={work.projectKey ? projectRouteFor(locale, work.projectKey) : work.href} target={work.projectKey ? undefined : "_blank"} rel={work.projectKey ? undefined : "noreferrer"}>
                 <img {...getImageDimensions(work.image ?? project.image ?? "")} src={work.image ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
                 <span className="performance-cover-shade" aria-hidden="true" />
                 <span className="project-teaser-card-label">{work.title} · {work.year} <b>↗</b></span>
@@ -151,10 +152,10 @@ export function ProjectPage({
         </section>
       ) : <section className="project-links section-shell"><p className="eyebrow">{content.common.media}</p><p className="project-credits-pending">{content.common.updating}</p></section>}
 
-      <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
+      {isCollectionProject && <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
         {previousKey ? <a href={projectRouteFor(locale, previousKey)}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
         {nextKey ? <a href={projectRouteFor(locale, nextKey)}><span>{content.common.next}</span><strong>{content.projects[nextKey].title} →</strong></a> : <span />}
-      </nav>
+      </nav>}
     </main>
   );
 }

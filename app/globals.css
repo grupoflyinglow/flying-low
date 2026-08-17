@@ -133,7 +133,7 @@ img { display: block; max-width: 100%; }
 .footer-wordmark img { height: 47px; object-fit: contain; width: auto; }
 .footer-intro .eyebrow { color: var(--red); }
 .site-footer nav { display: grid; font-family: var(--mono); font-size: 16px; gap: 12px; letter-spacing: .02em; }
-.site-footer nav a { width: fit-content; }
+.site-footer nav a { align-items: center; display: inline-flex; min-height: 44px; width: fit-content; }
 .site-footer nav a:hover, .footer-contact:hover { color: var(--red); }
 .footer-contact { align-items: center; align-self: end; border-bottom: 1px solid var(--paper); display: inline-flex; font-family: var(--mono); font-size: 16px; justify-self: end; min-height: 44px; padding-bottom: 5px; transition: color .2s ease; }
 .footer-contact span { color: var(--red); font-size: 18px; }
@@ -407,6 +407,8 @@ img { display: block; max-width: 100%; }
   .nav-actions { gap: 10px; }
   .site-nav .nav-actions > .language-switch { display: none; }
   .menu-button { display: inline-flex; }
+  .project-facts { display: block; }
+  .project-facts > .eyebrow { margin-bottom: 45px; }
 }
 
 @media (max-width: 760px) {
@@ -478,7 +480,7 @@ img { display: block; max-width: 100%; }
   .footer-wordmark { height: 46px; width: 46px; }
   .footer-wordmark img { height: 40px; }
   .site-footer nav { grid-template-columns: 1fr 1fr; margin-top: 8px; }
-  .footer-contact { justify-self: start; }
+  .footer-contact { grid-column: auto; justify-self: start; }
   .footer-meta { font-size: 16px; margin-top: 52px; }
 
   .editorial-page { padding-top: 72px; }
@@ -569,6 +571,9 @@ img { display: block; max-width: 100%; }
 @media (max-width: 420px) {
   .hero-caption { bottom: 19%; }
   .hero-footer { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .collection-hero h1, .history-hero h1, .agenda-page-hero h1 { font-size: clamp(44px, 12vw, 72px); }
+  .project-hero h1, .project-page--poster .project-hero h1 { font-size: clamp(56px, 17vw, 72px); }
+  .project-story-copy h2, .timeline-copy h2 { font-size: clamp(40px, 12vw, 54px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
