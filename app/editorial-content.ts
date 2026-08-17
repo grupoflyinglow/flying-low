@@ -7,7 +7,6 @@ export type ProjectKey =
   | "revoada"
   | "concepcoesMarginais"
   | "emFormacao"
-  | "videodancas"
   | "evenInTheTrash"
   | "fightingOverACap"
   | "cantigas"
@@ -23,7 +22,6 @@ const projectRouteKeys: Record<ProjectKey, RouteKey> = {
   revoada: "performanceRevoada",
   concepcoesMarginais: "screenConcepcoes",
   emFormacao: "screenEmFormacao",
-  videodancas: "screenVideodances",
   evenInTheTrash: "screenEvenTrash",
   fightingOverACap: "screenFightingOverACap",
   cantigas: "screenCantigas",
@@ -228,7 +226,7 @@ const ptBR: EditorialContent = {
       heading: "A câmera também entra na roda.",
       intro: "Diante da câmera, o breaking encontra outras distâncias, ritmos e formas de fazer memória.",
       stripLabel: "Projetos audiovisuais",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "fightingOverACap"],
     },
     formacao: {
       eyebrow: "Atividades formativas",
@@ -416,23 +414,6 @@ const ptBR: EditorialContent = {
       videoWorks: [
         { title: "1ª temporada", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episódios", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Produção", names: "Grupo Flying Low" }] },
         { title: "2ª temporada", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episódios", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Produção", names: "Grupo Flying Low" }] },
-      ],
-    },
-    videodancas: {
-      title: "Videodanças",
-      eyebrow: "Audiovisual",
-      year: "2021",
-      status: "Em atualização",
-      summary: "Entre disputa e acolhimento, dois encontros transformam a câmera em espaço de presença, tensão e cuidado.",
-      synopsisHeading: "Corpo, câmera e encontro.",
-      body: ["Até no lixo crescem flores e Brigando por uma touca partem do encontro entre intérpretes para investigar como os corpos se apoiam, se desafiam e criam relações diante da câmera."],
-      image: sharedImages.evenTrashHero,
-      imageAlt: "Cena de videodança do Flying Low",
-      facts: [{ label: "Formato", value: "Videodanças" }],
-      links: [],
-      videoWorks: [
-        { title: "Até no lixo crescem flores", year: "2021", href: "/audiovisual/mesmo-no-lixo-nascem-flores", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Produção", names: "Grupo Flying Low" }, { role: "Intérpretes", names: "Koide Ura e Lee Anderson" }] },
-        { title: "Brigando por uma touca", year: "2021", href: "/audiovisual/brigando-por-uma-touca", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
@@ -758,7 +739,7 @@ const en: EditorialContent = {
       heading: "The camera joins the circle.",
       intro: "In front of the camera, breaking finds new distances, rhythms, and ways of making memory.",
       stripLabel: "Screen projects",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "fightingOverACap"],
     },
     formacao: {
       eyebrow: "Learning activities",
@@ -940,23 +921,6 @@ const en: EditorialContent = {
       videoWorks: [
         { title: "Season 1", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episodes", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Production", names: "Grupo Flying Low" }] },
         { title: "Season 2", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episodes", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Production", names: "Grupo Flying Low" }] },
-      ],
-    },
-    videodancas: {
-      title: "Dance films",
-      eyebrow: "Screen work",
-      year: "2021",
-      status: "Being updated",
-      summary: "Between conflict and care, two encounters turn the camera into a space for presence, tension, and support.",
-      synopsisHeading: "Body, camera, and encounter.",
-      body: ["Even in the Trash Grows Flowers and Fighting Over a Cap begin with encounters between performers, exploring how bodies support, challenge, and relate to one another on camera."],
-      image: sharedImages.evenTrashHero,
-      imageAlt: "A scene from a Flying Low dance film",
-      facts: [{ label: "Format", value: "Dance films" }],
-      links: [],
-      videoWorks: [
-        { title: "Even in the Trash Grows Flowers", year: "2021", href: "/en/screen/even-in-the-trash-grows-flowers", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Production", names: "Grupo Flying Low" }, { role: "Performers", names: "Koide Ura and Lee Anderson" }] },
-        { title: "Fighting Over a Cap", year: "2021", href: "/en/screen/fighting-over-a-cap", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {

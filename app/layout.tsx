@@ -25,7 +25,6 @@ const projectKeyByRoute: Partial<Record<RouteKey, ProjectKey>> = {
   performanceRevoada: "revoada",
   screenConcepcoes: "concepcoesMarginais",
   screenEmFormacao: "emFormacao",
-  screenVideodances: "videodancas",
   screenEvenTrash: "evenInTheTrash",
   screenFightingOverACap: "fightingOverACap",
   screenCantigas: "cantigas",
