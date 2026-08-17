@@ -392,11 +392,11 @@ const ptBR: EditorialContent = {
       title: "Em Formação",
       eyebrow: "Série documental",
       year: "2021",
-      summary: "Uma série produzida dentro de Na Manha com Flying Low, projeto de ações pedagógicas apoiado pelo PROAC 31/2021.",
+      summary: "Duas temporadas documentais sobre breaking, suas histórias, cenas e pessoas.",
       synopsisHeading: "Aprender também é produzir memória.",
       body: [
-        "Em Formação registra práticas, conversas e processos pedagógicos desenvolvidos pelo grupo em torno do breaking.",
-        "A série aproxima ensino, criação e documentação para tornar visíveis os modos coletivos de construir conhecimento em dança.",
+        "A primeira temporada, contemplada pelo Programa VAI 2018, aborda nuances do Hip Hop com foco na dança breaking: suas origens nos Estados Unidos, sua difusão em São Paulo, o contexto das mulheres na cena e as produções de danças urbanas dentro dos teatros.",
+        "A segunda temporada integrou Na Manha com Flying Low, contemplado pelo edital PROAC Nº 31/2021 – Cidadania / Cultura Negra / Urbana / Hip Hop.",
       ],
       image: sharedImages.portrait,
       secondaryImage: sharedImages.collective,
@@ -406,8 +406,10 @@ const ptBR: EditorialContent = {
         { label: "Ano", value: "2021" },
         { label: "Contexto", value: "Na Manha com Flying Low · PROAC 31/2021" },
       ],
-      links: [
-        { label: "Solicitar materiais", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
+      links: [],
+      videoWorks: [
+        { title: "1ª temporada", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", credits: [{ role: "Episódios", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Produção", names: "Grupo Flying Low" }] },
+        { title: "2ª temporada", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", credits: [{ role: "Episódios", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Produção", names: "Grupo Flying Low" }] },
       ],
     },
     videodancas: {
@@ -885,11 +887,11 @@ const en: EditorialContent = {
       title: "Em Formação",
       eyebrow: "Documentary series",
       year: "2021",
-      summary: "A series produced within Na Manha com Flying Low, a learning project supported by PROAC 31/2021.",
+      summary: "Two documentary seasons about breaking, its histories, scenes, and people.",
       synopsisHeading: "Learning also produces memory.",
       body: [
-        "Em Formação documents practices, conversations, and pedagogical processes developed by the group around breaking.",
-        "The series connects teaching, creation, and documentation to make collective ways of building dance knowledge visible.",
+        "The first season, supported by the VAI Programme in 2018, explores Hip Hop through breaking: its origins in the United States, its spread through São Paulo, women’s place in the scene, and urban-dance productions in theatres.",
+        "The second season was part of Na Manha com Flying Low, supported by PROAC 31/2021 – Citizenship / Black / Urban / Hip Hop Culture.",
       ],
       image: sharedImages.portrait,
       secondaryImage: sharedImages.collective,
@@ -899,8 +901,10 @@ const en: EditorialContent = {
         { label: "Year", value: "2021" },
         { label: "Context", value: "Na Manha com Flying Low · PROAC 31/2021" },
       ],
-      links: [
-        { label: "Request materials", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
+      links: [],
+      videoWorks: [
+        { title: "Season 1", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", credits: [{ role: "Episodes", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Production", names: "Grupo Flying Low" }] },
+        { title: "Season 2", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", credits: [{ role: "Episodes", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Production", names: "Grupo Flying Low" }] },
       ],
     },
     videodancas: {
