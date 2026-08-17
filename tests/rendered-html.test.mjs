@@ -101,7 +101,7 @@ test("renders the 2026 schedule and the simplified home composition", async () =
 
 test("server-renders the complete information architecture in Portuguese", async () => {
   const routes = [
-    ["/grupo", "Um coletivo de artistas das periferias de São Paulo"],
+    ["/grupo", "Cinco artistas, uma criação compartilhada"],
     ["/espetaculos", "Menino Assum Preto"],
     ["/espetaculos/menino-assum-preto", "Um manifesto em movimento"],
     ["/espetaculos/as-pegadas-do-kurupyra", "Encantados brasileiros"],
@@ -134,7 +134,7 @@ test("server-renders the complete information architecture in Portuguese", async
 test("server-renders English at translated URLs without a Portuguese first paint", async () => {
   const routes = [
     ["/en", "Dance from São Paulo’s peripheries"],
-    ["/en/collective", "A collective of artists from São Paulo’s peripheries."],
+    ["/en/collective", "Five artists, one shared practice."],
     ["/en/performances", "Menino Assum Preto"],
     ["/en/performances/menino-assum-preto", "A manifesto in motion about labour"],
     ["/en/performances/the-footprints-of-kurupyra", "Brazilian enchanted beings"],
@@ -348,7 +348,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.doesNotMatch(i18n, /Active since 2016|Em atividade desde 2016/);
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
-  assert.match(editorial, /Works for bodies and territories in presence/);
+  assert.match(editorial, /Works born from body and territory/);
   assert.match(editorial, /Full credits/);
   assert.match(editorial, /Photography · Sarará Rodrigues/);
   assert.match(editorial, /Direction and video editing/);

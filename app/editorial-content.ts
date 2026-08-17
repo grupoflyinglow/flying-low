@@ -218,22 +218,22 @@ const ptBR: EditorialContent = {
   collections: {
     espetaculos: {
       eyebrow: "Espetáculos",
-      heading: "Trabalhos para corpos e territórios em presença.",
-      intro: "Obras cênicas que cruzam breaking, dança contemporânea, memória periférica e fabulação. A primeira faixa reúne os trabalhos; a rolagem abre cada processo em imagens, sinopse e contexto.",
+      heading: "Obras que nascem do corpo e do território.",
+      intro: "No palco, o breaking encontra memória, ancestralidade e imaginação para contar histórias de liberdade, confinamento e outros futuros possíveis.",
       stripLabel: "Espetáculos do Flying Low",
       projectKeys: ["meninoAssumPreto", "kurupyra", "revoada"],
     },
     audiovisual: {
       eyebrow: "Audiovisual",
       heading: "A câmera também entra na roda.",
-      intro: "Filmes, séries e experimentos que transportam a pesquisa do grupo para outros enquadramentos, tempos e modos de circulação.",
+      intro: "Diante da câmera, o breaking encontra outras distâncias, ritmos e formas de fazer memória.",
       stripLabel: "Projetos audiovisuais",
       projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
     },
     formacao: {
       eyebrow: "Atividades formativas",
       heading: "Aprender em roda. Criar em coletivo.",
-      intro: "Práticas para diferentes experiências em dança: dos fundamentos do breaking à criação de uma linguagem autoral e compartilhada.",
+      intro: "A roda se abre para compartilhar histórias, fundamentos e ferramentas de criação com diferentes experiências em dança.",
       stripLabel: "Percursos formativos",
       projectKeys: ["oficinas", "residencia"],
     },
@@ -613,8 +613,8 @@ const ptBR: EditorialContent = {
   },
   group: {
     membersEyebrow: "Quem são",
-    membersHeading: "Um coletivo de artistas das periferias de São Paulo.",
-    membersIntro: "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação. Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”, e “Circula Assum” (PROAC 04/2023), que levou Menino Assum Preto a sete cidades do estado de São Paulo, com apoio da Converse. Em 2022, estreou As Pegadas do Kurupyra. Desde 2021, conduz oficinas e residências por meio de Voando com Flying Low. Atualmente é formado por Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu) e Ricardo Ura (Koide).",
+    membersHeading: "Cinco artistas, uma criação compartilhada.",
+    membersIntro: "Formado em 2018 a partir de Menino Assum Preto, o Flying Low reúne Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu) e Ricardo Ura (Koide). Desde então, o grupo cruza cena, audiovisual e formação em obras, séries, oficinas e circulações que levam o breaking a diferentes públicos e territórios.",
     membersVisible: false,
     members: [
       {
@@ -669,11 +669,11 @@ const ptBR: EditorialContent = {
       },
     ],
     researchEyebrow: "Pesquisa",
-    researchHeading: "Pesquisa",
+    researchHeading: "O que move a pesquisa.",
     researchBody: [
-      "A pesquisa artística do Grupo Flying Low parte da dança breaking como linguagem cênica, política e poética, elaborando dramaturgias corporais que emergem das experiências periféricas e coletivas. A partir da vivência em grupo, da direção compartilhada e do cruzamento entre danças urbanas e contemporâneas, o coletivo constrói obras que emergem de práticas colaborativas, afetos e urgências vividas por seus integrantes, sempre atentos às questões que atravessam seus corpos e territórios.",
-      "As criações cênicas se debruçam sobre temas como o aprisionamento simbólico do corpo, a ancestralidade, a precarização do trabalho e a fabulação de outros futuros possíveis. Em Menino Assum Preto, evocam a imagem do trabalhador marginalizado em um corpo engaiolado. Já em As Pegadas do Kurupyra, aprofundam a relação com a ancestralidade e a fabulação, inspirando-se nos encantados da cultura herdada dos povos originários e da diáspora africana.",
-      "Além da criação cênica, a pesquisa se expande para a educação e o audiovisual, com destaque para Voando com Flying Low e para a série documental Em Formação. O grupo afirma uma dança do encontro entre margens, memória e imaginação, construindo caminhos sensíveis e comunitários de criação e transformação.",
+      "A pesquisa do Flying Low parte do breaking como linguagem cênica, política e poética. Pela direção compartilhada e pelo encontro entre danças urbanas e contemporâneas, o coletivo cria dramaturgias corporais ligadas a experiências periféricas e coletivas.",
+      "Nas obras, o grupo investiga aprisionamento, ancestralidade, precarização do trabalho e outros futuros possíveis. Menino Assum Preto aproxima o corpo engaiolado do trabalhador marginalizado; As Pegadas do Kurupyra encontra nos encantados caminhos para fabular memória e ancestralidade.",
+      "A pesquisa também se desdobra na formação e no audiovisual, com Voando com Flying Low e a série Em Formação. Em cada linguagem, o encontro permanece como modo de criar, aprender e imaginar.",
     ],
     researchAxes: ["Breaking e autoria", "Memória periférica", "Criação coletiva", "Cena e audiovisual"],
   },
@@ -748,22 +748,22 @@ const en: EditorialContent = {
   collections: {
     espetaculos: {
       eyebrow: "Performances",
-      heading: "Works for bodies and territories in presence.",
-      intro: "Stage works bringing breaking, contemporary dance, peripheral memory, and fabulation together. The opening strip gathers the projects; scrolling unfolds each process through images, synopsis, and context.",
+      heading: "Works born from body and territory.",
+      intro: "On stage, breaking meets memory, ancestry, and imagination to tell stories of freedom, confinement, and other possible futures.",
       stripLabel: "Flying Low performances",
       projectKeys: ["meninoAssumPreto", "kurupyra", "revoada"],
     },
     audiovisual: {
       eyebrow: "Screen work",
       heading: "The camera joins the circle.",
-      intro: "Films, series, and experiments carrying the collective’s research into other frames, temporalities, and forms of circulation.",
+      intro: "In front of the camera, breaking finds new distances, rhythms, and ways of making memory.",
       stripLabel: "Screen projects",
       projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
     },
     formacao: {
       eyebrow: "Learning activities",
       heading: "Learn in a circle. Create collectively.",
-      intro: "Practices for different levels of dance experience, from breaking foundations to the creation of an original, shared language.",
+      intro: "The circle opens to share histories, foundations, and creative tools across different levels of dance experience.",
       stripLabel: "Learning pathways",
       projectKeys: ["oficinas", "residencia"],
     },
@@ -1137,8 +1137,8 @@ const en: EditorialContent = {
   },
   group: {
     membersEyebrow: "Who they are",
-    membersHeading: "A collective of artists from São Paulo’s peripheries.",
-    membersIntro: "Flying Low researches breaking as a stage language, bringing urban dances, body dramaturgies, and collaborative creative practices together. Formed in 2018 with Menino Assum Preto, supported by the VAI Programme, the collective has since connected stage work, screen work, and learning through projects including Cantigas do Meu Matulão, Na Manha com Flying Low, Circula Assum, and As Pegadas do Kurupyra. Since 2021, it has also led workshops and residencies through Voando com Flying Low. The group currently comprises Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), and Ricardo Ura (Koide).",
+    membersHeading: "Five artists, one shared practice.",
+    membersIntro: "Formed in 2018 through Menino Assum Preto, Flying Low brings together Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), and Ricardo Ura (Koide). Since then, the collective has connected stage, screen, and learning through performances, films, workshops, and touring projects that bring breaking to different audiences and territories.",
     membersVisible: false,
     members: [
       {
@@ -1193,11 +1193,11 @@ const en: EditorialContent = {
       },
     ],
     researchEyebrow: "Research",
-    researchHeading: "Research",
+    researchHeading: "What drives the work.",
     researchBody: [
-      "Flying Low’s artistic research approaches breaking as a stage, political, and poetic language, developing body dramaturgies that emerge from collective and peripheral experience. Shared direction and the crossing of urban and contemporary dances shape works built from collaborative practice, care, and the urgencies lived by its members.",
-      "Its stage works explore symbolic confinement of the body, ancestry, precarious labour, and the fabulation of other possible futures. Menino Assum Preto evokes the marginalised worker through an enclosed body, while As Pegadas do Kurupyra deepens relationships with ancestry and fabulation through enchanted beings inherited from Indigenous peoples and the African diaspora.",
-      "The research also expands into learning and screen work through Voando com Flying Low and the documentary series Em Formação. On stage, on camera, and in learning processes, Flying Low turns peripheral experience into critical and sensitive artistic work.",
+      "Flying Low’s research approaches breaking as a stage, political, and poetic language. Through shared direction and the meeting of urban and contemporary dance, the collective creates body dramaturgies rooted in peripheral and collective experience.",
+      "The works explore confinement, ancestry, precarious labour, and other possible futures. Menino Assum Preto connects the caged body to the marginalised worker; As Pegadas do Kurupyra turns to enchanted beings to imagine memory and ancestry.",
+      "The research also unfolds through learning and screen work in Voando com Flying Low and the documentary series Em Formação. Across each form, encounter remains a way to create, learn, and imagine.",
     ],
     researchAxes: ["Breaking and authorship", "Peripheral memory", "Collective creation", "Stage and screen"],
   },
