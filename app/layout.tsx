@@ -63,6 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: copy.description,
       images: [socialImage],
     },
+    robots: routeKey === "history" ? { index: false, follow: false } : undefined,
   };
 }
 

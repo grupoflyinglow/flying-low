@@ -23,6 +23,7 @@ export function ProjectPage({
   const content = getEditorialContent(locale);
   const project = content.projects[projectKey];
   const collection = content.collections[collectionKey];
+  const isPerformance = collectionKey === "espetaculos";
   const projectIndex = collection.projectKeys.indexOf(projectKey);
   const previousKey = projectIndex > 0 ? collection.projectKeys[projectIndex - 1] : null;
   const nextKey = projectIndex < collection.projectKeys.length - 1
@@ -39,15 +40,22 @@ export function ProjectPage({
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
           {project.status && <span className="project-status">{project.status}</span>}
+          {isPerformance && project.video && (
+            <a className="project-teaser-card" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
+              <span className="performance-cover-shade" aria-hidden="true" />
+              <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
+            </a>
+          )}
         </div>
-        <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
+        {!isPerformance && <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
           {project.image ? (
             <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
           {project.imageCredit && <span className="project-hero-credit">{project.imageCredit}</span>}
-        </div>
+        </div>}
       </section>
 
       <section className="project-story section-shell" aria-labelledby="project-synopsis">
@@ -55,29 +63,19 @@ export function ProjectPage({
           <p className="eyebrow">{content.common.synopsis}</p>
         </div>
         <div className="project-story-copy">
-          <h2 id="project-synopsis">{project.synopsisHeading}</h2>
+          {project.synopsisHeading && <h2 id="project-synopsis">{project.synopsisHeading}</h2>}
           {project.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
 
-      {project.video && (
+      {project.video && !isPerformance && (
         <section className="project-video section-shell" aria-labelledby="project-video">
           <p className="eyebrow" id="project-video">{content.common.video}</p>
           <div className="project-video-content">
-            <div className="project-video-frame">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${project.video.youtubeId}`}
-                title={project.video.title}
-                width="1280"
-                height="720"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-            <a href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer">
-              {project.video.linkLabel} <span>↗</span>
+            <a className="project-teaser-card" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer">
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
+              <span className="performance-cover-shade" aria-hidden="true" />
+              <span className="project-teaser-card-label">{project.video.linkLabel} <b>↗</b></span>
             </a>
           </div>
         </section>
@@ -136,6 +134,21 @@ export function ProjectPage({
           ) : (
             <p className="project-credits-pending">{content.common.creditsPending}</p>
           )}
+        </section>
+      )}
+
+      {project.videoWorks && project.videoWorks.length > 0 && (
+        <section className="project-video-works section-shell" aria-label={project.title}>
+          {project.videoWorks.map((work) => (
+            <article key={work.href}>
+              <a className="project-teaser-card" href={work.href} target="_blank" rel="noreferrer">
+                <img {...getImageDimensions(project.image ?? "")} src={project.image ?? ""} alt="" loading="lazy" decoding="async" />
+                <span className="performance-cover-shade" aria-hidden="true" />
+                <span className="project-teaser-card-label">{work.title} · {work.year} <b>↗</b></span>
+              </a>
+              <dl className="project-credits-list">{work.credits.map((credit) => <div className="project-credit-row" key={credit.role}><dt>{credit.role}</dt><dd>{credit.names}</dd></div>)}</dl>
+            </article>
+          ))}
         </section>
       )}
 

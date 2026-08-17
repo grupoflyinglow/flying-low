@@ -41,7 +41,6 @@ export function SiteNav({ light = false }: { light?: boolean }) {
     { routeKey: "screen", label: t.nav.screen, desktopLabel: t.nav.screen },
     { routeKey: "learning", label: t.nav.learning, desktopLabel: t.nav.learningShort },
     { routeKey: "debates", label: t.nav.debates, desktopLabel: t.nav.debatesShort },
-    { routeKey: "history", label: t.nav.history, desktopLabel: t.nav.history },
     { routeKey: "agenda", label: t.nav.agenda, desktopLabel: t.nav.agenda },
   ] as const;
 
