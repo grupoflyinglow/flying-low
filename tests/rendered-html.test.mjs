@@ -101,19 +101,19 @@ test("renders the 2026 schedule and the simplified home composition", async () =
 
 test("server-renders the complete information architecture in Portuguese", async () => {
   const routes = [
-    ["/grupo", "Um coletivo de artistas das periferias de São Paulo"],
+    ["/grupo", "Cinco artistas, uma criação compartilhada"],
     ["/espetaculos", "Menino Assum Preto"],
     ["/espetaculos/menino-assum-preto", "Um manifesto em movimento"],
-    ["/espetaculos/as-pegadas-do-kurupyra", "Encantados brasileiros"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "Uma travessia guiada pelos encantados"],
     ["/espetaculos/revoada", "Estreia em 18 de setembro de 2026"],
     ["/audiovisual", "A câmera também entra na roda"],
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
     ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
     ["/audiovisual/mesmo-no-lixo-nascem-flores", "Mesmo no lixo nascem flores"],
-    ["/audiovisual/brigando-por-uma-touca", "Brigando por uma touca."],
+    ["/audiovisual/brigando-por-uma-touca", "Entre o jogo e a disputa."],
     ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
     ["/atividades-formativas", "Aprender em roda"],
-    ["/atividades-formativas/oficinas", "Três entradas"],
+    ["/atividades-formativas/oficinas", "Do fundamento à autoria."],
     ["/atividades-formativas/residencia", "surgimento de uma obra"],
     ["/debates-mediados", "A conversa continua"],
     ["/debates-mediados/primeira-edicao", "O que a dança contemporânea tem a ver com isso"],
@@ -134,19 +134,19 @@ test("server-renders the complete information architecture in Portuguese", async
 test("server-renders English at translated URLs without a Portuguese first paint", async () => {
   const routes = [
     ["/en", "Dance from São Paulo’s peripheries"],
-    ["/en/collective", "A collective of artists from São Paulo’s peripheries."],
+    ["/en/collective", "Five artists, one shared practice."],
     ["/en/performances", "Menino Assum Preto"],
     ["/en/performances/menino-assum-preto", "A manifesto in motion about labour"],
-    ["/en/performances/the-footprints-of-kurupyra", "Brazilian enchanted beings"],
+    ["/en/performances/the-footprints-of-kurupyra", "A journey guided by enchanted beings"],
     ["/en/performances/revoada", "Premieres on 18 September 2026"],
     ["/en/screen", "The camera joins the circle."],
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
     ["/en/screen/in-formation", "Learning also produces memory."],
     ["/en/screen/even-in-the-trash-grows-flowers", "Flowers can grow even in the trash."],
-    ["/en/screen/fighting-over-a-cap", "Fighting Over a Cap."],
+    ["/en/screen/fighting-over-a-cap", "Between play and conflict."],
     ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
     ["/en/learning", "Learn in a circle. Create collectively."],
-    ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
+    ["/en/learning/workshops", "From foundations to authorship."],
     ["/en/learning/residency", "From training to the emergence of a work."],
     ["/en/conversations", "The conversation continues after the stage."],
     ["/en/conversations/first-edition", "What does contemporary dance have to do with it?"],
@@ -183,6 +183,41 @@ test("server-renders English at translated URLs without a Portuguese first paint
   assert.match(performancesHtml, /rel="canonical" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
   assert.match(performancesHtml, /hrefLang="pt-BR" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/espetaculos"/);
   assert.match(performancesHtml, /hrefLang="en" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
+});
+
+test("lists both dance films directly under Audiovisual", async () => {
+  for (const [pathname, projects, removedGroupPath] of [
+    [
+      "/audiovisual",
+      [
+        ["/audiovisual/mesmo-no-lixo-nascem-flores", "Em uma situação-limite"],
+        ["/audiovisual/brigando-por-uma-touca", "Um jogo a dois"],
+      ],
+      "/audiovisual/videodancas",
+    ],
+    [
+      "/en/screen",
+      [
+        ["/en/screen/even-in-the-trash-grows-flowers", "At a moment of crisis"],
+        ["/en/screen/fighting-over-a-cap", "A duet in which the body turns conflict into dance"],
+      ],
+      "/en/screen/dance-films",
+    ],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+
+    for (const [projectPath, expectedCopy] of projects) {
+      assert.equal((html.match(new RegExp(`href="${projectPath}"`, "g")) ?? []).length, 2, projectPath);
+      assert.match(html, new RegExp(expectedCopy), pathname);
+    }
+
+    assert.doesNotMatch(html, new RegExp(`href="${removedGroupPath}"`), pathname);
+  }
+
+  assert.equal((await render("/audiovisual/videodancas")).status, 404);
+  assert.equal((await render("/en/screen/dance-films")).status, 404);
 });
 
 test("gives the performances page its own image-led composition", async () => {
@@ -282,24 +317,22 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.match(evenTrashHtml, /Stills do filme/);
   assert.match(evenTrashHtml, /Koide Ura e Lee Anderson/);
   assert.match(evenTrashHtml, /Tiago Penalva e Rafaela Maciel/);
+  assert.match(evenTrashHtml, /class="project-back" href="\/audiovisual">← (?:<!-- -->)?Audiovisual<\/a>/);
+  assert.match(evenTrashHtml, /href="\/audiovisual\/brigando-por-uma-touca"><span>Próximo<\/span><strong>Brigando por uma touca(?:<!-- -->)? →<\/strong><\/a>/);
 
   const evenTrashEnglish = await render("/en/screen/even-in-the-trash-grows-flowers");
   const evenTrashEnglishHtml = await evenTrashEnglish.text();
   assert.match(evenTrashEnglishHtml, /Flowers can grow even in the trash\./);
   assert.match(evenTrashEnglishHtml, /Film stills/);
   assert.match(evenTrashEnglishHtml, /href="\/audiovisual\/mesmo-no-lixo-nascem-flores" hrefLang="pt-BR"/);
+  assert.match(evenTrashEnglishHtml, /href="\/en\/screen\/fighting-over-a-cap"><span>Next<\/span><strong>Fighting Over a Cap(?:<!-- -->)? →<\/strong><\/a>/);
 
   const fightingOverACap = await render("/audiovisual/brigando-por-uma-touca");
   const fightingOverACapHtml = await fightingOverACap.text();
   assert.match(fightingOverACapHtml, /class="project-teaser-card" href="https:\/\/www\.youtube\.com\/watch\?v=6m865ISf3to" target="_blank" rel="noreferrer"/);
   assert.match(fightingOverACapHtml, /src="\/images\/fighting-over-a-cap\/fighting-over-a-cap-youtube\.webp"/);
   assert.match(fightingOverACapHtml, /Jeff dos Santos Rodrigues \(Fioot\) e Gustavo Teles Fagundes/);
-
-  const danceFilms = await render("/audiovisual/videodancas");
-  const danceFilmsHtml = await danceFilms.text();
-  assert.match(danceFilmsHtml, /class="project-teaser-card" href="\/audiovisual\/mesmo-no-lixo-nascem-flores"/);
-  assert.match(danceFilmsHtml, /class="project-teaser-card" href="\/audiovisual\/brigando-por-uma-touca"/);
-  assert.doesNotMatch(danceFilmsHtml, /href="https:\/\/youtu\.be\/(HlWvODEryF4|6m865ISf3to)"/);
+  assert.match(fightingOverACapHtml, /href="\/audiovisual\/mesmo-no-lixo-nascem-flores"><span>Anterior<\/span><strong>← (?:<!-- -->)?Até no lixo crescem flores<\/strong><\/a>/);
 
   const cantigas = await render("/audiovisual/cantigas-do-meu-matulao");
   assert.match(await cantigas.text(), /<meta name="robots" content="noindex, nofollow"\/>/);
@@ -348,7 +381,10 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.doesNotMatch(i18n, /Active since 2016|Em atividade desde 2016/);
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
-  assert.match(editorial, /Works for bodies and territories in presence/);
+  assert.match(editorial, /Works born from body and territory/);
+  assert.doesNotMatch(editorial, /A primeira faixa|a rolagem abre|opening strip|scrolling unfolds|Duas temporadas documentais|Duas videodanças|Two documentary seasons|gathered on one page|seleção inicial|initial selection/i);
+  assert.doesNotMatch(editorial, /videodancas:/);
+  assert.doesNotMatch(routes, /screenVideodances|\/audiovisual\/videodancas|\/en\/screen\/dance-films/);
   assert.match(editorial, /Full credits/);
   assert.match(editorial, /Photography · Sarará Rodrigues/);
   assert.match(editorial, /Direction and video editing/);
