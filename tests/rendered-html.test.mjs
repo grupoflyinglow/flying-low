@@ -104,16 +104,16 @@ test("server-renders the complete information architecture in Portuguese", async
     ["/grupo", "Cinco artistas, uma criação compartilhada"],
     ["/espetaculos", "Menino Assum Preto"],
     ["/espetaculos/menino-assum-preto", "Um manifesto em movimento"],
-    ["/espetaculos/as-pegadas-do-kurupyra", "Encantados brasileiros"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "Uma travessia guiada pelos encantados"],
     ["/espetaculos/revoada", "Estreia em 18 de setembro de 2026"],
     ["/audiovisual", "A câmera também entra na roda"],
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
     ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
     ["/audiovisual/mesmo-no-lixo-nascem-flores", "Mesmo no lixo nascem flores"],
-    ["/audiovisual/brigando-por-uma-touca", "Brigando por uma touca."],
+    ["/audiovisual/brigando-por-uma-touca", "Entre o jogo e a disputa."],
     ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
     ["/atividades-formativas", "Aprender em roda"],
-    ["/atividades-formativas/oficinas", "Três entradas"],
+    ["/atividades-formativas/oficinas", "Do fundamento à autoria."],
     ["/atividades-formativas/residencia", "surgimento de uma obra"],
     ["/debates-mediados", "A conversa continua"],
     ["/debates-mediados/primeira-edicao", "O que a dança contemporânea tem a ver com isso"],
@@ -137,16 +137,16 @@ test("server-renders English at translated URLs without a Portuguese first paint
     ["/en/collective", "Five artists, one shared practice."],
     ["/en/performances", "Menino Assum Preto"],
     ["/en/performances/menino-assum-preto", "A manifesto in motion about labour"],
-    ["/en/performances/the-footprints-of-kurupyra", "Brazilian enchanted beings"],
+    ["/en/performances/the-footprints-of-kurupyra", "A journey guided by enchanted beings"],
     ["/en/performances/revoada", "Premieres on 18 September 2026"],
     ["/en/screen", "The camera joins the circle."],
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
     ["/en/screen/in-formation", "Learning also produces memory."],
     ["/en/screen/even-in-the-trash-grows-flowers", "Flowers can grow even in the trash."],
-    ["/en/screen/fighting-over-a-cap", "Fighting Over a Cap."],
+    ["/en/screen/fighting-over-a-cap", "Between play and conflict."],
     ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
     ["/en/learning", "Learn in a circle. Create collectively."],
-    ["/en/learning/workshops", "Three entry points. One practice built in a circle."],
+    ["/en/learning/workshops", "From foundations to authorship."],
     ["/en/learning/residency", "From training to the emergence of a work."],
     ["/en/conversations", "The conversation continues after the stage."],
     ["/en/conversations/first-edition", "What does contemporary dance have to do with it?"],
@@ -183,6 +183,31 @@ test("server-renders English at translated URLs without a Portuguese first paint
   assert.match(performancesHtml, /rel="canonical" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
   assert.match(performancesHtml, /hrefLang="pt-BR" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/espetaculos"/);
   assert.match(performancesHtml, /hrefLang="en" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
+});
+
+test("uses editorial copy instead of describing the catalogue or interface", async () => {
+  const portugueseScreen = await render("/audiovisual");
+  const portugueseScreenHtml = await portugueseScreen.text();
+  assert.match(portugueseScreenHtml, /Em Formação escuta quem constrói o breaking/);
+  assert.match(portugueseScreenHtml, /Entre disputa e acolhimento/);
+
+  const englishScreen = await render("/en/screen");
+  const englishScreenHtml = await englishScreen.text();
+  assert.match(englishScreenHtml, /Em Formação listens to the people shaping breaking/);
+  assert.match(englishScreenHtml, /Between conflict and care/);
+
+  const portugueseDanceFilms = await render("/audiovisual/videodancas");
+  const portugueseDanceFilmsHtml = await portugueseDanceFilms.text();
+  assert.match(portugueseDanceFilmsHtml, /como os corpos se apoiam, se desafiam e criam relações/);
+  assert.match(portugueseDanceFilmsHtml, /Em atualização/);
+
+  const englishDanceFilms = await render("/en/screen/dance-films");
+  const englishDanceFilmsHtml = await englishDanceFilms.text();
+  assert.match(englishDanceFilmsHtml, /how bodies support, challenge, and relate to one another/);
+  assert.match(englishDanceFilmsHtml, /Being updated/);
+
+  const renderedCopy = [portugueseScreenHtml, englishScreenHtml, portugueseDanceFilmsHtml, englishDanceFilmsHtml].join("\n");
+  assert.doesNotMatch(renderedCopy, /Duas temporadas documentais|Duas videodanças|Two documentary seasons|gathered on one page|seleção inicial|initial selection/i);
 });
 
 test("gives the performances page its own image-led composition", async () => {
@@ -349,6 +374,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.doesNotMatch(i18n, /Breaking (como|as) (a )?(linguagem|scenic)/);
   assert.doesNotMatch(i18n, /Falar com Flying Low|Talk to Flying Low/);
   assert.match(editorial, /Works born from body and territory/);
+  assert.doesNotMatch(editorial, /A primeira faixa|a rolagem abre|opening strip|scrolling unfolds|Duas temporadas documentais|Duas videodanças|Two documentary seasons|gathered on one page|seleção inicial|initial selection/i);
   assert.match(editorial, /Full credits/);
   assert.match(editorial, /Photography · Sarará Rodrigues/);
   assert.match(editorial, /Direction and video editing/);
