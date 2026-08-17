@@ -1,98 +1,56 @@
-# vinext-starter
+# Flying Low
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+Site institucional bilíngue do Grupo Flying Low. O projeto usa Next.js App
+Router com React, compilado por Vinext/Vite para execução em Cloudflare
+Workers.
 
-## Prerequisites
+## Rodar localmente
 
-- Node.js `>=22.13.0`
-
-## Quick Start
+Requer Node.js `>=22.13.0`.
 
 ```bash
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+Use a URL impressa pelo Vite; a porta pode mudar se a padrão estiver ocupada.
 
-## Included Shape
+## Validar mudanças
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```bash
+npm run lint
+npx tsc --noEmit
+npm test
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+`npm test` cria o build e executa testes de renderização server-side contra o
+Worker compilado. Para mudanças visuais ou interativas, abra as rotas afetadas
+em português e inglês no navegador e confira pelo menos celular e desktop.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## Onde editar
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+| Mudança | Fonte principal |
+| --- | --- |
+| Textos de navegação, home e interface | [`app/i18n.ts`](app/i18n.ts) |
+| Projetos, coleções, agenda, histórico e mídia | [`app/editorial-content.ts`](app/editorial-content.ts) |
+| URLs equivalentes em PT/EN e aliases | [`app/route-localization.ts`](app/route-localization.ts) |
+| Metadados, canonical, hreflang e noindex | [`app/layout.tsx`](app/layout.tsx) |
+| Componentes compartilhados | [`app/components/`](app/components/) |
+| Estilos e breakpoints | [`app/globals.css`](app/globals.css) |
+| Imagens e dimensões intrínsecas | [`public/`](public/) e [`app/image-dimensions.ts`](app/image-dimensions.ts) |
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+O mapa completo de arquitetura, rotas e fluxos de mudança está em
+[`docs/CODEBASE_MAP.md`](docs/CODEBASE_MAP.md).
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+## Runtime e deploy
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- [`proxy.ts`](proxy.ts) deriva locale e pathname antes da renderização.
+- [`worker/index.ts`](worker/index.ts) é a entrada Cloudflare e também atende a
+  otimização de imagens.
+- [`vite.config.ts`](vite.config.ts) conecta Vinext, Sites e Cloudflare.
+- [`.openai/hosting.json`](.openai/hosting.json) identifica o projeto hospedado;
+  D1 e R2 não estão ativos.
+- Não há script de deploy neste repositório: o build produz `dist/` compatível
+  com Sites, e a publicação pertence ao ambiente externo de hospedagem.
+- `db/`, `drizzle/` e `examples/d1/` são scaffolds opcionais e não fazem parte do
+  site público atual.
