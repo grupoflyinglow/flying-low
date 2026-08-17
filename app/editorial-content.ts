@@ -76,6 +76,7 @@ type VideoWork = {
   year: string;
   href: string;
   description?: string;
+  image?: string;
   credits: Credit[];
 };
 
@@ -201,8 +202,8 @@ const ptBR: EditorialContent = {
     fullCredits: "Ficha técnica",
     creditsPending: "Ficha técnica em atualização.",
     gallery: "Registros de cena",
-    video: "Em vídeo",
-    media: "Informações",
+    video: "Teaser",
+    media: "Contato",
     sourceNote: "Perfil e créditos públicos",
     previous: "Anterior",
     next: "Próximo",
@@ -408,8 +409,8 @@ const ptBR: EditorialContent = {
       ],
       links: [],
       videoWorks: [
-        { title: "1ª temporada", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", credits: [{ role: "Episódios", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Produção", names: "Grupo Flying Low" }] },
-        { title: "2ª temporada", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", credits: [{ role: "Episódios", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Produção", names: "Grupo Flying Low" }] },
+        { title: "1ª temporada", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episódios", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Produção", names: "Grupo Flying Low" }] },
+        { title: "2ª temporada", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episódios", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Produção", names: "Grupo Flying Low" }] },
       ],
     },
     videodancas: {
@@ -425,8 +426,8 @@ const ptBR: EditorialContent = {
       facts: [{ label: "Formato", value: "Videodanças" }],
       links: [],
       videoWorks: [
-        { title: "Até no lixo crescem flores", year: "2022", href: "https://youtu.be/HlWvODEryF4", credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Lee Anderson e Ricardo Ura" }] },
-        { title: "Brigando por uma touca", year: "2021", href: "https://youtu.be/6m865ISf3to", credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
+        { title: "Até no lixo crescem flores", year: "2022", href: "https://youtu.be/HlWvODEryF4", image: sharedImages.evenTrashHero, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Lee Anderson e Ricardo Ura" }] },
+        { title: "Brigando por uma touca", year: "2021", href: "https://youtu.be/6m865ISf3to", image: sharedImages.blue, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
@@ -478,11 +479,12 @@ const ptBR: EditorialContent = {
       synopsisHeading: "Corpo, câmera e memória em deslocamento.",
       body: [
         "Cantigas do Meu Matulão leva a dança para o enquadramento da câmera, buscando outras proximidades entre gesto, espaço e montagem.",
-        "A página será ampliada com vídeo, ficha completa e registros de processo.",
+        "Vídeo, ficha completa e registros de processo estão em atualização.",
       ],
       image: sharedImages.blue,
       secondaryImage: sharedImages.assum,
       imageAlt: "Cena azul de trabalho do Flying Low",
+      status: "Em atualização",
       facts: [
         { label: "Formato", value: "Videodança" },
         { label: "Ano", value: "2020" },
@@ -661,32 +663,33 @@ const ptBR: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Próximos encontros.",
-    intro: "Apresentações confirmadas para setembro e outubro de 2026. Horários e locais ainda em definição serão atualizados aqui.",
+    intro: "Agenda em atualização. Datas, horários e locais serão confirmados aqui assim que os detalhes estiverem fechados.",
     when: "Quando · 2026",
     where: "Onde",
     events: [
       {
         title: "Revoada",
-        note: "Nome final a confirmar",
+        note: "Em atualização",
         dates: [
-          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "19h", label: "estreia dia 18" },
-          { day: "20", weekday: "domingo", month: "setembro", time: "18h" },
-          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "19h" },
-          { day: "27", weekday: "domingo", month: "setembro", time: "18h" },
+          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "Horário TBC", label: "estreia dia 18" },
+          { day: "20", weekday: "domingo", month: "setembro", time: "Horário TBC" },
+          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "Horário TBC" },
+          { day: "27", weekday: "domingo", month: "setembro", time: "Horário TBC" },
         ],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
-        note: "Nome final a confirmar",
-        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
-        venue: "Local a confirmar",
-        address: "Endereço a confirmar",
+        note: "Em atualização",
+        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário TBC" }],
+        venue: "Em atualização",
+        address: "Em atualização",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
+        note: "Em atualização",
+        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário TBC" }],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
@@ -702,8 +705,8 @@ const en: EditorialContent = {
     fullCredits: "Technical credits",
     creditsPending: "Full credits are being updated.",
     gallery: "Stage records",
-    video: "On video",
-    media: "Information",
+    video: "Teaser",
+    media: "Contact",
     sourceNote: "Public profile and credits",
     previous: "Previous",
     next: "Next",
@@ -903,8 +906,8 @@ const en: EditorialContent = {
       ],
       links: [],
       videoWorks: [
-        { title: "Season 1", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", credits: [{ role: "Episodes", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Production", names: "Grupo Flying Low" }] },
-        { title: "Season 2", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", credits: [{ role: "Episodes", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Production", names: "Grupo Flying Low" }] },
+        { title: "Season 1", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episodes", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Production", names: "Grupo Flying Low" }] },
+        { title: "Season 2", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episodes", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Production", names: "Grupo Flying Low" }] },
       ],
     },
     videodancas: {
@@ -920,8 +923,8 @@ const en: EditorialContent = {
       facts: [{ label: "Format", value: "Dance films" }],
       links: [],
       videoWorks: [
-        { title: "Even in the Trash Grows Flowers", year: "2022", href: "https://youtu.be/HlWvODEryF4", credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Lee Anderson and Ricardo Ura" }] },
-        { title: "Fighting Over a Cap", year: "2021", href: "https://youtu.be/6m865ISf3to", credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
+        { title: "Even in the Trash Grows Flowers", year: "2022", href: "https://youtu.be/HlWvODEryF4", image: sharedImages.evenTrashHero, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Lee Anderson and Ricardo Ura" }] },
+        { title: "Fighting Over a Cap", year: "2021", href: "https://youtu.be/6m865ISf3to", image: sharedImages.blue, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
@@ -973,11 +976,12 @@ const en: EditorialContent = {
       synopsisHeading: "Body, camera, and memory in motion.",
       body: [
         "Cantigas do Meu Matulão carries dance into the camera frame, seeking other proximities between gesture, space, and editing.",
-        "The page will be expanded with the film, full credits, and process records.",
+        "The film, full credits, and process records are being updated.",
       ],
       image: sharedImages.blue,
       secondaryImage: sharedImages.assum,
       imageAlt: "Blue-lit scene from Flying Low",
+      status: "Being updated",
       facts: [
         { label: "Format", value: "Dance film" },
         { label: "Year", value: "2020" },
@@ -1156,32 +1160,33 @@ const en: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Upcoming encounters.",
-    intro: "Confirmed performances for September and October 2026. Times and venues still to be confirmed will be updated here.",
+    intro: "Agenda being updated. Dates, times, and venues will be confirmed here as details are finalised.",
     when: "When · 2026",
     where: "Where",
     events: [
       {
         title: "Revoada",
-        note: "Final title to be confirmed",
+        note: "Being updated",
         dates: [
-          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "7 pm", label: "premiere on the 18th" },
-          { day: "20", weekday: "Sunday", month: "September", time: "6 pm" },
-          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "7 pm" },
-          { day: "27", weekday: "Sunday", month: "September", time: "6 pm" },
+          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "Time TBC", label: "premiere on the 18th" },
+          { day: "20", weekday: "Sunday", month: "September", time: "Time TBC" },
+          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "Time TBC" },
+          { day: "27", weekday: "Sunday", month: "September", time: "Time TBC" },
         ],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },
       {
         title: "Revoada",
-        note: "Final title to be confirmed",
-        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
-        venue: "Venue to be confirmed",
-        address: "Address to be confirmed",
+        note: "Being updated",
+        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time TBC" }],
+        venue: "Being updated",
+        address: "Being updated",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
+        note: "Being updated",
+        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time TBC" }],
         venue: "Teatro Galpão do Folias",
         address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
       },

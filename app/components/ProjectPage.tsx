@@ -29,6 +29,9 @@ export function ProjectPage({
   const nextKey = projectIndex < collection.projectKeys.length - 1
     ? collection.projectKeys[projectIndex + 1]
     : null;
+  const synopsisLabelId = project.synopsisHeading
+    ? "project-synopsis-heading"
+    : "project-synopsis";
 
   return (
     <main className={`editorial-page project-page ${project.presentation === "poster" ? "project-page--poster" : ""}`} id="main-content" tabIndex={-1}>
@@ -58,12 +61,12 @@ export function ProjectPage({
         </div>}
       </section>
 
-      <section className="project-story section-shell" aria-labelledby="project-synopsis">
+      <section className="project-story section-shell" aria-labelledby={synopsisLabelId}>
         <div className="project-story-label">
-          <p className="eyebrow">{content.common.synopsis}</p>
+          <p className="eyebrow" id={project.synopsisHeading ? undefined : synopsisLabelId}>{content.common.synopsis}</p>
         </div>
         <div className="project-story-copy">
-          {project.synopsisHeading && <h2 id="project-synopsis">{project.synopsisHeading}</h2>}
+          {project.synopsisHeading && <h2 id={synopsisLabelId}>{project.synopsisHeading}</h2>}
           {project.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
@@ -90,22 +93,23 @@ export function ProjectPage({
         </section>
       )}
 
-      {project.gallery && project.gallery.length > 0 && (
-        <section className="project-gallery section-shell" aria-labelledby="project-gallery">
-          <div className="project-gallery-heading">
-            <p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>
-            {project.galleryCredit && <p>{project.galleryCredit}</p>}
-          </div>
-          <div className="project-gallery-grid">
-            {project.gallery.map((image) => (
-              <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}>
-                <img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-                {image.credit && <figcaption>{image.credit}</figcaption>}
-              </figure>
+      <section className="project-credits section-shell" aria-labelledby="project-full-credits">
+        <p className="eyebrow" id="project-full-credits">{content.common.fullCredits}</p>
+        {project.credits && project.credits.length > 0 ? (
+          <dl className="project-credits-list">
+            {project.credits.map((credit) => (
+              <div className="project-credit-row" key={credit.role}><dt>{credit.role}</dt><dd>{credit.names}</dd></div>
             ))}
-          </div>
+          </dl>
+        ) : <p className="project-credits-pending">{content.common.creditsPending}</p>}
+      </section>
+
+      {project.gallery && project.gallery.length > 0 ? (
+        <section className="project-gallery section-shell" aria-labelledby="project-gallery">
+          <div className="project-gallery-heading"><p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>{project.galleryCredit && <p>{project.galleryCredit}</p>}</div>
+          <div className="project-gallery-grid">{project.gallery.map((image) => <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}><img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />{image.credit && <figcaption>{image.credit}</figcaption>}</figure>)}</div>
         </section>
-      )}
+      ) : <section className="project-gallery section-shell"><p className="project-credits-pending">{content.common.galleryPending}</p></section>}
 
       <section className="project-facts section-shell" aria-labelledby="project-technical">
         <p className="eyebrow" id="project-technical">{content.common.technical}</p>
@@ -119,30 +123,12 @@ export function ProjectPage({
         </div>
       </section>
 
-      {(collectionKey === "espetaculos" || (project.credits && project.credits.length > 0)) && (
-        <section className="project-credits section-shell" aria-labelledby="project-full-credits">
-          <p className="eyebrow" id="project-full-credits">{content.common.fullCredits}</p>
-          {project.credits && project.credits.length > 0 ? (
-            <dl className="project-credits-list">
-              {project.credits.map((credit) => (
-                <div className="project-credit-row" key={credit.role}>
-                  <dt>{credit.role}</dt>
-                  <dd>{credit.names}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : (
-            <p className="project-credits-pending">{content.common.creditsPending}</p>
-          )}
-        </section>
-      )}
-
       {project.videoWorks && project.videoWorks.length > 0 && (
         <section className="project-video-works section-shell" aria-label={project.title}>
           {project.videoWorks.map((work) => (
             <article key={work.href}>
               <a className="project-teaser-card" href={work.href} target="_blank" rel="noreferrer">
-                <img {...getImageDimensions(project.image ?? "")} src={project.image ?? ""} alt="" loading="lazy" decoding="async" />
+                <img {...getImageDimensions(work.image ?? project.image ?? "")} src={work.image ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
                 <span className="performance-cover-shade" aria-hidden="true" />
                 <span className="project-teaser-card-label">{work.title} · {work.year} <b>↗</b></span>
               </a>
@@ -152,7 +138,7 @@ export function ProjectPage({
         </section>
       )}
 
-      {project.links.length > 0 && (
+      {project.links.length > 0 ? (
         <section className="project-links section-shell" aria-labelledby="project-media">
           <p className="eyebrow" id="project-media">{content.common.media}</p>
           <div>
@@ -163,7 +149,7 @@ export function ProjectPage({
             ))}
           </div>
         </section>
-      )}
+      ) : <section className="project-links section-shell"><p className="eyebrow">{content.common.media}</p><p className="project-credits-pending">{content.common.updating}</p></section>}
 
       <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
         {previousKey ? <a href={projectRouteFor(locale, previousKey)}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
