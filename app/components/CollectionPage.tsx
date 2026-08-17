@@ -14,6 +14,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
   const { locale } = useLocale();
   const content = getEditorialContent(locale);
   const collection = content.collections[collectionKey];
+  const hasProjectStrip = collectionKey !== "debates";
 
   return (
     <main className="editorial-page collection-page" id="main-content" tabIndex={-1}>
@@ -24,29 +25,31 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
         <p>{collection.intro}</p>
       </section>
 
-      <section className="project-strip" aria-label={collection.stripLabel}>
-        <div className="project-strip-track">
-          {collection.projectKeys.map((projectKey, index) => {
-            const project = content.projects[projectKey];
-            return (
-              <a className={`strip-card ${project.presentation === "poster" ? "is-poster" : ""}`} href={projectRouteFor(locale, projectKey)} key={projectKey}>
-                <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
-                <span className="strip-media">
-                  {project.image ? (
-                    <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
-                  ) : (
-                    <span className="strip-placeholder">{project.placeholderLabel}</span>
-                  )}
-                </span>
-                <span className="strip-copy">
-                  <span>{project.year}</span>
-                  <strong>{project.title}</strong>
-                </span>
-              </a>
-            );
-          })}
-        </div>
-      </section>
+      {hasProjectStrip && (
+        <section className="project-strip" aria-label={collection.stripLabel}>
+          <div className="project-strip-track">
+            {collection.projectKeys.map((projectKey, index) => {
+              const project = content.projects[projectKey];
+              return (
+                <a className={`strip-card ${project.presentation === "poster" ? "is-poster" : ""}`} href={projectRouteFor(locale, projectKey)} key={projectKey}>
+                  <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="strip-media">
+                    {project.image ? (
+                      <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+                    ) : (
+                      <span className="strip-placeholder">{project.placeholderLabel}</span>
+                    )}
+                  </span>
+                  <span className="strip-copy">
+                    <span>{project.year}</span>
+                    <strong>{project.title}</strong>
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <div className="collection-projects section-shell">
         {collection.projectKeys.map((projectKey, index) => {

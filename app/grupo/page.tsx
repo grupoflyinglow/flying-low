@@ -14,7 +14,6 @@ export default function Grupo() {
       <SiteNav />
       <section className="archive-hero section-shell">
         <p className="eyebrow">{t.group.eyebrow}</p>
-        <h1>{t.group.heading1}<br />{t.group.heading2}</h1>
         <p className="archive-intro">{t.group.intro}</p>
       </section>
 
@@ -24,7 +23,7 @@ export default function Grupo() {
           <h2 id="members-title">{content.membersHeading}</h2>
           <p>{content.membersIntro}</p>
         </div>
-        <div className="members-list">
+        {content.membersVisible && <div className="members-list">
           {content.members.map((member, index) => (
             <article className="member-profile" key={member.name}>
               <span className="member-number">{String(index + 1).padStart(2, "0")}</span>
@@ -43,7 +42,7 @@ export default function Grupo() {
               </div>
             </article>
           ))}
-        </div>
+        </div>}
       </section>
 
       <section className="group-research" aria-labelledby="research-title">
@@ -54,9 +53,9 @@ export default function Grupo() {
             <div className="research-copy">
               {content.researchBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <ol className="research-axes">
+            {content.researchAxes.length > 0 && <ol className="research-axes">
               {content.researchAxes.map((axis, index) => <li key={axis}><span>{String(index + 1).padStart(2, "0")}</span>{axis}</li>)}
-            </ol>
+            </ol>}
           </div>
         </div>
       </section>

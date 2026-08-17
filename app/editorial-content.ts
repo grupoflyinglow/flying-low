@@ -7,7 +7,9 @@ export type ProjectKey =
   | "revoada"
   | "concepcoesMarginais"
   | "emFormacao"
+  | "videodancas"
   | "evenInTheTrash"
+  | "fightingOverACap"
   | "cantigas"
   | "oficinas"
   | "residencia"
@@ -21,7 +23,9 @@ const projectRouteKeys: Record<ProjectKey, RouteKey> = {
   revoada: "performanceRevoada",
   concepcoesMarginais: "screenConcepcoes",
   emFormacao: "screenEmFormacao",
+  videodancas: "screenVideodances",
   evenInTheTrash: "screenEvenTrash",
+  fightingOverACap: "screenFightingOverACap",
   cantigas: "screenCantigas",
   oficinas: "learningWorkshops",
   residencia: "learningResidency",
@@ -65,6 +69,18 @@ type ProjectVideo = {
   youtubeId: string;
   title: string;
   linkLabel: string;
+  thumbnail?: string;
+  thumbnailAlt?: string;
+};
+
+type VideoWork = {
+  title: string;
+  year: string;
+  href: string;
+  projectKey?: ProjectKey;
+  description?: string;
+  image?: string;
+  credits: Credit[];
 };
 
 export type EditorialProject = {
@@ -74,7 +90,7 @@ export type EditorialProject = {
   status?: string;
   presentation?: "poster";
   summary: string;
-  synopsisHeading: string;
+  synopsisHeading?: string;
   body: string[];
   image?: string;
   imageCredit?: string;
@@ -84,6 +100,7 @@ export type EditorialProject = {
   galleryLabel?: string;
   galleryCredit?: string;
   video?: ProjectVideo;
+  videoWorks?: VideoWork[];
   credits?: Credit[];
   imageAlt: string;
   placeholderLabel?: string;
@@ -120,6 +137,8 @@ type EditorialContent = {
     sourceNote: string;
     previous: string;
     next: string;
+    updating: string;
+    galleryPending: string;
   };
   collections: Record<CollectionKey, EditorialCollection>;
   projects: Record<ProjectKey, EditorialProject>;
@@ -127,6 +146,7 @@ type EditorialContent = {
     membersEyebrow: string;
     membersHeading: string;
     membersIntro: string;
+    membersVisible?: boolean;
     members: Member[];
     researchEyebrow: string;
     researchHeading: string;
@@ -175,6 +195,8 @@ const sharedImages = {
   concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
   evenTrashHero: "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp",
   evenTrashWide: "/images/even-in-the-trash-grows-flowers/even-trash-wide.webp",
+  evenTrashYouTube: "/images/even-in-the-trash-grows-flowers/even-trash-youtube.webp",
+  fightingOverACapYouTube: "/images/fighting-over-a-cap/fighting-over-a-cap-youtube.webp",
 };
 
 const ptBR: EditorialContent = {
@@ -182,14 +204,16 @@ const ptBR: EditorialContent = {
     openProject: "Abrir projeto",
     synopsis: "Sinopse",
     technical: "Informações",
-    fullCredits: "Ficha técnica completa",
+    fullCredits: "Ficha técnica",
     creditsPending: "Ficha técnica em atualização.",
     gallery: "Registros de cena",
-    video: "Em vídeo",
-    media: "Vídeos e materiais",
+    video: "Teaser",
+    media: "Contato",
     sourceNote: "Perfil e créditos públicos",
     previous: "Anterior",
     next: "Próximo",
+    updating: "Em atualização",
+    galleryPending: "Registros em atualização.",
   },
   collections: {
     espetaculos: {
@@ -204,7 +228,7 @@ const ptBR: EditorialContent = {
       heading: "A câmera também entra na roda.",
       intro: "Filmes, séries e experimentos que transportam a pesquisa do grupo para outros enquadramentos, tempos e modos de circulação.",
       stripLabel: "Projetos audiovisuais",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "cantigas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
     },
     formacao: {
       eyebrow: "Atividades formativas",
@@ -227,14 +251,26 @@ const ptBR: EditorialContent = {
       eyebrow: "Espetáculo",
       year: "2019",
       summary: "Um manifesto em movimento sobre trabalho, aprisionamento e o direito de sonhar.",
-      synopsisHeading: "O pássaro aprisionado encontra o trabalhador urbano.",
       body: [
-        "Inspirado na canção “Assum Preto”, de Luiz Gonzaga e Humberto Teixeira, o espetáculo cria um paralelo entre o pássaro cegado que canta sem ver o mundo e o trabalhador empurrado a sobreviver em um cotidiano de exploração e invisibilidade.",
-        "Breaking e dança contemporânea constroem uma narrativa sobre dignidade e liberdade, entre dor, poesia, acrobacia e força.",
+        "Inspirado na canção emblemática “Assum Preto”, de Luiz Gonzaga e Humberto Teixeira, Menino Assum Preto é um manifesto em movimento que se inscreve no corpo e na memória dos intérpretes-criadores do grupo Flying Low, todos vindos das periferias de São Paulo. A obra traça um paralelo tocante entre o pássaro aprisionado e cegado — que canta sem ver o mundo — e o trabalhador urbano, empurrado a sobreviver num cotidiano de exploração e invisibilidade. Combinando breaking e dança contemporânea, os artistas lançam seus corpos em cena para criar uma narrativa visceral sobre a luta por dignidade e liberdade. Com trilha sonora, iluminação e figurino originais, a montagem convida o público a mergulhar em uma atmosfera que vai do denso ao lúdico, evocando a dor, a poesia e a força dos corpos que insistem em sonhar. Tudo isso por meio de acrobacias virtuosas do breaking e uma expressividade única.",
+        "Desde sua estreia em 2019, o espetáculo circula por festivais e espaços culturais, fazendo coro à afirmação da arte periférica como expressão crítica, sensível e transformadora.",
       ],
-      image: sharedImages.assum,
-      secondaryImage: sharedImages.amber,
-      imageAlt: "Cena do espetáculo Menino Assum Preto",
+      image: "/images/menino-assum-preto/assum-01.webp",
+      secondaryImage: "/images/menino-assum-preto/assum-04.webp",
+      imageAlt: "Intérpretes de Menino Assum Preto em cena",
+      galleryLabel: "Registros de cena",
+      gallery: [
+        { src: "/images/menino-assum-preto/assum-02.webp", alt: "Elenco de Menino Assum Preto em cena diante do público" },
+        { src: "/images/menino-assum-preto/assum-03.webp", alt: "Dois intérpretes de Menino Assum Preto em movimento" },
+        { src: "/images/menino-assum-preto/assum-05.webp", alt: "Integrantes do Flying Low reunidos em retrato" },
+      ],
+      video: {
+        youtubeId: "A244vRmQt8I",
+        title: "Teaser de Menino Assum Preto",
+        linkLabel: "Assistir teaser no YouTube",
+        thumbnail: "/images/menino-assum-preto/assum-01.webp",
+        thumbnailAlt: "Abrir teaser de Menino Assum Preto no YouTube",
+      },
       facts: [
         { label: "Duração", value: "45 min" },
         { label: "Classificação", value: "10 anos" },
@@ -249,8 +285,6 @@ const ptBR: EditorialContent = {
         { role: "Produção", names: "Laís Machado" },
       ],
       links: [
-        { label: "Assistir teaser", href: "https://youtu.be/A244vRmQt8I" },
-        { label: "Espetáculo na íntegra", href: "https://youtu.be/HoIGxT3XuSU" },
         { label: "Solicitar rider técnico", href: "mailto:producaoflyinglow@gmail.com?subject=Rider%20-%20Menino%20Assum%20Preto" },
       ],
     },
@@ -258,11 +292,9 @@ const ptBR: EditorialContent = {
       title: "As Pegadas do Kurupyra",
       eyebrow: "Espetáculo",
       year: "2022",
-      summary: "Encantados brasileiros, breaking e improvisação em uma obra sobre ganância, partilha e imaginação coletiva.",
-      synopsisHeading: "Rastros de um território vivo.",
+      summary: "Encantados brasileiros, breaking, música e improvisação em uma obra que nasce dos fundamentos africanos e indígenas deste território.",
       body: [
-        "Inspirada nos encantados e no bestiário do território brasileiro, a obra aproxima perspectivas afro-diaspóricas e indígenas de uma pesquisa corporal que mescla breaking e dança contemporânea.",
-        "Jogos de improvisação cênica e interação com o público movem uma investigação sobre ganância e partilha, fazendo do encontro uma parte essencial da dramaturgia.",
+        "“As Pegadas do Kurupyra” é um trabalho inspirado nos seres encantados da cultura brasileira, a partir dos fundamentos africanos e indígenas que fazem parte deste território chamado de Brasil, utilizando a dança breaking, elemento que faz parte do DNA da pesquisa continuada do coletivo, a música e dispositivos de improvisação.",
       ],
       image: sharedImages.kurupyraHero,
       imageCredit: "Foto · Sarará Rodrigues",
@@ -283,6 +315,8 @@ const ptBR: EditorialContent = {
         youtubeId: "TQZI4t759ng",
         title: "Teaser de As Pegadas do Kurupyra",
         linkLabel: "Assistir no YouTube",
+        thumbnail: "/images/kurupyra/kurupyra-193.webp",
+        thumbnailAlt: "Abrir teaser de As Pegadas do Kurupyra no YouTube",
       },
       facts: [
         { label: "Duração", value: "60 min" },
@@ -301,22 +335,21 @@ const ptBR: EditorialContent = {
     },
     revoada: {
       title: "Revoada",
-      eyebrow: "Espetáculo em desenvolvimento",
-      year: "Em processo",
-      status: "Conteúdo em preparação",
-      summary: "Uma pesquisa em curso sobre deslocamento, decisão coletiva e a força de corpos que mudam de direção juntos.",
-      synopsisHeading: "Uma obra que ainda está encontrando sua forma.",
+      eyebrow: "Novo trabalho",
+      year: "2026",
+      status: "Em atualização",
+      summary: "Estreia em 18 de setembro de 2026, no Teatro Galpão do Folias.",
       body: [
-        "Revoada nasce como campo de investigação do Flying Low para observar como um grupo produz movimento, abrigo e imaginação em comum.",
-        "Esta página acompanhará o processo com imagens, textos e créditos à medida que a criação avançar.",
+        "19h às sextas e sábados · 18h aos domingos · Teatro Galpão do Folias · R. Ana Cintra, 213.",
+        "Mais informações em breve.",
       ],
       image: sharedImages.amber,
       secondaryImage: sharedImages.portrait,
       imageAlt: "Flying Low em processo cênico",
       facts: [
-        { label: "Etapa", value: "Pesquisa e criação" },
-        { label: "Formato", value: "Em definição" },
-        { label: "Atualização", value: "Novos materiais em breve" },
+        { label: "Estreia", value: "18 de setembro de 2026" },
+        { label: "Horários", value: "19h às sextas e sábados · 18h aos domingos" },
+        { label: "Local", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
       ],
       links: [],
     },
@@ -365,11 +398,11 @@ const ptBR: EditorialContent = {
       title: "Em Formação",
       eyebrow: "Série documental",
       year: "2021",
-      summary: "Uma série produzida dentro de Na Manha com Flying Low, projeto de ações pedagógicas apoiado pelo PROAC 31/2021.",
+      summary: "Duas temporadas documentais sobre breaking, suas histórias, cenas e pessoas.",
       synopsisHeading: "Aprender também é produzir memória.",
       body: [
-        "Em Formação registra práticas, conversas e processos pedagógicos desenvolvidos pelo grupo em torno do breaking.",
-        "A série aproxima ensino, criação e documentação para tornar visíveis os modos coletivos de construir conhecimento em dança.",
+        "A primeira temporada, contemplada pelo Programa VAI 2018, aborda nuances do Hip Hop com foco na dança breaking: suas origens nos Estados Unidos, sua difusão em São Paulo, o contexto das mulheres na cena e as produções de danças urbanas dentro dos teatros.",
+        "A segunda temporada integrou Na Manha com Flying Low, contemplado pelo edital PROAC Nº 31/2021 – Cidadania / Cultura Negra / Urbana / Hip Hop.",
       ],
       image: sharedImages.portrait,
       secondaryImage: sharedImages.collective,
@@ -379,12 +412,31 @@ const ptBR: EditorialContent = {
         { label: "Ano", value: "2021" },
         { label: "Contexto", value: "Na Manha com Flying Low · PROAC 31/2021" },
       ],
-      links: [
-        { label: "Solicitar materiais", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
+      links: [],
+      videoWorks: [
+        { title: "1ª temporada", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episódios", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Produção", names: "Grupo Flying Low" }] },
+        { title: "2ª temporada", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episódios", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Produção", names: "Grupo Flying Low" }] },
+      ],
+    },
+    videodancas: {
+      title: "Videodanças",
+      eyebrow: "Audiovisual",
+      year: "2021—2022",
+      status: "Em atualização",
+      summary: "Duas videodanças do Flying Low reunidas em uma mesma página.",
+      synopsisHeading: "Corpo, câmera e encontro.",
+      body: ["Uma seleção inicial de trabalhos para a câmera. Novos registros e informações serão incluídos aqui."],
+      image: sharedImages.evenTrashHero,
+      imageAlt: "Cena de videodança do Flying Low",
+      facts: [{ label: "Formato", value: "Videodanças" }],
+      links: [],
+      videoWorks: [
+        { title: "Até no lixo crescem flores", year: "2021", href: "/audiovisual/mesmo-no-lixo-nascem-flores", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Produção", names: "Grupo Flying Low" }, { role: "Intérpretes", names: "Koide Ura e Lee Anderson" }] },
+        { title: "Brigando por uma touca", year: "2021", href: "/audiovisual/brigando-por-uma-touca", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direção", names: "Grupo Flying Low" }, { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
-      title: "Even in the Trash Grows Flowers",
+      title: "Até no lixo crescem flores",
       eyebrow: "Videodança",
       year: "2021",
       summary: "Em uma situação-limite, o encontro entre duas pessoas transforma a amizade em abrigo e possibilidade de permanência.",
@@ -411,6 +463,7 @@ const ptBR: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Assistir no YouTube",
+        thumbnail: sharedImages.evenTrashYouTube,
       },
       facts: [
         { label: "Formato", value: "Videodança" },
@@ -424,6 +477,33 @@ const ptBR: EditorialContent = {
       ],
       links: [],
     },
+    fightingOverACap: {
+      title: "Brigando por uma touca",
+      eyebrow: "Videodança",
+      year: "2021",
+      status: "Em atualização",
+      summary: "Videodança do Flying Low com Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes.",
+      synopsisHeading: "Brigando por uma touca.",
+      body: ["Informações de processo e ficha ampliada estão em atualização."],
+      image: sharedImages.fightingOverACapYouTube,
+      imageCredit: "Imagem do vídeo · Grupo Flying Low",
+      imageAlt: "Imagem de Brigando por uma touca",
+      video: {
+        youtubeId: "6m865ISf3to",
+        title: "Brigando por uma touca",
+        linkLabel: "Assistir no YouTube",
+        thumbnail: sharedImages.fightingOverACapYouTube,
+      },
+      facts: [
+        { label: "Formato", value: "Videodança" },
+        { label: "Ano", value: "2021" },
+      ],
+      credits: [
+        { role: "Direção", names: "Grupo Flying Low" },
+        { role: "Intérpretes-criadores", names: "Jeff dos Santos Rodrigues (Fioot) e Gustavo Teles Fagundes" },
+      ],
+      links: [],
+    },
     cantigas: {
       title: "Cantigas do Meu Matulão",
       eyebrow: "Videodança",
@@ -432,11 +512,12 @@ const ptBR: EditorialContent = {
       synopsisHeading: "Corpo, câmera e memória em deslocamento.",
       body: [
         "Cantigas do Meu Matulão leva a dança para o enquadramento da câmera, buscando outras proximidades entre gesto, espaço e montagem.",
-        "A página será ampliada com vídeo, ficha completa e registros de processo.",
+        "Vídeo, ficha completa e registros de processo estão em atualização.",
       ],
       image: sharedImages.blue,
       secondaryImage: sharedImages.assum,
       imageAlt: "Cena azul de trabalho do Flying Low",
+      status: "Em atualização",
       facts: [
         { label: "Formato", value: "Videodança" },
         { label: "Ano", value: "2020" },
@@ -532,8 +613,9 @@ const ptBR: EditorialContent = {
   },
   group: {
     membersEyebrow: "Quem são",
-    membersHeading: "Cinco artistas. Cinco trajetórias em movimento.",
-    membersIntro: "As minibios abaixo reúnem informações verificáveis em programações, fichas técnicas e perfis culturais públicos. Perfis pessoais não confirmados não foram atribuídos.",
+    membersHeading: "Um coletivo de artistas das periferias de São Paulo.",
+    membersIntro: "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação. Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”, e “Circula Assum” (PROAC 04/2023), que levou Menino Assum Preto a sete cidades do estado de São Paulo, com apoio da Converse. Em 2022, estreou As Pegadas do Kurupyra. Desde 2021, conduz oficinas e residências por meio de Voando com Flying Low. Atualmente é formado por Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu) e Ricardo Ura (Koide).",
+    membersVisible: false,
     members: [
       {
         name: "Turtle Lee",
@@ -587,10 +669,11 @@ const ptBR: EditorialContent = {
       },
     ],
     researchEyebrow: "Pesquisa",
-    researchHeading: "O breaking como ponto de partida, não como limite.",
+    researchHeading: "Pesquisa",
     researchBody: [
-      "A pesquisa do Flying Low parte do breaking e atravessa danças urbanas, dramaturgias do corpo, audiovisual e práticas colaborativas de criação.",
-      "Em cena, na câmera ou em processos formativos, o grupo transforma experiência periférica em presença crítica, sensível e comunitária.",
+      "A pesquisa artística do Grupo Flying Low parte da dança breaking como linguagem cênica, política e poética, elaborando dramaturgias corporais que emergem das experiências periféricas e coletivas. A partir da vivência em grupo, da direção compartilhada e do cruzamento entre danças urbanas e contemporâneas, o coletivo constrói obras que emergem de práticas colaborativas, afetos e urgências vividas por seus integrantes, sempre atentos às questões que atravessam seus corpos e territórios.",
+      "As criações cênicas se debruçam sobre temas como o aprisionamento simbólico do corpo, a ancestralidade, a precarização do trabalho e a fabulação de outros futuros possíveis. Em Menino Assum Preto, evocam a imagem do trabalhador marginalizado em um corpo engaiolado. Já em As Pegadas do Kurupyra, aprofundam a relação com a ancestralidade e a fabulação, inspirando-se nos encantados da cultura herdada dos povos originários e da diáspora africana.",
+      "Além da criação cênica, a pesquisa se expande para a educação e o audiovisual, com destaque para Voando com Flying Low e para a série documental Em Formação. O grupo afirma uma dança do encontro entre margens, memória e imaginação, construindo caminhos sensíveis e comunitários de criação e transformação.",
     ],
     researchAxes: ["Breaking e autoria", "Memória periférica", "Criação coletiva", "Cena e audiovisual"],
   },
@@ -651,14 +734,16 @@ const en: EditorialContent = {
     openProject: "Open project",
     synopsis: "Synopsis",
     technical: "Details",
-    fullCredits: "Full credits",
+    fullCredits: "Technical credits",
     creditsPending: "Full credits are being updated.",
     gallery: "Stage records",
-    video: "On video",
-    media: "Videos and materials",
+    video: "Teaser",
+    media: "Contact",
     sourceNote: "Public profile and credits",
     previous: "Previous",
     next: "Next",
+    updating: "Being updated",
+    galleryPending: "Visual records are being updated.",
   },
   collections: {
     espetaculos: {
@@ -673,7 +758,7 @@ const en: EditorialContent = {
       heading: "The camera joins the circle.",
       intro: "Films, series, and experiments carrying the collective’s research into other frames, temporalities, and forms of circulation.",
       stripLabel: "Screen projects",
-      projectKeys: ["concepcoesMarginais", "emFormacao", "evenInTheTrash", "cantigas"],
+      projectKeys: ["concepcoesMarginais", "emFormacao", "videodancas"],
     },
     formacao: {
       eyebrow: "Learning activities",
@@ -696,14 +781,20 @@ const en: EditorialContent = {
       eyebrow: "Performance",
       year: "2019",
       summary: "A manifesto in motion about labour, confinement, and the right to dream.",
-      synopsisHeading: "The captive bird meets the urban worker.",
       body: [
-        "Inspired by “Assum Preto,” by Luiz Gonzaga and Humberto Teixeira, the work draws a parallel between the blinded bird that sings without seeing the world and the worker forced to survive amid exploitation and invisibility.",
-        "Breaking and contemporary dance build a narrative of dignity and freedom, between pain, poetry, acrobatics, and strength.",
+        "Inspired by the emblematic song “Assum Preto” by Luiz Gonzaga and Humberto Teixeira, Menino Assum Preto is a manifesto in motion, inscribed in the bodies and memories of Flying Low’s performer-creators, all from São Paulo’s peripheries. The work draws a moving parallel between the captive, blinded bird — which sings without seeing the world — and the urban worker, pushed to survive in a daily life of exploitation and invisibility. Combining breaking and contemporary dance, the artists bring their bodies to the stage to create a visceral narrative about the struggle for dignity and freedom. With original sound, lighting, and costume design, the work invites audiences into an atmosphere that moves from density to playfulness, evoking pain, poetry, and the force of bodies that persist in dreaming through virtuosic breaking acrobatics and a singular expressiveness.",
+        "Since its 2019 premiere, the work has travelled through festivals and cultural spaces, joining the affirmation of peripheral art as a critical, sensitive, and transformative expression.",
       ],
-      image: sharedImages.assum,
-      secondaryImage: sharedImages.amber,
-      imageAlt: "Scene from Menino Assum Preto",
+      image: "/images/menino-assum-preto/assum-01.webp",
+      secondaryImage: "/images/menino-assum-preto/assum-04.webp",
+      imageAlt: "Performers from Menino Assum Preto on stage",
+      galleryLabel: "Stage records",
+      gallery: [
+        { src: "/images/menino-assum-preto/assum-02.webp", alt: "Cast of Menino Assum Preto performing before an audience" },
+        { src: "/images/menino-assum-preto/assum-03.webp", alt: "Two Menino Assum Preto performers in motion" },
+        { src: "/images/menino-assum-preto/assum-05.webp", alt: "Flying Low members gathered for a portrait" },
+      ],
+      video: { youtubeId: "A244vRmQt8I", title: "Menino Assum Preto teaser", linkLabel: "Watch teaser on YouTube", thumbnail: "/images/menino-assum-preto/assum-01.webp", thumbnailAlt: "Open the Menino Assum Preto teaser on YouTube" },
       facts: [
         { label: "Running time", value: "45 min" },
         { label: "Age rating", value: "Ages 10+" },
@@ -718,8 +809,6 @@ const en: EditorialContent = {
         { role: "Production", names: "Laís Machado" },
       ],
       links: [
-        { label: "Watch teaser", href: "https://youtu.be/A244vRmQt8I" },
-        { label: "Full performance", href: "https://youtu.be/HoIGxT3XuSU" },
         { label: "Request technical rider", href: "mailto:producaoflyinglow@gmail.com?subject=Rider%20-%20Menino%20Assum%20Preto" },
       ],
     },
@@ -727,11 +816,9 @@ const en: EditorialContent = {
       title: "As Pegadas do Kurupyra",
       eyebrow: "Performance",
       year: "2022",
-      summary: "Brazilian enchanted beings, breaking, and improvisation in a work about greed, sharing, and collective imagination.",
-      synopsisHeading: "Traces of a living territory.",
+      summary: "Brazilian enchanted beings, breaking, music, and improvisation in a work grounded in the African and Indigenous foundations of this territory.",
       body: [
-        "Inspired by enchanted beings and the Brazilian bestiary, the work draws Afro-diasporic and Indigenous perspectives into bodily research blending breaking and contemporary dance.",
-        "Stage improvisation and audience interaction drive an inquiry into greed and sharing, making the encounter an essential part of the dramaturgy.",
+        "As Pegadas do Kurupyra is a work inspired by the enchanted beings of Brazilian culture, rooted in the African and Indigenous foundations that form this territory called Brazil. It uses breaking — a core element of the collective’s ongoing research — alongside music and improvisation devices.",
       ],
       image: sharedImages.kurupyraHero,
       imageCredit: "Photo · Sarará Rodrigues",
@@ -752,6 +839,8 @@ const en: EditorialContent = {
         youtubeId: "TQZI4t759ng",
         title: "As Pegadas do Kurupyra teaser",
         linkLabel: "Watch on YouTube",
+        thumbnail: "/images/kurupyra/kurupyra-193.webp",
+        thumbnailAlt: "Open the As Pegadas do Kurupyra teaser on YouTube",
       },
       facts: [
         { label: "Running time", value: "60 min" },
@@ -770,22 +859,21 @@ const en: EditorialContent = {
     },
     revoada: {
       title: "Revoada",
-      eyebrow: "Performance in development",
-      year: "In process",
-      status: "Content in preparation",
-      summary: "An ongoing inquiry into displacement, collective decisions, and the force of bodies changing direction together.",
-      synopsisHeading: "A work still finding its form.",
+      eyebrow: "New work",
+      year: "2026",
+      status: "Being updated",
+      summary: "Premieres on 18 September 2026 at Teatro Galpão do Folias.",
       body: [
-        "Revoada begins as a field of inquiry for Flying Low to observe how a group produces movement, shelter, and imagination in common.",
-        "This page will follow the process through images, writing, and credits as the creation develops.",
+        "7 pm on Fridays and Saturdays · 6 pm on Sundays · Teatro Galpão do Folias · R. Ana Cintra, 213.",
+        "More information soon.",
       ],
       image: sharedImages.amber,
       secondaryImage: sharedImages.portrait,
       imageAlt: "Flying Low in a stage process",
       facts: [
-        { label: "Stage", value: "Research and creation" },
-        { label: "Format", value: "To be defined" },
-        { label: "Update", value: "New materials coming soon" },
+        { label: "Premiere", value: "18 September 2026" },
+        { label: "Times", value: "7 pm on Fridays and Saturdays · 6 pm on Sundays" },
+        { label: "Venue", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
       ],
       links: [],
     },
@@ -834,11 +922,11 @@ const en: EditorialContent = {
       title: "Em Formação",
       eyebrow: "Documentary series",
       year: "2021",
-      summary: "A series produced within Na Manha com Flying Low, a learning project supported by PROAC 31/2021.",
+      summary: "Two documentary seasons about breaking, its histories, scenes, and people.",
       synopsisHeading: "Learning also produces memory.",
       body: [
-        "Em Formação documents practices, conversations, and pedagogical processes developed by the group around breaking.",
-        "The series connects teaching, creation, and documentation to make collective ways of building dance knowledge visible.",
+        "The first season, supported by the VAI Programme in 2018, explores Hip Hop through breaking: its origins in the United States, its spread through São Paulo, women’s place in the scene, and urban-dance productions in theatres.",
+        "The second season was part of Na Manha com Flying Low, supported by PROAC 31/2021 – Citizenship / Black / Urban / Hip Hop Culture.",
       ],
       image: sharedImages.portrait,
       secondaryImage: sharedImages.collective,
@@ -848,8 +936,27 @@ const en: EditorialContent = {
         { label: "Year", value: "2021" },
         { label: "Context", value: "Na Manha com Flying Low · PROAC 31/2021" },
       ],
-      links: [
-        { label: "Request materials", href: "mailto:producaoflyinglow@gmail.com?subject=Serie%20Em%20Formacao" },
+      links: [],
+      videoWorks: [
+        { title: "Season 1", year: "2019", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP", image: sharedImages.portrait, credits: [{ role: "Episodes", names: "Henrique Bianchini · Mr. Fê · B.girl Thaisinha · B.girl Aline · B.boy Gerson · Douglas Iesus · Márcio Greyk" }, { role: "Production", names: "Grupo Flying Low" }] },
+        { title: "Season 2", year: "2023", href: "https://youtube.com/playlist?list=PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC", image: sharedImages.collective, credits: [{ role: "Episodes", names: "Manuel Victor · Tati Sanchis · Anelise Mayumi · Gui Nobre · Kika Sousa · Fabgirl" }, { role: "Production", names: "Grupo Flying Low" }] },
+      ],
+    },
+    videodancas: {
+      title: "Dance films",
+      eyebrow: "Screen work",
+      year: "2021—2022",
+      status: "Being updated",
+      summary: "Two Flying Low dance films gathered on one page.",
+      synopsisHeading: "Body, camera, and encounter.",
+      body: ["An initial selection of works made for the camera. New records and information will be added here."],
+      image: sharedImages.evenTrashHero,
+      imageAlt: "A scene from a Flying Low dance film",
+      facts: [{ label: "Format", value: "Dance films" }],
+      links: [],
+      videoWorks: [
+        { title: "Even in the Trash Grows Flowers", year: "2021", href: "/en/screen/even-in-the-trash-grows-flowers", projectKey: "evenInTheTrash", image: sharedImages.evenTrashYouTube, credits: [{ role: "Production", names: "Grupo Flying Low" }, { role: "Performers", names: "Koide Ura and Lee Anderson" }] },
+        { title: "Fighting Over a Cap", year: "2021", href: "/en/screen/fighting-over-a-cap", projectKey: "fightingOverACap", image: sharedImages.fightingOverACapYouTube, credits: [{ role: "Direction", names: "Grupo Flying Low" }, { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" }] },
       ],
     },
     evenInTheTrash: {
@@ -880,6 +987,7 @@ const en: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Watch on YouTube",
+        thumbnail: sharedImages.evenTrashYouTube,
       },
       facts: [
         { label: "Format", value: "Dance film" },
@@ -893,6 +1001,33 @@ const en: EditorialContent = {
       ],
       links: [],
     },
+    fightingOverACap: {
+      title: "Fighting Over a Cap",
+      eyebrow: "Dance film",
+      year: "2021",
+      status: "Being updated",
+      summary: "A Flying Low dance film with Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes.",
+      synopsisHeading: "Fighting Over a Cap.",
+      body: ["Process information and expanded credits are being updated."],
+      image: sharedImages.fightingOverACapYouTube,
+      imageCredit: "Image from the video · Grupo Flying Low",
+      imageAlt: "Image from Fighting Over a Cap",
+      video: {
+        youtubeId: "6m865ISf3to",
+        title: "Fighting Over a Cap",
+        linkLabel: "Watch on YouTube",
+        thumbnail: sharedImages.fightingOverACapYouTube,
+      },
+      facts: [
+        { label: "Format", value: "Dance film" },
+        { label: "Year", value: "2021" },
+      ],
+      credits: [
+        { role: "Direction", names: "Grupo Flying Low" },
+        { role: "Performer-creators", names: "Jeff dos Santos Rodrigues (Fioot) and Gustavo Teles Fagundes" },
+      ],
+      links: [],
+    },
     cantigas: {
       title: "Cantigas do Meu Matulão",
       eyebrow: "Dance film",
@@ -901,11 +1036,12 @@ const en: EditorialContent = {
       synopsisHeading: "Body, camera, and memory in motion.",
       body: [
         "Cantigas do Meu Matulão carries dance into the camera frame, seeking other proximities between gesture, space, and editing.",
-        "The page will be expanded with the film, full credits, and process records.",
+        "The film, full credits, and process records are being updated.",
       ],
       image: sharedImages.blue,
       secondaryImage: sharedImages.assum,
       imageAlt: "Blue-lit scene from Flying Low",
+      status: "Being updated",
       facts: [
         { label: "Format", value: "Dance film" },
         { label: "Year", value: "2020" },
@@ -1001,8 +1137,9 @@ const en: EditorialContent = {
   },
   group: {
     membersEyebrow: "Who they are",
-    membersHeading: "Five artists. Five trajectories in motion.",
-    membersIntro: "These short biographies use verifiable information from public programmes, credits, and cultural profiles. Unconfirmed personal accounts have not been attributed.",
+    membersHeading: "A collective of artists from São Paulo’s peripheries.",
+    membersIntro: "Flying Low researches breaking as a stage language, bringing urban dances, body dramaturgies, and collaborative creative practices together. Formed in 2018 with Menino Assum Preto, supported by the VAI Programme, the collective has since connected stage work, screen work, and learning through projects including Cantigas do Meu Matulão, Na Manha com Flying Low, Circula Assum, and As Pegadas do Kurupyra. Since 2021, it has also led workshops and residencies through Voando com Flying Low. The group currently comprises Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), and Ricardo Ura (Koide).",
+    membersVisible: false,
     members: [
       {
         name: "Turtle Lee",
@@ -1056,10 +1193,11 @@ const en: EditorialContent = {
       },
     ],
     researchEyebrow: "Research",
-    researchHeading: "Breaking as a point of departure, not a limit.",
+    researchHeading: "Research",
     researchBody: [
-      "Flying Low’s research begins with breaking and moves through urban dances, body dramaturgies, screen work, and collaborative creative practices.",
-      "On stage, on camera, or in learning processes, the group transforms peripheral experience into critical, sensitive, and communal presence.",
+      "Flying Low’s artistic research approaches breaking as a stage, political, and poetic language, developing body dramaturgies that emerge from collective and peripheral experience. Shared direction and the crossing of urban and contemporary dances shape works built from collaborative practice, care, and the urgencies lived by its members.",
+      "Its stage works explore symbolic confinement of the body, ancestry, precarious labour, and the fabulation of other possible futures. Menino Assum Preto evokes the marginalised worker through an enclosed body, while As Pegadas do Kurupyra deepens relationships with ancestry and fabulation through enchanted beings inherited from Indigenous peoples and the African diaspora.",
+      "The research also expands into learning and screen work through Voando com Flying Low and the documentary series Em Formação. On stage, on camera, and in learning processes, Flying Low turns peripheral experience into critical and sensitive artistic work.",
     ],
     researchAxes: ["Breaking and authorship", "Peripheral memory", "Collective creation", "Stage and screen"],
   },

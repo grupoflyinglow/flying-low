@@ -23,11 +23,16 @@ export function ProjectPage({
   const content = getEditorialContent(locale);
   const project = content.projects[projectKey];
   const collection = content.collections[collectionKey];
+  const isPerformance = collectionKey === "espetaculos";
   const projectIndex = collection.projectKeys.indexOf(projectKey);
+  const isCollectionProject = projectIndex >= 0;
   const previousKey = projectIndex > 0 ? collection.projectKeys[projectIndex - 1] : null;
-  const nextKey = projectIndex < collection.projectKeys.length - 1
+  const nextKey = isCollectionProject && projectIndex < collection.projectKeys.length - 1
     ? collection.projectKeys[projectIndex + 1]
     : null;
+  const synopsisLabelId = project.synopsisHeading
+    ? "project-synopsis-heading"
+    : "project-synopsis";
 
   return (
     <main className={`editorial-page project-page ${project.presentation === "poster" ? "project-page--poster" : ""}`} id="main-content" tabIndex={-1}>
@@ -39,45 +44,42 @@ export function ProjectPage({
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
           {project.status && <span className="project-status">{project.status}</span>}
+          {isPerformance && project.video && (
+            <a className="project-teaser-card" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
+              <span className="performance-cover-shade" aria-hidden="true" />
+              <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
+            </a>
+          )}
         </div>
-        <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
+        {(!isPerformance || !project.video) && <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
           {project.image ? (
             <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
           {project.imageCredit && <span className="project-hero-credit">{project.imageCredit}</span>}
-        </div>
+        </div>}
       </section>
 
-      <section className="project-story section-shell" aria-labelledby="project-synopsis">
+      <section className="project-story section-shell" aria-labelledby={synopsisLabelId}>
         <div className="project-story-label">
-          <p className="eyebrow">{content.common.synopsis}</p>
+          <p className="eyebrow" id={project.synopsisHeading ? undefined : synopsisLabelId}>{content.common.synopsis}</p>
         </div>
         <div className="project-story-copy">
-          <h2 id="project-synopsis">{project.synopsisHeading}</h2>
+          {project.synopsisHeading && <h2 id={synopsisLabelId}>{project.synopsisHeading}</h2>}
           {project.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
 
-      {project.video && (
+      {project.video && !isPerformance && (
         <section className="project-video section-shell" aria-labelledby="project-video">
           <p className="eyebrow" id="project-video">{content.common.video}</p>
           <div className="project-video-content">
-            <div className="project-video-frame">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${project.video.youtubeId}`}
-                title={project.video.title}
-                width="1280"
-                height="720"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-            <a href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer">
-              {project.video.linkLabel} <span>↗</span>
+            <a className="project-teaser-card" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer">
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
+              <span className="performance-cover-shade" aria-hidden="true" />
+              <span className="project-teaser-card-label">{project.video.linkLabel} <b>↗</b></span>
             </a>
           </div>
         </section>
@@ -92,22 +94,23 @@ export function ProjectPage({
         </section>
       )}
 
-      {project.gallery && project.gallery.length > 0 && (
-        <section className="project-gallery section-shell" aria-labelledby="project-gallery">
-          <div className="project-gallery-heading">
-            <p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>
-            {project.galleryCredit && <p>{project.galleryCredit}</p>}
-          </div>
-          <div className="project-gallery-grid">
-            {project.gallery.map((image) => (
-              <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}>
-                <img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-                {image.credit && <figcaption>{image.credit}</figcaption>}
-              </figure>
+      <section className="project-credits section-shell" aria-labelledby="project-full-credits">
+        <p className="eyebrow" id="project-full-credits">{content.common.fullCredits}</p>
+        {project.credits && project.credits.length > 0 ? (
+          <dl className="project-credits-list">
+            {project.credits.map((credit) => (
+              <div className="project-credit-row" key={credit.role}><dt>{credit.role}</dt><dd>{credit.names}</dd></div>
             ))}
-          </div>
+          </dl>
+        ) : <p className="project-credits-pending">{content.common.creditsPending}</p>}
+      </section>
+
+      {project.gallery && project.gallery.length > 0 ? (
+        <section className="project-gallery section-shell" aria-labelledby="project-gallery">
+          <div className="project-gallery-heading"><p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>{project.galleryCredit && <p>{project.galleryCredit}</p>}</div>
+          <div className="project-gallery-grid">{project.gallery.map((image) => <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}><img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />{image.credit && <figcaption>{image.credit}</figcaption>}</figure>)}</div>
         </section>
-      )}
+      ) : <section className="project-gallery section-shell"><p className="project-credits-pending">{content.common.galleryPending}</p></section>}
 
       <section className="project-facts section-shell" aria-labelledby="project-technical">
         <p className="eyebrow" id="project-technical">{content.common.technical}</p>
@@ -121,25 +124,22 @@ export function ProjectPage({
         </div>
       </section>
 
-      {(collectionKey === "espetaculos" || (project.credits && project.credits.length > 0)) && (
-        <section className="project-credits section-shell" aria-labelledby="project-full-credits">
-          <p className="eyebrow" id="project-full-credits">{content.common.fullCredits}</p>
-          {project.credits && project.credits.length > 0 ? (
-            <dl className="project-credits-list">
-              {project.credits.map((credit) => (
-                <div className="project-credit-row" key={credit.role}>
-                  <dt>{credit.role}</dt>
-                  <dd>{credit.names}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : (
-            <p className="project-credits-pending">{content.common.creditsPending}</p>
-          )}
+      {project.videoWorks && project.videoWorks.length > 0 && (
+        <section className="project-video-works section-shell" aria-label={project.title}>
+          {project.videoWorks.map((work) => (
+            <article key={work.href}>
+              <a className="project-teaser-card" href={work.projectKey ? projectRouteFor(locale, work.projectKey) : work.href} target={work.projectKey ? undefined : "_blank"} rel={work.projectKey ? undefined : "noreferrer"}>
+                <img {...getImageDimensions(work.image ?? project.image ?? "")} src={work.image ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
+                <span className="performance-cover-shade" aria-hidden="true" />
+                <span className="project-teaser-card-label">{work.title} · {work.year} <b>↗</b></span>
+              </a>
+              <dl className="project-credits-list">{work.credits.map((credit) => <div className="project-credit-row" key={credit.role}><dt>{credit.role}</dt><dd>{credit.names}</dd></div>)}</dl>
+            </article>
+          ))}
         </section>
       )}
 
-      {project.links.length > 0 && (
+      {project.links.length > 0 ? (
         <section className="project-links section-shell" aria-labelledby="project-media">
           <p className="eyebrow" id="project-media">{content.common.media}</p>
           <div>
@@ -150,12 +150,12 @@ export function ProjectPage({
             ))}
           </div>
         </section>
-      )}
+      ) : <section className="project-links section-shell"><p className="eyebrow">{content.common.media}</p><p className="project-credits-pending">{content.common.updating}</p></section>}
 
-      <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
+      {isCollectionProject && <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
         {previousKey ? <a href={projectRouteFor(locale, previousKey)}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}
         {nextKey ? <a href={projectRouteFor(locale, nextKey)}><span>{content.common.next}</span><strong>{content.projects[nextKey].title} →</strong></a> : <span />}
-      </nav>
+      </nav>}
     </main>
   );
 }

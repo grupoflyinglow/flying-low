@@ -22,7 +22,6 @@ export function SiteFooter() {
           <a href={routeFor(locale, "screen")}>{t.nav.screen}</a>
           <a href={routeFor(locale, "learning")}>{t.nav.learning}</a>
           <a href={routeFor(locale, "debates")}>{t.nav.debates}</a>
-          <a href={routeFor(locale, "history")}>{t.nav.history}</a>
           <a href={routeFor(locale, "agenda")}>{t.nav.agenda}</a>
         </nav>
         <a className="footer-contact" href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span>↗</span></a>
