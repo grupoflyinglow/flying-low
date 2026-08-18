@@ -35,7 +35,7 @@ export function CollectionPage({ collectionKey }: { collectionKey: CollectionKey
                   <span className="strip-number">{String(index + 1).padStart(2, "0")}</span>
                   <span className="strip-media">
                     {project.image ? (
-                      <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index < 3 ? "eager" : "lazy"} decoding="async" />
+                      <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : undefined} decoding="async" />
                     ) : (
                       <span className="strip-placeholder">{project.placeholderLabel}</span>
                     )}

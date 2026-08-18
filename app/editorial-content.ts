@@ -198,7 +198,6 @@ const sharedImages = {
   concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
   evenTrashHero: "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp",
   evenTrashWide: "/images/even-in-the-trash-grows-flowers/even-trash-wide.webp",
-  evenTrashYouTube: "/images/even-in-the-trash-grows-flowers/even-trash-youtube.webp",
   fightingOverACapYouTube: "/images/fighting-over-a-cap/fighting-over-a-cap-youtube.webp",
 };
 
@@ -482,7 +481,7 @@ const ptBR: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Assistir no YouTube",
-        thumbnail: sharedImages.evenTrashYouTube,
+        thumbnail: sharedImages.evenTrashHero,
       },
       facts: [
         { label: "Formato", value: "Videodança" },
@@ -983,7 +982,7 @@ const en: EditorialContent = {
         youtubeId: "HlWvODEryF4",
         title: "Even in the Trash Grows Flowers",
         linkLabel: "Watch on YouTube",
-        thumbnail: sharedImages.evenTrashYouTube,
+        thumbnail: sharedImages.evenTrashHero,
       },
       facts: [
         { label: "Format", value: "Dance film" },

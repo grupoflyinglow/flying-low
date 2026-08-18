@@ -93,7 +93,8 @@ export function PerformancesPage({
                       {...getImageDimensions(project.image)}
                       src={project.image}
                       alt={project.imageAlt}
-                      loading="eager"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : undefined}
                       decoding="async"
                     />
                   ) : (
