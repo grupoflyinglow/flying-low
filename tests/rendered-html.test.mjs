@@ -31,7 +31,7 @@ test("server-renders Portuguese as the primary language", async () => {
   const html = await response.text();
   assert.match(html, /<html[^>]+lang="pt-BR"/i);
   assert.match(html, /<title>Flying Low — dança, cena e imagem<\/title>/i);
-  assert.match(html, /Dança das periferias de São Paulo/);
+  assert.doesNotMatch(html, /Dança das periferias de São Paulo para a cena, a câmera e o encontro\./);
   assert.match(html, /class="hero-primary-cta" href="\/espetaculos"/);
   assert.match(html, /Ver espetáculos/);
   assert.match(html, /Próximos encontros\./);
@@ -40,6 +40,7 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, /Teatro Galpão do Folias/);
   assert.match(html, /aria-current="page" aria-label="Português" href="\/" hrefLang="pt-BR" lang="pt-BR">PT<\/a>/);
   assert.match(html, /aria-label="Inglês" href="\/en" hrefLang="en" lang="en">EN<\/a>/);
+  assert.match(html, /class="nav-actions"><div class="language-switch(?: [^"]*)?"/);
   assert.match(html, /<nav class="desktop-nav" aria-label="Navegação principal"/);
   assert.match(html, /class="wordmark"[^>]*><img src="\/brand\/logo-mark-light\.png" alt="" aria-hidden="true" width="273" height="414"/);
   assert.match(html, /class="footer-wordmark"[^>]*><img src="\/brand\/logo-mark-dark\.png" alt="" aria-hidden="true" width="273" height="414"/);
@@ -48,7 +49,6 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.match(html, />Debates<\/a>/);
   assert.match(html, /class="skip-link" href="#main-content"/);
   assert.match(html, /<main id="main-content" tabindex="-1"/);
-  assert.match(html, /width="800" height="533" loading="lazy"/);
   assert.doesNotMatch(html, /Em atividade desde 2016/);
   assert.doesNotMatch(html, /Breaking como linguagem cênica, política e poética/);
   assert.doesNotMatch(html, /class="contact-band"/);
@@ -73,8 +73,8 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(home, /class="agenda-date-day">27[\s\S]*class="agenda-date-time">18h/);
   assert.match(home, /Nome final a confirmar/);
   assert.match(home, /Horário a confirmar/);
-  assert.match(home, /class="collective-image-link" href="\/grupo"/);
-  assert.match(home, /Conhecer o grupo/);
+  assert.doesNotMatch(home, /class="collective-image-link"/);
+  assert.doesNotMatch(home, /Conhecer o grupo/);
   assert.doesNotMatch(home, /class="manifesto/);
   assert.doesNotMatch(home, /class="featured-work/);
   assert.doesNotMatch(home, /class="practice-grid/);
@@ -99,27 +99,35 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(agenda, /Menino Assum Preto/);
 });
 
+test("uses optimized local home-video sources", async () => {
+  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const sources = [...home.matchAll(/<source\b[^>]*\bsrc="([^"]+)"[^>]*\/>/g)];
+
+  assert.deepEqual(sources.map((source) => source[1]), [
+    "/video/flying-low-home-mobile.mp4",
+    "/video/flying-low-home.mp4",
+  ]);
+});
+
 test("server-renders the complete information architecture in Portuguese", async () => {
   const routes = [
-    ["/grupo", "Cinco artistas, uma criação compartilhada"],
+    ["/grupo", "Sobre o Flying Low"],
     ["/espetaculos", "Menino Assum Preto"],
-    ["/espetaculos/menino-assum-preto", "Um manifesto em movimento"],
-    ["/espetaculos/as-pegadas-do-kurupyra", "Uma travessia guiada pelos encantados"],
+    ["/espetaculos/menino-assum-preto", "Menino Assum Preto"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "As Pegadas do Kurupyra"],
     ["/espetaculos/revoada", "Estreia em 18 de setembro de 2026"],
-    ["/audiovisual", "A câmera também entra na roda"],
+    ["/audiovisual", "Em Formação"],
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
-    ["/audiovisual/em-formacao", "Aprender também é produzir memória"],
+    ["/audiovisual/em-formacao", "Em Formação"],
     ["/audiovisual/mesmo-no-lixo-nascem-flores", "Mesmo no lixo nascem flores"],
     ["/audiovisual/brigando-por-uma-touca", "Entre o jogo e a disputa."],
     ["/audiovisual/cantigas-do-meu-matulao", "Corpo, câmera e memória"],
-    ["/atividades-formativas", "Aprender em roda"],
-    ["/atividades-formativas/oficinas", "Do fundamento à autoria."],
-    ["/atividades-formativas/residencia", "surgimento de uma obra"],
-    ["/debates-mediados", "A conversa continua"],
+    ["/atividades-formativas", "Voando com Flying Low"],
+    ["/debates-mediados", "Debates mediados"],
     ["/debates-mediados/primeira-edicao", "O que a dança contemporânea tem a ver com isso"],
     ["/historico", "Uma linha feita de encontros"],
     ["/agenda", "Próximos encontros"],
-    ["/menino-assum-preto", "Um manifesto em movimento"],
+    ["/menino-assum-preto", "Menino Assum Preto"],
   ];
 
   for (const [pathname, expectedCopy] of routes) {
@@ -129,26 +137,28 @@ test("server-renders the complete information architecture in Portuguese", async
     assert.match(html, new RegExp(expectedCopy), pathname);
     assert.doesNotMatch(html, /class="archive-cta"/, pathname);
   }
+
+  for (const pathname of ["/atividades-formativas/oficinas", "/atividades-formativas/residencia"]) {
+    assert.equal((await render(pathname)).status, 404, pathname);
+  }
 });
 
 test("server-renders English at translated URLs without a Portuguese first paint", async () => {
   const routes = [
-    ["/en", "Dance from São Paulo’s peripheries"],
-    ["/en/collective", "Five artists, one shared practice."],
+    ["/en", "Flying"],
+    ["/en/collective", "About Flying Low"],
     ["/en/performances", "Menino Assum Preto"],
-    ["/en/performances/menino-assum-preto", "A manifesto in motion about labour"],
-    ["/en/performances/the-footprints-of-kurupyra", "A journey guided by enchanted beings"],
+    ["/en/performances/menino-assum-preto", "Menino Assum Preto"],
+    ["/en/performances/the-footprints-of-kurupyra", "As Pegadas do Kurupyra"],
     ["/en/performances/revoada", "Premieres on 18 September 2026"],
-    ["/en/screen", "The camera joins the circle."],
+    ["/en/screen", "In Formation"],
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
-    ["/en/screen/in-formation", "Learning also produces memory."],
+    ["/en/screen/in-formation", "In Formation"],
     ["/en/screen/even-in-the-trash-grows-flowers", "Flowers can grow even in the trash."],
     ["/en/screen/fighting-over-a-cap", "Between play and conflict."],
     ["/en/screen/songs-from-my-bundle", "Body, camera, and memory in motion."],
-    ["/en/learning", "Learn in a circle. Create collectively."],
-    ["/en/learning/workshops", "From foundations to authorship."],
-    ["/en/learning/residency", "From training to the emergence of a work."],
-    ["/en/conversations", "The conversation continues after the stage."],
+    ["/en/learning", "Voando com Flying Low"],
+    ["/en/conversations", "Moderated conversations"],
     ["/en/conversations/first-edition", "What does contemporary dance have to do with it?"],
     ["/en/history", "A line made of encounters, works, and movement."],
     ["/en/agenda", "Upcoming encounters."],
@@ -161,6 +171,10 @@ test("server-renders English at translated URLs without a Portuguese first paint
     assert.match(html, /<html[^>]+lang="en"/i, pathname);
     assert.match(html, new RegExp(expectedCopy.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
     assert.doesNotMatch(html, /Pular para o conteúdo|Navegação principal|Ver espetáculos/, pathname);
+  }
+
+  for (const pathname of ["/en/learning/workshops", "/en/learning/residency"]) {
+    assert.equal((await render(pathname)).status, 404, pathname);
   }
 
   const performances = await render("/en/performances");
@@ -209,7 +223,7 @@ test("lists both dance films directly under Audiovisual", async () => {
     const html = await response.text();
 
     for (const [projectPath, expectedCopy] of projects) {
-      assert.equal((html.match(new RegExp(`href="${projectPath}"`, "g")) ?? []).length, 2, projectPath);
+      assert.equal((html.match(new RegExp(`href="${projectPath}"`, "g")) ?? []).length, 3, projectPath);
       assert.match(html, new RegExp(expectedCopy), pathname);
     }
 
@@ -234,7 +248,10 @@ test("gives the performances page its own image-led composition", async () => {
 
   const audiovisual = await render("/audiovisual");
   assert.equal(audiovisual.status, 200);
-  assert.match(await audiovisual.text(), /class="collection-hero section-shell"/);
+  const audiovisualHtml = await audiovisual.text();
+  assert.match(audiovisualHtml, /class="performances-rail"/);
+  assert.match(audiovisualHtml, /class="[^"]*\bperformances-page--audiovisual\b[^"]*"/);
+  assert.doesNotMatch(audiovisualHtml, /class="collection-hero/);
 });
 
 test("keeps only the horizontal project section for moderated conversations", async () => {
@@ -251,14 +268,106 @@ test("keeps only the horizontal project section for moderated conversations", as
   }
 
   const audiovisual = await render("/audiovisual");
-  assert.match(await audiovisual.text(), /class="project-strip"/);
+  assert.match(await audiovisual.text(), /class="performances-rail"/);
+});
+
+test("renders contact routes, footer socials, and the visible locale control in both languages", async () => {
+  for (const [pathname, heading, mailLabel] of [
+    ["/contato", "Vamos conversar\.", "producaoflyinglow@gmail.com"],
+    ["/en/contact", "Let’s talk\.", "producaoflyinglow@gmail.com"],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<h1[^>]*>${heading}</h1>`), pathname);
+    assert.match(html, new RegExp(`href="mailto:${mailLabel}"`), pathname);
+    assert.match(html, /https:\/\/www\.instagram\.com\/grupo_flyinglow\//);
+    assert.match(html, /https:\/\/www\.youtube\.com\/@grupoflyinglow2473/);
+    assert.match(html, /class="nav-actions"><div class="language-switch(?: [^"]*)?"/);
+  }
+
+  const home = await (await render("/")).text();
+  assert.match(home, /https:\/\/www\.instagram\.com\/grupo_flyinglow\//);
+  assert.match(home, /https:\/\/www\.youtube\.com\/@grupoflyinglow2473/);
+});
+
+test("renders Em Formação as two linked documentary seasons without the retired project-page blocks", async () => {
+  const seasonData = [
+    [
+      "PLFCLbfPrGy7Wbtit0RQmJhksj-NRihhvP",
+      ["5Yf23_6TWVU", "56FQgBwKDsI", "k5vjNCDuZts", "hqOcoKp8wlc", "Wsdpkyce1_Y", "3ZOSOa6V0IA", "eh1iFyy-bzQ"],
+    ],
+    [
+      "PLFCLbfPrGy7X_yIP8OzFL0918sa-pLZgC",
+      ["-faXk6Ccp3g", "26R16sgpr-w", "7iSXz5dzV6Y", "85kGhgSwF_U", "86Hs-faIxho", "T7lWm4UYQfo"],
+    ],
+  ];
+
+  for (const [pathname, seasonLabels, removedCopy] of [
+    ["/audiovisual/em-formacao", ["1ª temporada", "2ª temporada"], "Aprender também é produzir memória\."],
+    ["/en/screen/in-formation", ["Season 1", "Season 2"], "Learning also produces memory\."],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, /class="[^"]*\bem-formacao-page\b[^"]*"/, pathname);
+    assert.match(html, /class="[^"]*\bem-formacao-season\b[^"]*"/, pathname);
+    assert.doesNotMatch(html, /class="[^"]*\bproject-hero-media\b[^"]*"/, pathname);
+    assert.doesNotMatch(html, new RegExp(removedCopy), pathname);
+    assert.doesNotMatch(html, /class="contact-band"/, pathname);
+
+    for (const label of seasonLabels) assert.match(html, new RegExp(label), pathname);
+    for (const [playlistId, episodes] of seasonData) {
+      assert.match(html, new RegExp(`youtube\\.com/playlist\\?list=${playlistId}`), pathname);
+      for (const [index, videoId] of episodes.entries()) {
+        assert.match(html, new RegExp(`https://i\\.ytimg\\.com/vi/${videoId}/hqdefault\\.jpg`), pathname);
+        assert.match(html, new RegExp(`watch\\?v=${videoId}&amp;list=${playlistId}&amp;index=${index + 1}`), pathname);
+      }
+    }
+  }
+});
+
+test("gives every performance detail page an image hero without retired summaries or contact links", async () => {
+  for (const [pathname, title, heroImage, removedSummary] of [
+    ["/espetaculos/menino-assum-preto", "Menino Assum Preto", "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp", "Um manifesto em movimento"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "As Pegadas do Kurupyra", "/images/kurupyra/kurupyra-317.webp", "Uma travessia guiada pelos encantados"],
+    ["/espetaculos/revoada", "Revoada", "/images/flying-low-stage-amber.jpg", "Estreia em 18 de setembro de 2026"],
+    ["/en/performances/menino-assum-preto", "Menino Assum Preto", "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp", "A manifesto in motion about labour"],
+    ["/en/performances/the-footprints-of-kurupyra", "As Pegadas do Kurupyra", "/images/kurupyra/kurupyra-317.webp", "A journey guided by enchanted beings"],
+    ["/en/performances/revoada", "Revoada", "/images/flying-low-stage-amber.jpg", "Premieres on 18 September 2026"],
+  ]) {
+    const html = await (await render(pathname)).text();
+    const bodyHtml = html.split("</head>")[1] ?? html;
+    const heroCopy = bodyHtml.match(/class="section-shell project-hero-copy">([\s\S]*?)<\/div><div class="project-hero-media/)?.[1] ?? "";
+    assert.match(html, new RegExp(`<h1>${title}</h1>`), pathname);
+    assert.match(html, /class="[^"]*\bproject-hero-media\b[^"]*"/, pathname);
+    assert.match(html, new RegExp('src="' + heroImage + '"'), pathname);
+    assert.doesNotMatch(heroCopy, new RegExp(removedSummary), pathname);
+    assert.doesNotMatch(html, /class="project-links"/, pathname);
+  }
+
+  for (const [pathname, youtubeId] of [
+    ["/espetaculos/menino-assum-preto", "A244vRmQt8I"],
+    ["/espetaculos/as-pegadas-do-kurupyra", "TQZI4t759ng"],
+    ["/en/performances/menino-assum-preto", "A244vRmQt8I"],
+    ["/en/performances/the-footprints-of-kurupyra", "TQZI4t759ng"],
+  ]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, /class="project-teaser-card project-teaser-card--performance"/, pathname);
+    assert.match(html, new RegExp("youtube\\.com/watch\\?v=" + youtubeId), pathname);
+  }
+
+  for (const pathname of ["/espetaculos/revoada", "/en/performances/revoada"]) {
+    const html = await (await render(pathname)).text();
+    assert.doesNotMatch(html, /project-teaser-card--performance/, pathname);
+  }
 });
 
 test("renders clickable video thumbnails, Kurupyra photo credits, and full technical sheets", async () => {
   const kurupyra = await render("/espetaculos/as-pegadas-do-kurupyra");
   assert.equal(kurupyra.status, 200);
   const kurupyraHtml = await kurupyra.text();
-  assert.match(kurupyraHtml, /class="project-teaser-card" href="https:\/\/www\.youtube\.com\/watch\?v=TQZI4t759ng" target="_blank" rel="noreferrer"/);
+  assert.match(kurupyraHtml, /class="project-teaser-card project-teaser-card--performance" href="https:\/\/www\.youtube\.com\/watch\?v=TQZI4t759ng" target="_blank" rel="noreferrer"/);
   assert.match(kurupyraHtml, /src="\/images\/kurupyra\/kurupyra-193\.webp"/);
   assert.doesNotMatch(kurupyraHtml, /youtube-nocookie\.com\/embed\/TQZI4t759ng/);
   for (const photoId of [22, 77, 120, 193, 199, 213, 221, 261, 317]) {
@@ -270,6 +379,26 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
 
   const menino = await render("/espetaculos/menino-assum-preto");
   const meninoHtml = await menino.text();
+  assert.match(meninoHtml, /Inspirado na canção emblemática[\s\S]*Assum Preto/);
+  assert.match(meninoHtml, /Desde sua estreia em 2019, o espetáculo circula por festivais e espaços culturais/);
+  for (const filename of [
+    "menino-assum-preto-fundacao-cultural-cassiano-ricardo-1.webp",
+    "menino-assum-preto-fundacao-cultural-cassiano-ricardo-2.webp",
+    "menino-assum-preto-fundacao-cultural-cassiano-ricardo-3.webp",
+    "menino-assum-preto-sarara-rodrigues-130.webp",
+    "menino-assum-preto-sarara-rodrigues-2-2024.webp",
+    "menino-assum-preto-sarara-rodrigues-2.webp",
+    "menino-assum-preto-sarara-rodrigues-236.webp",
+    "menino-assum-preto-sarara-rodrigues-26.webp",
+    "menino-assum-preto-sarara-rodrigues-27-corte.webp",
+    "menino-assum-preto-sarara-rodrigues-331.webp",
+    "menino-assum-preto-sarara-rodrigues-358.webp",
+    "menino-assum-preto-sarara-rodrigues-396.webp",
+    "menino-assum-preto-sarara-rodrigues-543.webp",
+    "menino-assum-preto-sarara-rodrigues-7.webp",
+  ]) assert.match(meninoHtml, new RegExp(filename.replaceAll(".", "\\.")));
+  assert.match(meninoHtml, /Foto · Sarará Rodrigues/);
+  assert.match(meninoHtml, /Acervo · Fundação Cultural Cassiano Ricardo/);
   assert.match(meninoHtml, /Ficha técnica/);
   assert.match(meninoHtml, /Emersu \(Emerson S\. Oliveira\)/);
   assert.match(meninoHtml, /Fioot \(Jeff dos Santos Rodrigues\)/);
@@ -277,6 +406,10 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.match(meninoHtml, /Design de luz/);
   assert.match(meninoHtml, /Bruna Tovian/);
   assert.doesNotMatch(meninoHtml, /Luciana Gandelini|Restauração de figurino/);
+
+  const meninoEnglishHtml = await (await render("/en/performances/menino-assum-preto")).text();
+  assert.match(meninoEnglishHtml, /Photo · Sarará Rodrigues/);
+  assert.match(meninoEnglishHtml, /Archive · Fundação Cultural Cassiano Ricardo/);
 
   const revoada = await render("/espetaculos/revoada");
   const revoadaHtml = await revoada.text();
@@ -338,6 +471,34 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.match(await cantigas.text(), /<meta name="robots" content="noindex, nofollow"\/>/);
   assert.doesNotMatch(evenTrashHtml, /<meta name="robots" content="noindex, nofollow"\/>/);
   assert.doesNotMatch(fightingOverACapHtml, /<meta name="robots" content="noindex, nofollow"\/>/);
+});
+
+test("merges the learning offer into its parent and removes the old collection headlines", async () => {
+  for (const [pathname, expectedCopy, removedHeadline] of [
+    ["/atividades-formativas", "Voando com Flying Low", "Aprender em roda"],
+    ["/en/learning", "Voando com Flying Low", "Learn in a circle"],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, new RegExp(expectedCopy), pathname);
+    assert.match(html, /(?:stance|top rock|go downs|footwork)/i, pathname);
+    assert.doesNotMatch(html, new RegExp(removedHeadline), pathname);
+    assert.doesNotMatch(html, /href="(?:\/en)?\/(?:atividades-formativas|learning)\/(?:oficinas|workshops|residencia|residency)"/, pathname);
+  }
+
+  for (const pathname of ["/atividades-formativas/oficinas", "/atividades-formativas/residencia", "/en/learning/workshops", "/en/learning/residency"]) {
+    assert.equal((await render(pathname)).status, 404, pathname);
+  }
+
+  for (const [pathname, removedHeadline] of [
+    ["/grupo", "Cinco artistas, uma criação compartilhada"],
+    ["/en/collective", "Five artists, one shared practice"],
+    ["/debates-mediados", "A conversa continua"],
+    ["/en/conversations", "The conversation continues after the stage"],
+  ]) {
+    assert.doesNotMatch(await (await render(pathname)).text(), new RegExp(removedHeadline), pathname);
+  }
 });
 
 test("renders both Fora da Gaiola flyers and confirmed event details", async () => {
@@ -403,7 +564,7 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(routes, /en: "\/en\/performances\/the-footprints-of-kurupyra"/);
   assert.match(routes, /en: "\/en\/screen\/marginal-conceptions"/);
   assert.match(routes, /en: "\/en\/screen\/even-in-the-trash-grows-flowers"/);
-  assert.match(routes, /en: "\/en\/learning\/workshops"/);
+  assert.doesNotMatch(routes, /learningWorkshops|learningResidency|\/en\/learning\/(?:workshops|residency)/);
 });
 
 test("keeps every pixel-based text size at 16px or larger", async () => {
