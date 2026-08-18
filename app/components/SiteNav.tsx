@@ -89,7 +89,7 @@ export function SiteNav({ light = false }: { light?: boolean }) {
         <div className="menu-dialog-inner">
           <div className="menu-head">
             <a className="menu-brand" href={routeFor(locale, "home")} onClick={closeMenu} aria-label={t.nav.homeAria}>
-              <img src="/brand/logo-mark-light.png" alt="" aria-hidden="true" width={273} height={414} loading="eager" decoding="async" />
+              {menuOpen && <img src="/brand/logo-mark-light.png" alt="" aria-hidden="true" width={273} height={414} loading="eager" decoding="async" />}
             </a>
             <button autoFocus className="menu-close" type="button" onClick={closeMenu}>{t.nav.close} <span aria-hidden="true">×</span></button>
           </div>

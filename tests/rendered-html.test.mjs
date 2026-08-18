@@ -445,6 +445,17 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   ]) assert.match(meninoHtml, new RegExp(filename.replaceAll(".", "\\.")));
   assert.match(meninoHtml, /Foto · Sarará Rodrigues/);
   assert.match(meninoHtml, /Acervo · Fundação Cultural Cassiano Ricardo/);
+  for (const [filename, width, height, loading] of [
+    ["assum-01.webp", 1920, 1080, "lazy"],
+    ["assum-02.webp", 1920, 1080, "lazy"],
+    ["assum-03.webp", 1920, 1080, "lazy"],
+    ["assum-04.webp", 3235, 2537, "lazy"],
+    ["assum-05.webp", 5000, 3333, "lazy"],
+  ]) {
+    const source = "/images/menino-assum-preto/" + filename;
+    const imageTag = new RegExp('<img(?=[^>]*src="' + source + '")(?=[^>]*width="' + width + '")(?=[^>]*height="' + height + '")(?=[^>]*loading="' + loading + '")[^>]*>');
+    assert.match(meninoHtml, imageTag, source);
+  }
   assert.match(meninoHtml, /Ficha técnica/);
   assert.match(meninoHtml, /Emersu \(Emerson S\. Oliveira\)/);
   assert.match(meninoHtml, /Fioot \(Jeff dos Santos Rodrigues\)/);
@@ -486,7 +497,8 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   const evenTrash = await render("/audiovisual/mesmo-no-lixo-nascem-flores");
   const evenTrashHtml = await evenTrash.text();
   assert.match(evenTrashHtml, /class="project-teaser-card" href="https:\/\/www\.youtube\.com\/watch\?v=HlWvODEryF4" target="_blank" rel="noreferrer"/);
-  assert.match(evenTrashHtml, /src="\/images\/even-in-the-trash-grows-flowers\/even-trash-youtube\.webp"/);
+  assert.match(evenTrashHtml, /src="\/images\/even-in-the-trash-grows-flowers\/even-trash-hero\.webp"/);
+  assert.doesNotMatch(evenTrashHtml, /even-trash-youtube\.webp/);
   assert.doesNotMatch(evenTrashHtml, /youtube-nocookie\.com\/embed\/HlWvODEryF4/);
   assert.match(evenTrashHtml, /even-trash-hero\.webp/);
   assert.match(evenTrashHtml, /even-trash-wide\.webp/);

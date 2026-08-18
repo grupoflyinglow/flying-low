@@ -63,7 +63,7 @@ export function ProjectPage({
           <div className="section-shell">
             <p className="eyebrow" id="project-performance-teaser">{content.common.video}</p>
             <a className="project-teaser-card project-teaser-card--performance" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
-              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="lazy" decoding="async" />
               <span className="performance-cover-shade" aria-hidden="true" />
               <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
             </a>

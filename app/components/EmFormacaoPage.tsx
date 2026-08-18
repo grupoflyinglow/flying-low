@@ -109,7 +109,7 @@ export function EmFormacaoPage() {
               {season.episodes.map((episode, index) => (
                 <article className="em-formacao-episode-card" key={episode.id}>
                   <a href={videoHref(season, episode, index)} target="_blank" rel="noreferrer" aria-label={`${t.watchEpisode}: ${episode.name}`}>
-                    <img src={`https://i.ytimg.com/vi/${episode.id}/hqdefault.jpg`} alt="" loading="lazy" decoding="async" />
+                    <img src={`https://i.ytimg.com/vi/${episode.id}/hqdefault.jpg`} alt="" width={480} height={360} loading="lazy" decoding="async" />
                     <span className="em-formacao-episode-overlay" aria-hidden="true" />
                     <span className="em-formacao-episode-play" aria-hidden="true">↗</span>
                   </a>
