@@ -23,8 +23,15 @@ export function SiteFooter() {
           <a href={routeFor(locale, "learning")}>{t.nav.learning}</a>
           <a href={routeFor(locale, "debates")}>{t.nav.debates}</a>
           <a href={routeFor(locale, "agenda")}>{t.nav.agenda}</a>
+          <a href={routeFor(locale, "contact")}>{t.nav.contact}</a>
         </nav>
-        <a className="footer-contact" href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span>↗</span></a>
+        <div className="footer-contact-links">
+          <a className="footer-contact" href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span>↗</span></a>
+          <div className="footer-social-links" aria-label={t.footer.socialNavigation}>
+            <a href="https://www.instagram.com/grupo_flyinglow/" target="_blank" rel="noreferrer">Instagram <span>↗</span></a>
+            <a href="https://www.youtube.com/@grupoflyinglow2473" target="_blank" rel="noreferrer">YouTube <span>↗</span></a>
+          </div>
+        </div>
       </div>
       <div className="section-shell footer-meta"><span>© {new Date().getFullYear()} Flying Low</span></div>
     </footer>

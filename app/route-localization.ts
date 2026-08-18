@@ -19,7 +19,8 @@ export type RouteKey =
   | "debates"
   | "debateFirstEdition"
   | "history"
-  | "agenda";
+  | "agenda"
+  | "contact";
 
 export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
   home: { "pt-BR": "/", en: "/en" },
@@ -74,6 +75,7 @@ export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
   },
   history: { "pt-BR": "/historico", en: "/en/history" },
   agenda: { "pt-BR": "/agenda", en: "/en/agenda" },
+  contact: { "pt-BR": "/contato", en: "/en/contact" },
 };
 
 const routeAliases: Record<string, RouteKey> = {

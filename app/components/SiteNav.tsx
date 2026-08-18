@@ -104,7 +104,6 @@ export function SiteNav({ light = false }: { light?: boolean }) {
             })}
           </nav>
           <div className="menu-foot">
-            <LanguageSwitch />
             <a href="mailto:producaoflyinglow@gmail.com">{t.nav.contactProduction} <span>↗</span></a>
           </div>
         </div>
