@@ -2,6 +2,7 @@
 
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
+import "./contact-page.css";
 
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/grupo_flyinglow/" },
@@ -15,8 +16,7 @@ export function ContactPage() {
     <main className="editorial-page contact-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="contact-page-header section-shell" aria-labelledby="contact-heading">
-        <p className="eyebrow">{t.contact.eyebrow}</p>
-        <h1 id="contact-heading">{t.contact.heading}</h1>
+        <h1 className="contact-page-title eyebrow" id="contact-heading">{t.contact.eyebrow}</h1>
         <p>{t.contact.intro}</p>
       </section>
       <section className="contact-page-links section-shell" aria-label={t.contact.eyebrow}>

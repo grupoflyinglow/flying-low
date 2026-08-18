@@ -271,15 +271,16 @@ test("keeps only the horizontal project section for moderated conversations", as
   assert.match(await audiovisual.text(), /class="performances-rail"/);
 });
 
-test("renders contact routes, footer socials, and the visible locale control in both languages", async () => {
-  for (const [pathname, heading, mailLabel] of [
-    ["/contato", "Vamos conversar\.", "producaoflyinglow@gmail.com"],
-    ["/en/contact", "Let’s talk\.", "producaoflyinglow@gmail.com"],
+test("renders minimalist contact routes, footer socials, and localized navigation in both languages", async () => {
+  for (const [pathname, pageName, mailLabel] of [
+    ["/contato", "Contato", "producaoflyinglow@gmail.com"],
+    ["/en/contact", "Contact", "producaoflyinglow@gmail.com"],
   ]) {
     const response = await render(pathname);
     assert.equal(response.status, 200, pathname);
     const html = await response.text();
-    assert.match(html, new RegExp(`<h1[^>]*>${heading}</h1>`), pathname);
+    assert.match(html, new RegExp(`<h1[^>]*>${pageName}</h1>`), pathname);
+    assert.doesNotMatch(html, /Vamos conversar\.|Let’s talk\./, pathname);
     assert.match(html, new RegExp(`href="mailto:${mailLabel}"`), pathname);
     assert.match(html, /https:\/\/www\.instagram\.com\/grupo_flyinglow\//);
     assert.match(html, /https:\/\/www\.youtube\.com\/@grupoflyinglow2473/);
@@ -289,6 +290,48 @@ test("renders contact routes, footer socials, and the visible locale control in 
   const home = await (await render("/")).text();
   assert.match(home, /https:\/\/www\.instagram\.com\/grupo_flyinglow\//);
   assert.match(home, /https:\/\/www\.youtube\.com\/@grupoflyinglow2473/);
+  assert.match(home, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/contato">Contato<\/a>/);
+  assert.match(home, /<nav class="menu-links"[^>]*>[\s\S]*href="\/contato"[^>]*>[\s\S]*<strong>Contato<\/strong>/);
+
+  const englishHome = await (await render("/en")).text();
+  assert.match(englishHome, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/en\/contact">Contact<\/a>/);
+  assert.match(englishHome, /<nav class="menu-links"[^>]*>[\s\S]*href="\/en\/contact"[^>]*>[\s\S]*<strong>Contact<\/strong>/);
+});
+
+test("renders the revised Grupo copy as paragraphs without retired research headlines", async () => {
+  for (const [pathname, firstParagraph, lastParagraph, retiredHeading, retiredMembersHeading] of [
+    ["/grupo", "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica", "Lai Machado na produção.", "O que move a pesquisa.", "Cinco artistas, uma criação compartilhada."],
+    ["/en/collective", "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language", "with Lai Machado in production.", "What drives the work.", "Five artists, one shared practice."],
+  ]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, new RegExp(firstParagraph), pathname);
+    assert.match(html, new RegExp(lastParagraph.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+    assert.doesNotMatch(html, new RegExp(retiredHeading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+    assert.doesNotMatch(html, new RegExp(retiredMembersHeading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+    const membersHeading = html.match(/class="members-heading">([\s\S]*?)<\/div>/)?.[1] ?? "";
+    assert.equal((membersHeading.match(/<p>/g) ?? []).length, 5, pathname);
+  }
+});
+
+test("uses the Em Formação thumbnail in the audiovisual chapter below the rail", async () => {
+  for (const pathname of ["/audiovisual", "/en/screen"]) {
+    const html = await (await render(pathname)).text();
+    const chapters = html.split('class="performance-chapters"')[1] ?? "";
+    assert.match(chapters, /href="\/(?:audiovisual\/em-formacao|en\/screen\/in-formation)"[\s\S]*src="\/images\/em-formacao-thumb\.webp"/, pathname);
+  }
+});
+
+test("keeps the merged learning page focused on supplied and original programme copy", async () => {
+  for (const [pathname, suppliedBody, workshopBody, residencyBody, retiredCopy] of [
+    ["/atividades-formativas", "A atividade formativa “Voando com Flying Low” foi desenvolvida como um espaço de compartilhamento", "As oficinas partem da história, da cultura, da musicalidade e dos fundamentos do breaking.", "A residência parte das perguntas e experiências trazidas por cada grupo.", ["Da prática à criação coletiva.", "Solicitar proposta de formação", "Da primeira roda à criação autoral", "Do fundamento à autoria.", "Iniciante"]],
+    ["/en/learning", "The learning activity “Voando com Flying Low” was developed as a space for sharing", "The workshops begin with breaking’s history, culture, musicality, and foundations.", "The residency begins with the questions and experiences brought by each group.", ["From practice to collective creation.", "Request a learning proposal", "From the first circle to original creation", "From foundations to authorship.", "Beginners"]],
+  ]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, new RegExp(suppliedBody), pathname);
+    assert.match(html, new RegExp(workshopBody), pathname);
+    assert.match(html, new RegExp(residencyBody), pathname);
+    for (const copy of retiredCopy) assert.doesNotMatch(html, new RegExp(copy.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+  }
 });
 
 test("renders Em Formação as two linked documentary seasons without the retired project-page blocks", async () => {
@@ -355,6 +398,9 @@ test("gives every performance detail page an image hero without retired summarie
     const html = await (await render(pathname)).text();
     assert.match(html, /class="project-teaser-card project-teaser-card--performance"/, pathname);
     assert.match(html, new RegExp("youtube\\.com/watch\\?v=" + youtubeId), pathname);
+    const heroIndex = html.indexOf('class="project-hero"');
+    const teaserIndex = html.indexOf('class="project-performance-teaser"');
+    assert.ok(heroIndex >= 0 && teaserIndex > heroIndex, `${pathname} teaser follows the hero`);
   }
 
   for (const pathname of ["/espetaculos/revoada", "/en/performances/revoada"]) {

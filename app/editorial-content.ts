@@ -141,23 +141,18 @@ type EditorialContent = {
   projects: Record<ProjectKey, EditorialProject>;
   group: {
     membersEyebrow: string;
-    membersIntro: string;
+    membersIntro: string[];
     membersVisible?: boolean;
     members: Member[];
     researchEyebrow: string;
-    researchHeading: string;
     researchBody: string[];
     researchAxes: string[];
   };
   learning: {
     body: string[];
     offerings: Array<{
-      eyebrow: string;
       title: string;
-      summary: string;
-      heading: string;
       body: string[];
-      facts: Array<{ label: string; value: string }>;
     }>;
   };
   history: {
@@ -446,7 +441,7 @@ const ptBR: EditorialContent = {
         "A segunda temporada nasce dentro de Na Manha com Flying Low, projeto contemplado pelo edital PROAC nº 31/2021 — Cidadania, Cultura Negra, Urbana e Hip Hop — e amplia essa escuta para novas trajetórias da cena.",
       ],
       image: "/images/em-formacao-thumb.webp",
-      secondaryImage: sharedImages.collective,
+      secondaryImage: "/images/em-formacao-thumb.webp",
       imageAlt: "Manu no documentário Em Formação, segunda temporada",
       facts: [
         { label: "Formato", value: "Série documental" },
@@ -593,7 +588,13 @@ const ptBR: EditorialContent = {
   },
   group: {
     membersEyebrow: "Quem são",
-    membersIntro: "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação, que são marca do coletivo. Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como: “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), voltado à criação em vídeo-dança; “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”; e “Circula Assum” (PROAC 04/2023), que levou o espetáculo “Menino Assum Preto” a sete cidades do estado de São Paulo, com o apoio da marca Converse. Em 2022, estreou seu segundo espetáculo, “As Pegadas do Kurupyra”, cruzando o breaking com histórias dos seres encantados dos povos originários do Brasil e da diáspora africana. Além dos espetáculos, desde 2021 o grupo conduz oficinas e residências por meio do projeto “Voando com Flying Low”, no qual compartilha suas metodologias de pesquisa e ensino de breaking. Em 2026 estreia seu mais novo trabalho cênico, com mais sete artistas em cena, em uma parceria de co-direção com Marina Esteves, dentro do projeto “Flying Low em Revoada”, contemplado pelo 38º Fomento à Dança para a Cidade de São Paulo. Atualmente é formado por Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), e Lai Machado na produção.",
+    membersIntro: [
+      "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação, que são marca do coletivo.",
+      "Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como: “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), voltado à criação em vídeo-dança; “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”; e “Circula Assum” (PROAC 04/2023), que levou o espetáculo “Menino Assum Preto” a sete cidades do estado de São Paulo, com o apoio da marca Converse.",
+      "Em 2022, estreou seu segundo espetáculo, “As Pegadas do Kurupyra”, cruzando o breaking com histórias dos seres encantados dos povos originários do Brasil e da diáspora africana. Além dos espetáculos, desde 2021 o grupo conduz oficinas e residências por meio do projeto “Voando com Flying Low”, no qual compartilha suas metodologias de pesquisa e ensino de breaking.",
+      "Em 2026 estreia seu mais novo trabalho cênico, com mais sete artistas em cena, em uma parceria de co-direção com Marina Esteves, dentro do projeto “Flying Low em Revoada”, contemplado pelo 38º Fomento à Dança para a Cidade de São Paulo.",
+      "Atualmente é formado por Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), e Lai Machado na produção.",
+    ],
     membersVisible: false,
     members: [
       {
@@ -648,7 +649,6 @@ const ptBR: EditorialContent = {
       },
     ],
     researchEyebrow: "Pesquisa",
-    researchHeading: "O que move a pesquisa.",
     researchBody: [
       "A pesquisa artística do Grupo Flying Low parte da dança breaking como linguagem cênica, política e poética, elaborando dramaturgias corporais que emergem das experiências periféricas e coletivas. A partir da vivência em grupo, da direção compartilhada, e do cruzamento entre danças urbanas e contemporâneas, o coletivo constrói obras que emergem de práticas colaborativas, afetos e urgências vividas por seus integrantes, sempre atentos às questões que atravessam seus corpos e territórios. As obras e projetos do grupo desdobram essas investigações em diferentes linguagens e suportes.",
       "As criações cênicas se debruçam sobre temas como o aprisionamento simbólico do corpo, a ancestralidade, a precarização do trabalho e a fabulação de outros futuros possíveis.",
@@ -667,33 +667,17 @@ const ptBR: EditorialContent = {
     ],
     offerings: [
       {
-        eyebrow: "Atividade formativa",
         title: "Oficinas",
-        summary: "Da primeira roda à criação autoral, as oficinas compartilham história, musicalidade e fundamentos do breaking.",
-        heading: "Do fundamento à autoria.",
         body: [
           "As oficinas partem da história, da cultura, da musicalidade e dos fundamentos do breaking. Com quem começa, constroem as primeiras bases; com quem já dança, aprofundam repertório, improvisação e pesquisa de movimento; com profissionais, compartilham ferramentas de criação presentes nas obras do Flying Low.",
           "Cada percurso se adapta ao grupo, ao tempo disponível e ao espaço. As oficinas já passaram por ambientes de formação e criação como a ETEC de Artes, a Companhia de Danças de Diadema e a Oficina Cultural Oswald de Andrade.",
         ],
-        facts: [
-          { label: "Iniciantes", value: "História, cultura e primeiras bases" },
-          { label: "Quem já dança", value: "Repertório, improvisação e pesquisa" },
-          { label: "Profissionais", value: "Ferramentas de criação cênica" },
-        ],
       },
       {
-        eyebrow: "Processo intensivo",
         title: "Residência",
-        summary: "Um processo intensivo para transformar perguntas, experiências e movimento em criação coletiva.",
-        heading: "Do treinamento ao surgimento de uma obra.",
         body: [
           "A residência parte das perguntas e experiências trazidas por cada grupo. Jogos de composição, escrita de corpo, improvisação e dramaturgia organizam um processo coletivo de investigação.",
           "Conforme a duração e o contexto, o percurso pode se abrir ao público ou culminar em uma apresentação. A residência também pode servir de laboratório para pesquisas ligadas a Concepções Marginais e Revoada.",
-        ],
-        facts: [
-          { label: "Foco", value: "Investigação e criação coletiva" },
-          { label: "Formato", value: "Percurso adaptado ao contexto" },
-          { label: "Desdobramento", value: "Partilha pública ou apresentação" },
         ],
       },
     ],
@@ -958,7 +942,7 @@ const en: EditorialContent = {
         "The second season grew from Na Manha com Flying Low, supported by PROAC 31/2021 — Citizenship, Black, Urban, and Hip Hop Culture — and extends that listening to new trajectories within the scene.",
       ],
       image: "/images/em-formacao-thumb.webp",
-      secondaryImage: sharedImages.collective,
+      secondaryImage: "/images/em-formacao-thumb.webp",
       imageAlt: "Manu in the second season of the In Formation documentary",
       facts: [
         { label: "Format", value: "Documentary series" },
@@ -1105,7 +1089,13 @@ const en: EditorialContent = {
   },
   group: {
     membersEyebrow: "Who they are",
-    membersIntro: "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language through urban dances, bodily dramaturgies, and collaborative practices of creation. Formed in 2018, Flying Low emerged with the creation of the performance “Menino Assum Preto,” supported by the VAI Programme. It marked the beginning of the collective’s authorial trajectory and choreographic approach, rooted in peripheral aesthetics and collective modes of creation. Since then, the group has developed projects that connect stage, screen, and learning: “Cantigas do Meu Matulão” (Aldir Blanc Award – 2020), a dance-film creation project; “Na Manha com Flying Low” (PROAC 31/2021), with educational actions and the documentary series “Em Formação”; and “Circula Assum” (PROAC 04/2023), which brought “Menino Assum Preto” to seven cities across the state of São Paulo with support from Converse. In 2022, it premiered its second performance, “As Pegadas do Kurupyra,” bringing breaking into dialogue with stories of enchanted beings from Brazil’s Indigenous peoples and the African diaspora. Alongside its performances, since 2021 the group has led workshops and residencies through “Voando com Flying Low,” sharing its research and teaching methods for breaking. In 2026, it premieres its newest stage work, with seven additional artists onstage and co-direction by Marina Esteves, within “Flying Low em Revoada,” supported by the 38th Fomento à Dança para a Cidade de São Paulo. It is currently made up of Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), with Lai Machado in production.",
+    membersIntro: [
+      "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language through urban dances, bodily dramaturgies, and collaborative practices of creation. Formed in 2018, Flying Low emerged with the creation of the performance “Menino Assum Preto,” supported by the VAI Programme. It marked the beginning of the collective’s authorial trajectory and choreographic approach, rooted in peripheral aesthetics and collective modes of creation.",
+      "Since then, the group has developed projects that connect stage, screen, and learning: “Cantigas do Meu Matulão” (Aldir Blanc Award – 2020), a dance-film creation project; “Na Manha com Flying Low” (PROAC 31/2021), with educational actions and the documentary series “Em Formação”; and “Circula Assum” (PROAC 04/2023), which brought “Menino Assum Preto” to seven cities across the state of São Paulo with support from Converse.",
+      "In 2022, it premiered its second performance, “As Pegadas do Kurupyra,” bringing breaking into dialogue with stories of enchanted beings from Brazil’s Indigenous peoples and the African diaspora. Alongside its performances, since 2021 the group has led workshops and residencies through “Voando com Flying Low,” sharing its research and teaching methods for breaking.",
+      "In 2026, it premieres its newest stage work, with seven additional artists onstage and co-direction by Marina Esteves, within “Flying Low em Revoada,” supported by the 38th Fomento à Dança para a Cidade de São Paulo.",
+      "It is currently made up of Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), with Lai Machado in production.",
+    ],
     membersVisible: false,
     members: [
       {
@@ -1160,7 +1150,6 @@ const en: EditorialContent = {
       },
     ],
     researchEyebrow: "Research",
-    researchHeading: "What drives the work.",
     researchBody: [
       "Grupo Flying Low’s artistic research begins with breaking as a scenic, political, and poetic language, developing bodily dramaturgies that emerge from peripheral and collective experiences. Through shared group experience and direction, and through the meeting of urban and contemporary dances, the collective creates works shaped by collaborative practices, care, and urgencies lived by its members, always attentive to the questions that run through their bodies and territories. The group’s works and projects unfold these investigations across different languages and media.",
       "The stage creations engage themes including the body’s symbolic confinement, ancestry, the precarity of work, and the imagining of other possible futures.",
@@ -1179,33 +1168,17 @@ const en: EditorialContent = {
     ],
     offerings: [
       {
-        eyebrow: "Learning activity",
         title: "Workshops",
-        summary: "From the first circle to original creation, the workshops share breaking’s history, musicality, and foundations.",
-        heading: "From foundations to authorship.",
         body: [
           "The workshops begin with breaking’s history, culture, musicality, and foundations. With beginners, they build the first bases; with experienced dancers, they deepen repertoire, improvisation, and movement research; with professionals, they share creative tools used in Flying Low’s works.",
           "Each pathway adapts to the group, available time, and space. The workshops have taken place in learning and creative settings including ETEC de Artes, Companhia de Danças de Diadema, and Oficina Cultural Oswald de Andrade.",
         ],
-        facts: [
-          { label: "Beginners", value: "History, culture, and first foundations" },
-          { label: "Experienced dancers", value: "Repertoire, improvisation, and research" },
-          { label: "Professionals", value: "Tools for stage creation" },
-        ],
       },
       {
-        eyebrow: "Intensive process",
         title: "Residency",
-        summary: "An intensive process for turning questions, experiences, and movement into collective creation.",
-        heading: "From training to the emergence of a work.",
         body: [
           "The residency begins with the questions and experiences brought by each group. Composition games, body writing, improvisation, and dramaturgy organise a collective process of inquiry.",
           "Depending on its duration and context, the process may open to the public or culminate in a presentation. The residency can also serve as a laboratory for research connected to Concepções Marginais and Revoada.",
-        ],
-        facts: [
-          { label: "Focus", value: "Inquiry and collective creation" },
-          { label: "Format", value: "A pathway adapted to its context" },
-          { label: "Outcome", value: "Public sharing or presentation" },
         ],
       },
     ],

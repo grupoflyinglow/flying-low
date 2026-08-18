@@ -47,13 +47,6 @@ export function ProjectPage({
           <h1>{project.title}</h1>
           {!isPerformance && <p>{project.summary}</p>}
           {project.status && <span className="project-status">{project.status}</span>}
-          {isPerformance && project.video && (
-            <a className="project-teaser-card project-teaser-card--performance" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
-              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
-              <span className="performance-cover-shade" aria-hidden="true" />
-              <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
-            </a>
-          )}
         </div>
         <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
           {heroImage ? (
@@ -64,6 +57,19 @@ export function ProjectPage({
           {heroImageCredit && <span className="project-hero-credit">{heroImageCredit}</span>}
         </div>
       </section>
+
+      {isPerformance && project.video && (
+        <section className="project-performance-teaser" aria-labelledby="project-performance-teaser">
+          <div className="section-shell">
+            <p className="eyebrow" id="project-performance-teaser">{content.common.video}</p>
+            <a className="project-teaser-card project-teaser-card--performance" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
+              <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
+              <span className="performance-cover-shade" aria-hidden="true" />
+              <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
+            </a>
+          </div>
+        </section>
+      )}
 
       <section className="project-story section-shell" aria-labelledby={synopsisLabelId}>
         <div className="project-story-label">
