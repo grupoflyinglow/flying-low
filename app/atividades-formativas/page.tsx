@@ -1,5 +1,5 @@
-import { CollectionPage } from "../components/CollectionPage";
+import { LearningPage } from "../components/LearningPage";
 
 export default function AtividadesFormativas() {
-  return <CollectionPage collectionKey="formacao" />;
+  return <LearningPage />;
 }

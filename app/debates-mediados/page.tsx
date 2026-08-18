@@ -1,5 +1,5 @@
-import { CollectionPage } from "../components/CollectionPage";
+import { DebatesPage } from "../components/DebatesPage";
 
 export default function DebatesMediados() {
-  return <CollectionPage collectionKey="debates" />;
+  return <DebatesPage />;
 }

@@ -28,8 +28,6 @@ const projectKeyByRoute: Partial<Record<RouteKey, ProjectKey>> = {
   screenEvenTrash: "evenInTheTrash",
   screenFightingOverACap: "fightingOverACap",
   screenCantigas: "cantigas",
-  learningWorkshops: "oficinas",
-  learningResidency: "residencia",
   debateFirstEdition: "debatePrimeiraEdicao",
 };
 
@@ -67,6 +65,8 @@ function pageMetadata(locale: Locale, routeKey: RouteKey) {
       return { title: content.history.eyebrow, description: content.history.intro };
     case "agenda":
       return { title: content.agenda.eyebrow, description: content.agenda.intro };
+    case "contact":
+      return { title: copy.contact.eyebrow, description: copy.contact.intro };
     default:
       return copy.meta;
   }

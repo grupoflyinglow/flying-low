@@ -1,5 +1,5 @@
-import { CollectionPage } from "../components/CollectionPage";
+import { PerformancesPage } from "../components/PerformancesPage";
 
 export default function Audiovisual() {
-  return <CollectionPage collectionKey="audiovisual" />;
+  return <PerformancesPage collectionKey="audiovisual" />;
 }

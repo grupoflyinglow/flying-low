@@ -17,11 +17,26 @@ export default function Grupo() {
         <p className="archive-intro">{t.group.intro}</p>
       </section>
 
-      <section className="members-section section-shell" aria-labelledby="members-title">
+      <section className="group-research" aria-label={content.researchEyebrow}>
+        <div className="section-shell group-research-grid">
+          <p className="eyebrow">{content.researchEyebrow}</p>
+          <div>
+            <div className="research-copy">
+              {content.researchBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+            {content.researchAxes.length > 0 && <ol className="research-axes">
+              {content.researchAxes.map((axis, index) => <li key={axis}><span>{String(index + 1).padStart(2, "0")}</span>{axis}</li>)}
+            </ol>}
+          </div>
+        </div>
+      </section>
+
+      <section className="members-section section-shell" aria-label={content.membersEyebrow}>
         <div className="members-heading">
           <p className="eyebrow">{content.membersEyebrow}</p>
-          <h2 id="members-title">{content.membersHeading}</h2>
-          <p>{content.membersIntro}</p>
+          <div className="members-intro">
+            {content.membersIntro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
         </div>
         {content.membersVisible && <div className="members-list">
           {content.members.map((member, index) => (
@@ -43,21 +58,6 @@ export default function Grupo() {
             </article>
           ))}
         </div>}
-      </section>
-
-      <section className="group-research" aria-labelledby="research-title">
-        <div className="section-shell group-research-grid">
-          <p className="eyebrow">{content.researchEyebrow}</p>
-          <div>
-            <h2 id="research-title">{content.researchHeading}</h2>
-            <div className="research-copy">
-              {content.researchBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-            {content.researchAxes.length > 0 && <ol className="research-axes">
-              {content.researchAxes.map((axis, index) => <li key={axis}><span>{String(index + 1).padStart(2, "0")}</span>{axis}</li>)}
-            </ol>}
-          </div>
-        </div>
       </section>
     </main>
   );

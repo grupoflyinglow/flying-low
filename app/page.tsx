@@ -30,23 +30,25 @@ export default function Home() {
     <main id="main-content" tabIndex={-1}>
       <section className="hero" aria-labelledby="hero-title">
         {!prefersReducedMotion && (
-          <iframe
-            className={`hero-youtube ${heroVideoReady ? "is-ready" : ""}`}
-            src="https://www.youtube-nocookie.com/embed/A244vRmQt8I?autoplay=1&mute=1&playsinline=1&loop=1&playlist=A244vRmQt8I&controls=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&rel=0"
-            title={t.home.teaserTitle}
+          <video
+            className={`hero-video ${heroVideoReady ? "is-ready" : ""}`}
             aria-hidden="true"
             tabIndex={-1}
-            loading="eager"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            onLoad={() => setHeroVideoReady(true)}
-          />
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            onCanPlay={() => setHeroVideoReady(true)}
+          >
+            <source media="(max-width: 760px)" src="/video/flying-low-home-mobile.mp4" type="video/mp4" />
+            <source src="/video/flying-low-home.mp4" type="video/mp4" />
+          </video>
         )}
         <div className="hero-wash" />
         <SiteNav light />
         <div className="hero-caption">
           <h1 id="hero-title"><span>Flying</span><span>Low</span></h1>
-          <p className="hero-line">{t.home.heroLine1}<br />{t.home.heroLine2}</p>
         </div>
         <div className="hero-footer">
           <span>{t.home.location}</span>
@@ -95,14 +97,6 @@ export default function Home() {
           </div>
           <a className="text-link agenda-cta" href={routeFor(locale, "agenda")}>{t.home.agendaCta} <b>↗</b></a>
         </div>
-      </section>
-
-      <section className="collective-image section-shell" aria-label={t.home.collectiveSectionLabel}>
-        <a className="collective-image-link" href={routeFor(locale, "group")}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/flying-low-collective.jpg" alt={t.home.collectiveAlt} width={800} height={533} loading="lazy" decoding="async" />
-          <span className="image-label">{t.home.meetGroup} ↗</span>
-        </a>
       </section>
 
     </main>

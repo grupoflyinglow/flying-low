@@ -10,8 +10,6 @@ export type ProjectKey =
   | "evenInTheTrash"
   | "fightingOverACap"
   | "cantigas"
-  | "oficinas"
-  | "residencia"
   | "debatePrimeiraEdicao";
 
 export type CollectionKey = "espetaculos" | "audiovisual" | "formacao" | "debates";
@@ -25,8 +23,6 @@ const projectRouteKeys: Record<ProjectKey, RouteKey> = {
   evenInTheTrash: "screenEvenTrash",
   fightingOverACap: "screenFightingOverACap",
   cantigas: "screenCantigas",
-  oficinas: "learningWorkshops",
-  residencia: "learningResidency",
   debatePrimeiraEdicao: "debateFirstEdition",
 };
 
@@ -92,6 +88,9 @@ export type EditorialProject = {
   body: string[];
   image?: string;
   imageCredit?: string;
+  heroImage?: string;
+  heroImageAlt?: string;
+  heroImageCredit?: string;
   secondaryImage?: string;
   secondaryImageCredit?: string;
   gallery?: ProjectImage[];
@@ -142,14 +141,19 @@ type EditorialContent = {
   projects: Record<ProjectKey, EditorialProject>;
   group: {
     membersEyebrow: string;
-    membersHeading: string;
-    membersIntro: string;
+    membersIntro: string[];
     membersVisible?: boolean;
     members: Member[];
     researchEyebrow: string;
-    researchHeading: string;
     researchBody: string[];
     researchAxes: string[];
+  };
+  learning: {
+    body: string[];
+    offerings: Array<{
+      title: string;
+      body: string[];
+    }>;
   };
   history: {
     eyebrow: string;
@@ -188,7 +192,8 @@ const sharedImages = {
   amber: "/images/flying-low-stage-amber.jpg",
   blue: "/images/flying-low-stage-blue.jpg",
   kurupyraHero: "/images/kurupyra/kurupyra-193.webp",
-  kurupyraSecondary: "/images/kurupyra/kurupyra-317.webp",
+  kurupyraHeroBackground: "/images/kurupyra/kurupyra-317.webp",
+  kurupyraSecondary: "/images/kurupyra/kurupyra-261.webp",
   concepcoesHero: "/images/concepcoes-marginais/concepcoes-marginais-hero.webp",
   concepcoesWide: "/images/concepcoes-marginais/concepcoes-marginais-wide.webp",
   evenTrashHero: "/images/even-in-the-trash-grows-flowers/even-trash-hero.webp",
@@ -196,6 +201,31 @@ const sharedImages = {
   evenTrashYouTube: "/images/even-in-the-trash-grows-flowers/even-trash-youtube.webp",
   fightingOverACapYouTube: "/images/fighting-over-a-cap/fighting-over-a-cap-youtube.webp",
 };
+
+const meninoSararaImageSlugs = ["130", "396", "236", "26", "2", "27-corte", "358", "331", "7", "2-2024", "543"];
+const meninoArchiveImageSlugs = ["1", "2", "3"];
+
+function meninoDriveGallery(locale: Locale): ProjectImage[] {
+  const isPortuguese = locale === "pt-BR";
+  return [
+    ...meninoSararaImageSlugs.map((slug, index) => ({
+      src: `/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-${slug}.webp`,
+      alt: isPortuguese
+        ? `Cena de Menino Assum Preto fotografada por Sarará Rodrigues ${index + 1}`
+        : `Menino Assum Preto performance photographed by Sarará Rodrigues ${index + 1}`,
+      credit: isPortuguese ? "Foto · Sarará Rodrigues" : "Photo · Sarará Rodrigues",
+    })),
+    ...meninoArchiveImageSlugs.map((slug, index) => ({
+      src: `/images/menino-assum-preto/menino-assum-preto-fundacao-cultural-cassiano-ricardo-${slug}.webp`,
+      alt: isPortuguese
+        ? `Registro de Menino Assum Preto no acervo da Fundação Cultural Cassiano Ricardo ${index + 1}`
+        : `Menino Assum Preto record from the Fundação Cultural Cassiano Ricardo archive ${index + 1}`,
+      credit: isPortuguese
+        ? "Acervo · Fundação Cultural Cassiano Ricardo"
+        : "Archive · Fundação Cultural Cassiano Ricardo",
+    })),
+  ];
+}
 
 const ptBR: EditorialContent = {
   common: {
@@ -233,7 +263,7 @@ const ptBR: EditorialContent = {
       heading: "Aprender em roda. Criar em coletivo.",
       intro: "A roda se abre para compartilhar histórias, fundamentos e ferramentas de criação com diferentes experiências em dança.",
       stripLabel: "Percursos formativos",
-      projectKeys: ["oficinas", "residencia"],
+      projectKeys: [],
     },
     debates: {
       eyebrow: "Debates mediados",
@@ -250,10 +280,14 @@ const ptBR: EditorialContent = {
       year: "2019",
       summary: "Um manifesto em movimento sobre trabalho, aprisionamento e o direito de sonhar.",
       body: [
-        "Inspirado na canção “Assum Preto”, de Luiz Gonzaga e Humberto Teixeira, o espetáculo aproxima o pássaro aprisionado e cegado — que canta sem ver o mundo — do trabalhador urbano submetido à exploração e à invisibilidade. Entre breaking e dança contemporânea, os intérpretes-criadores transformam esse paralelo em uma cena sobre dignidade, liberdade, dor e poesia.",
-        "A montagem estreou em 2019 e, desde então, circula por festivais e espaços culturais, afirmando a arte periférica como expressão crítica, sensível e transformadora.",
+        "Inspirado na canção emblemática “Assum Preto”, de Luiz Gonzaga e Humberto Teixeira, Menino Assum Preto é um manifesto em movimento que se inscreve no corpo e na memória dos intérpretes-criadores do grupo Flying Low, todos vindos das periferias de São Paulo. A obra traça um paralelo tocante entre o pássaro aprisionado e cegado — que canta sem ver o mundo — e o trabalhador urbano, empurrado a sobreviver num cotidiano de exploração e invisibilidade.",
+        "Combinando breaking e dança contemporânea, os artistas lançam seus corpos em cena para criar uma narrativa visceral sobre a luta por dignidade e liberdade. Com trilha sonora, iluminação e figurino originais, a montagem convida o público a mergulhar em uma atmosfera que vai do denso ao lúdico, evocando a dor, a poesia e a força dos corpos que insistem em sonhar. Tudo isso por meio de acrobacias virtuosas do breaking e uma expressividade única.",
+        "Desde sua estreia em 2019, o espetáculo circula por festivais e espaços culturais, fazendo coro à afirmação da arte periférica como expressão crítica, sensível e transformadora.",
       ],
       image: "/images/menino-assum-preto/assum-01.webp",
+      heroImage: "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp",
+      heroImageAlt: "Intérprete de Menino Assum Preto em silhueta diante do palco",
+      heroImageCredit: "Foto · Sarará Rodrigues",
       secondaryImage: "/images/menino-assum-preto/assum-04.webp",
       imageAlt: "Intérpretes de Menino Assum Preto em cena",
       galleryLabel: "Registros de cena",
@@ -261,6 +295,7 @@ const ptBR: EditorialContent = {
         { src: "/images/menino-assum-preto/assum-02.webp", alt: "Elenco de Menino Assum Preto em cena diante do público" },
         { src: "/images/menino-assum-preto/assum-03.webp", alt: "Dois intérpretes de Menino Assum Preto em movimento" },
         { src: "/images/menino-assum-preto/assum-05.webp", alt: "Integrantes do Flying Low reunidos em retrato" },
+        ...meninoDriveGallery("pt-BR"),
       ],
       video: {
         youtubeId: "A244vRmQt8I",
@@ -296,6 +331,9 @@ const ptBR: EditorialContent = {
       ],
       image: sharedImages.kurupyraHero,
       imageCredit: "Foto · Sarará Rodrigues",
+      heroImage: sharedImages.kurupyraHeroBackground,
+      heroImageAlt: "Elenco de As Pegadas do Kurupyra atravessando o palco",
+      heroImageCredit: "Foto · Sarará Rodrigues",
       secondaryImage: sharedImages.kurupyraSecondary,
       secondaryImageCredit: "Foto · Sarará Rodrigues",
       imageAlt: "Elenco de As Pegadas do Kurupyra em cena",
@@ -402,9 +440,9 @@ const ptBR: EditorialContent = {
         "Contemplada pelo Programa VAI em 2018, a primeira temporada percorre histórias do hip hop pela dança breaking: sua origem nos Estados Unidos, sua presença em São Paulo, a atuação das mulheres na cena e a entrada das danças urbanas nos teatros.",
         "A segunda temporada nasce dentro de Na Manha com Flying Low, projeto contemplado pelo edital PROAC nº 31/2021 — Cidadania, Cultura Negra, Urbana e Hip Hop — e amplia essa escuta para novas trajetórias da cena.",
       ],
-      image: sharedImages.portrait,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Flying Low em cena",
+      image: "/images/em-formacao-thumb.webp",
+      secondaryImage: "/images/em-formacao-thumb.webp",
+      imageAlt: "Manu no documentário Em Formação, segunda temporada",
       facts: [
         { label: "Formato", value: "Série documental" },
         { label: "Ano", value: "2021" },
@@ -508,50 +546,6 @@ const ptBR: EditorialContent = {
         { label: "Solicitar acesso", href: "mailto:producaoflyinglow@gmail.com?subject=Cantigas%20do%20Meu%20Matulao" },
       ],
     },
-    oficinas: {
-      title: "Oficinas",
-      eyebrow: "Atividade formativa",
-      year: "Percursos adaptáveis",
-      summary: "Da primeira roda à criação autoral, as oficinas compartilham história, musicalidade e fundamentos do breaking.",
-      synopsisHeading: "Do fundamento à autoria.",
-      body: [
-        "As oficinas partem da história, da cultura, da musicalidade e dos fundamentos do breaking. Com quem começa, constroem as primeiras bases; com quem já dança, aprofundam repertório, improvisação e pesquisa de movimento; com profissionais, compartilham ferramentas de criação presentes nas obras do Flying Low.",
-        "Cada percurso se adapta ao grupo, ao tempo disponível e ao espaço. As oficinas já passaram por ambientes de formação e criação como a ETEC de Artes, a Companhia de Danças de Diadema e a Oficina Cultural Oswald de Andrade.",
-      ],
-      image: sharedImages.amber,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Flying Low em prática de dança",
-      facts: [
-        { label: "Iniciante", value: "Fundamentos, contexto e musicalidade" },
-        { label: "Já dançantes", value: "Treinamento, improvisação e autoria" },
-        { label: "Profissionais", value: "Pesquisa de linguagem e criação cênica" },
-      ],
-      links: [
-        { label: "Solicitar proposta", href: "mailto:producaoflyinglow@gmail.com?subject=Proposta%20de%20oficina" },
-      ],
-    },
-    residencia: {
-      title: "Residência",
-      eyebrow: "Atividade formativa",
-      year: "Processo intensivo",
-      summary: "Um processo intensivo para transformar perguntas, experiências e movimento em criação coletiva.",
-      synopsisHeading: "Do treinamento ao surgimento de uma obra.",
-      body: [
-        "A residência parte das perguntas e experiências trazidas por cada grupo. Jogos de composição, escrita de corpo, improvisação e dramaturgia organizam um processo coletivo de investigação.",
-        "Conforme a duração e o contexto, o percurso pode se abrir ao público ou culminar em uma apresentação. A residência também pode servir de laboratório para pesquisas ligadas a Concepções Marginais e Revoada.",
-      ],
-      image: sharedImages.portrait,
-      secondaryImage: sharedImages.blue,
-      imageAlt: "Retrato do grupo Flying Low em processo",
-      facts: [
-        { label: "Foco", value: "Procedimentos de criação" },
-        { label: "Formato", value: "Intensivo adaptável" },
-        { label: "Desdobramento", value: "Abertura de processo ou apresentação" },
-      ],
-      links: [
-        { label: "Conversar sobre uma residência", href: "mailto:producaoflyinglow@gmail.com?subject=Residencia%20Flying%20Low" },
-      ],
-    },
     debatePrimeiraEdicao: {
       title: "Fora da Gaiola",
       eyebrow: "Debate mediado · Primeira edição",
@@ -594,8 +588,13 @@ const ptBR: EditorialContent = {
   },
   group: {
     membersEyebrow: "Quem são",
-    membersHeading: "Cinco artistas, uma criação compartilhada.",
-    membersIntro: "Formado em 2018 a partir de Menino Assum Preto, o Flying Low reúne Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu) e Ricardo Ura (Koide). Desde então, o grupo cruza cena, audiovisual e formação em obras, séries, oficinas e circulações que levam o breaking a diferentes públicos e territórios.",
+    membersIntro: [
+      "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação, que são marca do coletivo.",
+      "Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como: “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), voltado à criação em vídeo-dança; “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”; e “Circula Assum” (PROAC 04/2023), que levou o espetáculo “Menino Assum Preto” a sete cidades do estado de São Paulo, com o apoio da marca Converse.",
+      "Em 2022, estreou seu segundo espetáculo, “As Pegadas do Kurupyra”, cruzando o breaking com histórias dos seres encantados dos povos originários do Brasil e da diáspora africana. Além dos espetáculos, desde 2021 o grupo conduz oficinas e residências por meio do projeto “Voando com Flying Low”, no qual compartilha suas metodologias de pesquisa e ensino de breaking.",
+      "Em 2026 estreia seu mais novo trabalho cênico, com mais sete artistas em cena, em uma parceria de co-direção com Marina Esteves, dentro do projeto “Flying Low em Revoada”, contemplado pelo 38º Fomento à Dança para a Cidade de São Paulo.",
+      "Atualmente é formado por Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), e Lai Machado na produção.",
+    ],
     membersVisible: false,
     members: [
       {
@@ -650,13 +649,38 @@ const ptBR: EditorialContent = {
       },
     ],
     researchEyebrow: "Pesquisa",
-    researchHeading: "O que move a pesquisa.",
     researchBody: [
-      "A pesquisa do Flying Low parte do breaking como linguagem cênica, política e poética. Pela direção compartilhada e pelo encontro entre danças urbanas e contemporâneas, o coletivo cria dramaturgias corporais ligadas a experiências periféricas e coletivas.",
-      "Nas obras, o grupo investiga aprisionamento, ancestralidade, precarização do trabalho e outros futuros possíveis. Menino Assum Preto aproxima o corpo engaiolado do trabalhador marginalizado; As Pegadas do Kurupyra encontra nos encantados caminhos para fabular memória e ancestralidade.",
-      "A pesquisa também se desdobra na formação e no audiovisual, com Voando com Flying Low e a série Em Formação. Em cada linguagem, o encontro permanece como modo de criar, aprender e imaginar.",
+      "A pesquisa artística do Grupo Flying Low parte da dança breaking como linguagem cênica, política e poética, elaborando dramaturgias corporais que emergem das experiências periféricas e coletivas. A partir da vivência em grupo, da direção compartilhada, e do cruzamento entre danças urbanas e contemporâneas, o coletivo constrói obras que emergem de práticas colaborativas, afetos e urgências vividas por seus integrantes, sempre atentos às questões que atravessam seus corpos e territórios. As obras e projetos do grupo desdobram essas investigações em diferentes linguagens e suportes.",
+      "As criações cênicas se debruçam sobre temas como o aprisionamento simbólico do corpo, a ancestralidade, a precarização do trabalho e a fabulação de outros futuros possíveis.",
+      "Em “Menino Assum Preto”, evocam a imagem do trabalhador marginalizado em um corpo engaiolado. Já em “As Pegadas do Kurupyra”, aprofundam a relação com a ancestralidade e a fabulação, inspirando-se nos encantados da cultura herdada dos povos originários e da diáspora africana.",
+      "Além da criação cênica, a pesquisa se expande para o campo da educação e do audiovisual, com destaque para o projeto de formação “Voando com Flying Low” e para a série documental “Em Formação”.",
+      "O grupo afirma uma dança do encontro entre margens, memória e imaginação — construindo caminhos sensíveis e comunitários de criação e de transformação.",
+      "Em cena, na câmera ou em processos formativos, o Flying Low vem transformando experiência periférica em trabalhos artísticos críticos e sensíveis.",
     ],
     researchAxes: ["Breaking e autoria", "Memória periférica", "Criação coletiva", "Cena e audiovisual"],
+  },
+  learning: {
+    body: [
+      "A atividade formativa “Voando com Flying Low” foi desenvolvida como um espaço de compartilhamento de pesquisas do Grupo Flying Low, integrando fundamentos do breaking – como stance, top rock, go downs e footwork – com elementos de dança contemporânea e improvisação. A abordagem vai além da execução de passos, priorizando a exploração de dinâmicas já presentes na cultura do breaking, como a relação entre movimento e musicalidade, mas também incorporando reflexões sobre criação cênica. A proposta é que os participantes não apenas aprendam técnicas, mas compreendam sua essência, adaptando-as ao próprio corpo e repertório, bem como a pensar a dança como linguagem expressiva, conectando-a a contextos sociais e históricos.",
+      "Além da prática, a atividade inclui debate sobre a trajetória do breaking, suas influências e seu papel na cena atual. O grupo também apresenta processos criativos utilizados em suas montagens, como no espetáculo Menino Assum Preto, que parte da música de Luiz Gonzaga para discutir temas como trabalho, opressão, território e pertencimento. Essa abordagem estimula os participantes a desenvolverem um olhar crítico sobre a dança, entendendo-a como ferramenta narrativa e de transformação social.",
+      "A metodologia equilibra técnica, criação e pensamento dramatúrgico, incentivando novas conexões artísticas. Por meio de exercícios práticos e discussões, a oficina busca ampliar o repertório dos participantes, mostrando como a dança pode ser um meio de investigação pessoal e coletiva, tanto no palco quanto na vida.",
+    ],
+    offerings: [
+      {
+        title: "Oficinas",
+        body: [
+          "As oficinas partem da história, da cultura, da musicalidade e dos fundamentos do breaking. Com quem começa, constroem as primeiras bases; com quem já dança, aprofundam repertório, improvisação e pesquisa de movimento; com profissionais, compartilham ferramentas de criação presentes nas obras do Flying Low.",
+          "Cada percurso se adapta ao grupo, ao tempo disponível e ao espaço. As oficinas já passaram por ambientes de formação e criação como a ETEC de Artes, a Companhia de Danças de Diadema e a Oficina Cultural Oswald de Andrade.",
+        ],
+      },
+      {
+        title: "Residência",
+        body: [
+          "A residência parte das perguntas e experiências trazidas por cada grupo. Jogos de composição, escrita de corpo, improvisação e dramaturgia organizam um processo coletivo de investigação.",
+          "Conforme a duração e o contexto, o percurso pode se abrir ao público ou culminar em uma apresentação. A residência também pode servir de laboratório para pesquisas ligadas a Concepções Marginais e Revoada.",
+        ],
+      },
+    ],
   },
   history: {
     eyebrow: "Histórico",
@@ -746,7 +770,7 @@ const en: EditorialContent = {
       heading: "Learn in a circle. Create collectively.",
       intro: "The circle opens to share histories, foundations, and creative tools across different levels of dance experience.",
       stripLabel: "Learning pathways",
-      projectKeys: ["oficinas", "residencia"],
+      projectKeys: [],
     },
     debates: {
       eyebrow: "Moderated conversations",
@@ -763,10 +787,14 @@ const en: EditorialContent = {
       year: "2019",
       summary: "A manifesto in motion about labour, confinement, and the right to dream.",
       body: [
-        "Inspired by “Assum Preto,” by Luiz Gonzaga and Humberto Teixeira, the work connects the captive, blinded bird — singing without seeing the world — to the urban worker subjected to exploitation and invisibility. Through breaking and contemporary dance, the performer-creators turn that parallel into a work about dignity, freedom, pain, and poetry.",
-        "Since premiering in 2019, the work has toured festivals and cultural spaces, affirming art from the peripheries as a critical, sensitive, and transformative form of expression.",
+        "Inspired by the emblematic song “Assum Preto,” by Luiz Gonzaga and Humberto Teixeira, Menino Assum Preto is a manifesto in motion, inscribed in the bodies and memories of Flying Low’s performer-creators, all from the peripheries of São Paulo. The work draws a moving parallel between the imprisoned, blinded bird — singing without seeing the world — and the urban worker, pushed to survive within a daily life of exploitation and invisibility.",
+        "Combining breaking and contemporary dance, the artists bring their bodies to the stage to create a visceral narrative about the struggle for dignity and freedom. With original music, lighting, and costumes, the work invites the audience into an atmosphere that moves from density to playfulness, evoking the pain, poetry, and strength of bodies that insist on dreaming. It does so through virtuosic breaking acrobatics and a singular expressiveness.",
+        "Since its premiere in 2019, the performance has toured festivals and cultural venues, adding its voice to the affirmation of art from the peripheries as a critical, sensitive, and transformative expression.",
       ],
       image: "/images/menino-assum-preto/assum-01.webp",
+      heroImage: "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp",
+      heroImageAlt: "Menino Assum Preto performer silhouetted against the stage",
+      heroImageCredit: "Photo · Sarará Rodrigues",
       secondaryImage: "/images/menino-assum-preto/assum-04.webp",
       imageAlt: "Performers from Menino Assum Preto on stage",
       galleryLabel: "Stage records",
@@ -774,6 +802,7 @@ const en: EditorialContent = {
         { src: "/images/menino-assum-preto/assum-02.webp", alt: "Cast of Menino Assum Preto performing before an audience" },
         { src: "/images/menino-assum-preto/assum-03.webp", alt: "Two Menino Assum Preto performers in motion" },
         { src: "/images/menino-assum-preto/assum-05.webp", alt: "Flying Low members gathered for a portrait" },
+        ...meninoDriveGallery("en"),
       ],
       video: { youtubeId: "A244vRmQt8I", title: "Menino Assum Preto teaser", linkLabel: "Watch teaser on YouTube", thumbnail: "/images/menino-assum-preto/assum-01.webp", thumbnailAlt: "Open the Menino Assum Preto teaser on YouTube" },
       facts: [
@@ -803,6 +832,9 @@ const en: EditorialContent = {
       ],
       image: sharedImages.kurupyraHero,
       imageCredit: "Photo · Sarará Rodrigues",
+      heroImage: sharedImages.kurupyraHeroBackground,
+      heroImageAlt: "Cast of As Pegadas do Kurupyra crossing the stage",
+      heroImageCredit: "Photo · Sarará Rodrigues",
       secondaryImage: sharedImages.kurupyraSecondary,
       secondaryImageCredit: "Photo · Sarará Rodrigues",
       imageAlt: "Cast of As Pegadas do Kurupyra performing",
@@ -900,7 +932,7 @@ const en: EditorialContent = {
       links: [],
     },
     emFormacao: {
-      title: "Em Formação",
+      title: "In Formation",
       eyebrow: "Documentary series",
       year: "2021",
       summary: "Em Formação listens to the people shaping breaking and follows the stories that keep its culture in motion.",
@@ -909,9 +941,9 @@ const en: EditorialContent = {
         "Supported by the VAI Programme in 2018, the first season traces hip-hop histories through breaking: its origins in the United States, its presence in São Paulo, women’s work in the scene, and the arrival of urban dance in theatres.",
         "The second season grew from Na Manha com Flying Low, supported by PROAC 31/2021 — Citizenship, Black, Urban, and Hip Hop Culture — and extends that listening to new trajectories within the scene.",
       ],
-      image: sharedImages.portrait,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Flying Low performing",
+      image: "/images/em-formacao-thumb.webp",
+      secondaryImage: "/images/em-formacao-thumb.webp",
+      imageAlt: "Manu in the second season of the In Formation documentary",
       facts: [
         { label: "Format", value: "Documentary series" },
         { label: "Year", value: "2021" },
@@ -1015,50 +1047,6 @@ const en: EditorialContent = {
         { label: "Request access", href: "mailto:producaoflyinglow@gmail.com?subject=Cantigas%20do%20Meu%20Matulao" },
       ],
     },
-    oficinas: {
-      title: "Workshops",
-      eyebrow: "Learning activity",
-      year: "Adaptable pathways",
-      summary: "From the first circle to original creation, the workshops share breaking’s history, musicality, and foundations.",
-      synopsisHeading: "From foundations to authorship.",
-      body: [
-        "The workshops begin with breaking’s history, culture, musicality, and foundations. With beginners, they build the first bases; with experienced dancers, they deepen repertoire, improvisation, and movement research; with professionals, they share creative tools used in Flying Low’s works.",
-        "Each pathway adapts to the group, available time, and space. The workshops have taken place in learning and creative settings including ETEC de Artes, Companhia de Danças de Diadema, and Oficina Cultural Oswald de Andrade.",
-      ],
-      image: sharedImages.amber,
-      secondaryImage: sharedImages.collective,
-      imageAlt: "Flying Low in dance practice",
-      facts: [
-        { label: "Beginners", value: "Foundations, context, and musicality" },
-        { label: "Experienced dancers", value: "Training, improvisation, and authorship" },
-        { label: "Professionals", value: "Language research and stage creation" },
-      ],
-      links: [
-        { label: "Request a proposal", href: "mailto:producaoflyinglow@gmail.com?subject=Proposta%20de%20oficina" },
-      ],
-    },
-    residencia: {
-      title: "Residency",
-      eyebrow: "Learning activity",
-      year: "Intensive process",
-      summary: "An intensive process that turns questions, experience, and movement into collective creation.",
-      synopsisHeading: "From training to the emergence of a work.",
-      body: [
-        "The residency begins with the questions and experiences brought by each group. Composition games, body writing, improvisation, and dramaturgy organise a collective process of inquiry.",
-        "Depending on its duration and context, the process may open to the public or culminate in a presentation. The residency can also serve as a laboratory for research connected to Concepções Marginais and Revoada.",
-      ],
-      image: sharedImages.portrait,
-      secondaryImage: sharedImages.blue,
-      imageAlt: "Portrait of Flying Low in process",
-      facts: [
-        { label: "Focus", value: "Creative procedures" },
-        { label: "Format", value: "Adaptable intensive" },
-        { label: "Outcome", value: "Process sharing or public presentation" },
-      ],
-      links: [
-        { label: "Discuss a residency", href: "mailto:producaoflyinglow@gmail.com?subject=Residencia%20Flying%20Low" },
-      ],
-    },
     debatePrimeiraEdicao: {
       title: "Fora da Gaiola",
       eyebrow: "Moderated conversation · First edition",
@@ -1101,8 +1089,13 @@ const en: EditorialContent = {
   },
   group: {
     membersEyebrow: "Who they are",
-    membersHeading: "Five artists, one shared practice.",
-    membersIntro: "Formed in 2018 through Menino Assum Preto, Flying Low brings together Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), and Ricardo Ura (Koide). Since then, the collective has connected stage, screen, and learning through performances, films, workshops, and touring projects that bring breaking to different audiences and territories.",
+    membersIntro: [
+      "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language through urban dances, bodily dramaturgies, and collaborative practices of creation. Formed in 2018, Flying Low emerged with the creation of the performance “Menino Assum Preto,” supported by the VAI Programme. It marked the beginning of the collective’s authorial trajectory and choreographic approach, rooted in peripheral aesthetics and collective modes of creation.",
+      "Since then, the group has developed projects that connect stage, screen, and learning: “Cantigas do Meu Matulão” (Aldir Blanc Award – 2020), a dance-film creation project; “Na Manha com Flying Low” (PROAC 31/2021), with educational actions and the documentary series “Em Formação”; and “Circula Assum” (PROAC 04/2023), which brought “Menino Assum Preto” to seven cities across the state of São Paulo with support from Converse.",
+      "In 2022, it premiered its second performance, “As Pegadas do Kurupyra,” bringing breaking into dialogue with stories of enchanted beings from Brazil’s Indigenous peoples and the African diaspora. Alongside its performances, since 2021 the group has led workshops and residencies through “Voando com Flying Low,” sharing its research and teaching methods for breaking.",
+      "In 2026, it premieres its newest stage work, with seven additional artists onstage and co-direction by Marina Esteves, within “Flying Low em Revoada,” supported by the 38th Fomento à Dança para a Cidade de São Paulo.",
+      "It is currently made up of Lee Anderson (Turtle Lee), Jeff dos Santos Rodrigues (Fioot), Manuel Victor, Emerson Silva (Emersu), Ricardo Ura (Koide), with Lai Machado in production.",
+    ],
     membersVisible: false,
     members: [
       {
@@ -1157,13 +1150,38 @@ const en: EditorialContent = {
       },
     ],
     researchEyebrow: "Research",
-    researchHeading: "What drives the work.",
     researchBody: [
-      "Flying Low’s research approaches breaking as a stage, political, and poetic language. Through shared direction and the meeting of urban and contemporary dance, the collective creates body dramaturgies rooted in peripheral and collective experience.",
-      "The works explore confinement, ancestry, precarious labour, and other possible futures. Menino Assum Preto connects the caged body to the marginalised worker; As Pegadas do Kurupyra turns to enchanted beings to imagine memory and ancestry.",
-      "The research also unfolds through learning and screen work in Voando com Flying Low and the documentary series Em Formação. Across each form, encounter remains a way to create, learn, and imagine.",
+      "Grupo Flying Low’s artistic research begins with breaking as a scenic, political, and poetic language, developing bodily dramaturgies that emerge from peripheral and collective experiences. Through shared group experience and direction, and through the meeting of urban and contemporary dances, the collective creates works shaped by collaborative practices, care, and urgencies lived by its members, always attentive to the questions that run through their bodies and territories. The group’s works and projects unfold these investigations across different languages and media.",
+      "The stage creations engage themes including the body’s symbolic confinement, ancestry, the precarity of work, and the imagining of other possible futures.",
+      "In “Menino Assum Preto,” they evoke the image of the marginalised worker in a caged body. In “As Pegadas do Kurupyra,” they deepen their relationship with ancestry and imagination, drawing inspiration from the enchanted beings of cultural inheritances from Indigenous peoples and the African diaspora.",
+      "Beyond stage creation, the research expands into education and screen work, notably through the learning project “Voando com Flying Low” and the documentary series “Em Formação.”",
+      "The group affirms a dance of encounter between margins, memory, and imagination — building sensitive, communal paths for creation and transformation.",
+      "Onstage, on camera, or in learning processes, Flying Low continues to transform peripheral experience into critical and sensitive artistic work.",
     ],
     researchAxes: ["Breaking and authorship", "Peripheral memory", "Collective creation", "Stage and screen"],
+  },
+  learning: {
+    body: [
+      "The learning activity “Voando com Flying Low” was developed as a space for sharing Grupo Flying Low’s research, bringing together breaking foundations — including stance, top rock, go downs, and footwork — with elements of contemporary dance and improvisation. The approach goes beyond executing steps, prioritising an exploration of dynamics already present in breaking culture, such as the relationship between movement and musicality, while also bringing in reflections on stage creation. Participants are invited not only to learn techniques, but to understand their essence, adapt them to their own bodies and repertoires, and think about dance as an expressive language connected to social and historical contexts.",
+      "Alongside practice, the activity includes discussion of breaking’s trajectory, its influences, and its role in the current scene. The group also shares creative processes used in its productions, such as Menino Assum Preto, which draws on a song by Luiz Gonzaga to address work, oppression, territory, and belonging. This approach encourages participants to develop a critical view of dance, understanding it as a narrative tool and a force for social transformation.",
+      "The methodology balances technique, creation, and dramaturgical thinking, encouraging new artistic connections. Through practical exercises and discussion, the workshop expands participants’ repertoires, showing how dance can be a means of personal and collective inquiry, both onstage and in life.",
+    ],
+    offerings: [
+      {
+        title: "Workshops",
+        body: [
+          "The workshops begin with breaking’s history, culture, musicality, and foundations. With beginners, they build the first bases; with experienced dancers, they deepen repertoire, improvisation, and movement research; with professionals, they share creative tools used in Flying Low’s works.",
+          "Each pathway adapts to the group, available time, and space. The workshops have taken place in learning and creative settings including ETEC de Artes, Companhia de Danças de Diadema, and Oficina Cultural Oswald de Andrade.",
+        ],
+      },
+      {
+        title: "Residency",
+        body: [
+          "The residency begins with the questions and experiences brought by each group. Composition games, body writing, improvisation, and dramaturgy organise a collective process of inquiry.",
+          "Depending on its duration and context, the process may open to the public or culminate in a presentation. The residency can also serve as a laboratory for research connected to Concepções Marginais and Revoada.",
+        ],
+      },
+    ],
   },
   history: {
     eyebrow: "History",

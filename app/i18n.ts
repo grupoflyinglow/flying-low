@@ -34,6 +34,14 @@ const ptBR = {
   },
   footer: {
     location: "Flying Low · São Paulo, Brasil",
+    socialNavigation: "Redes sociais do Flying Low",
+  },
+  contact: {
+    eyebrow: "Contato",
+    heading: "Vamos conversar.",
+    intro: "Para convites, parcerias, circulação e atividades formativas, entre em contato com a produção ou acompanhe o Flying Low nas redes.",
+    emailLabel: "E-mail de produção",
+    socialLabel: "Acompanhe o Flying Low",
   },
   home: {
     teaserTitle: "Teaser de Menino Assum Preto",
@@ -156,6 +164,14 @@ const en: Messages = {
   },
   footer: {
     location: "Flying Low · São Paulo, Brazil",
+    socialNavigation: "Flying Low social links",
+  },
+  contact: {
+    eyebrow: "Contact",
+    heading: "Let’s talk.",
+    intro: "For invitations, partnerships, touring, and learning activities, contact the production team or follow Flying Low on social media.",
+    emailLabel: "Production email",
+    socialLabel: "Follow Flying Low",
   },
   home: {
     teaserTitle: "Menino Assum Preto teaser",

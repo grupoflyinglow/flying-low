@@ -42,6 +42,7 @@ export function SiteNav({ light = false }: { light?: boolean }) {
     { routeKey: "learning", label: t.nav.learning, desktopLabel: t.nav.learningShort },
     { routeKey: "debates", label: t.nav.debates, desktopLabel: t.nav.debatesShort },
     { routeKey: "agenda", label: t.nav.agenda, desktopLabel: t.nav.agenda },
+    { routeKey: "contact", label: t.nav.contact, desktopLabel: t.nav.contact },
   ] as const;
 
   useEffect(() => {
@@ -104,7 +105,6 @@ export function SiteNav({ light = false }: { light?: boolean }) {
             })}
           </nav>
           <div className="menu-foot">
-            <LanguageSwitch />
             <a href="mailto:producaoflyinglow@gmail.com">{t.nav.contactProduction} <span>↗</span></a>
           </div>
         </div>
