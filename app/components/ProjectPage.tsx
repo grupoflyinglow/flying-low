@@ -24,6 +24,9 @@ export function ProjectPage({
   const project = content.projects[projectKey];
   const collection = content.collections[collectionKey];
   const isPerformance = collectionKey === "espetaculos";
+  const heroImage = project.heroImage ?? project.image;
+  const heroImageAlt = project.heroImageAlt ?? project.imageAlt;
+  const heroImageCredit = project.heroImageCredit ?? project.imageCredit;
   const projectIndex = collection.projectKeys.indexOf(projectKey);
   const isCollectionProject = projectIndex >= 0;
   const previousKey = projectIndex > 0 ? collection.projectKeys[projectIndex - 1] : null;
@@ -42,24 +45,24 @@ export function ProjectPage({
           <a className="project-back" href={collectionRouteFor(locale, collectionKey)}>← {collection.eyebrow}</a>
           <p className="eyebrow">{project.eyebrow} · {project.year}</p>
           <h1>{project.title}</h1>
-          <p>{project.summary}</p>
+          {!isPerformance && <p>{project.summary}</p>}
           {project.status && <span className="project-status">{project.status}</span>}
           {isPerformance && project.video && (
-            <a className="project-teaser-card" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
+            <a className="project-teaser-card project-teaser-card--performance" href={`https://www.youtube.com/watch?v=${project.video.youtubeId}`} target="_blank" rel="noreferrer" aria-label={project.video.thumbnailAlt ?? project.video.linkLabel}>
               <img {...getImageDimensions(project.video.thumbnail ?? project.image ?? "")} src={project.video.thumbnail ?? project.image ?? ""} alt="" loading="eager" decoding="async" />
               <span className="performance-cover-shade" aria-hidden="true" />
               <span className="project-teaser-card-label">{content.common.video} <b>↗</b></span>
             </a>
           )}
         </div>
-        {(!isPerformance || !project.video) && <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
-          {project.image ? (
-            <img {...getImageDimensions(project.image)} src={project.image} alt={project.imageAlt} loading="eager" fetchPriority="high" decoding="async" />
+        <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
+          {heroImage ? (
+            <img {...getImageDimensions(heroImage)} src={heroImage} alt={heroImageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
-          {project.imageCredit && <span className="project-hero-credit">{project.imageCredit}</span>}
-        </div>}
+          {heroImageCredit && <span className="project-hero-credit">{heroImageCredit}</span>}
+        </div>
       </section>
 
       <section className="project-story section-shell" aria-labelledby={synopsisLabelId}>
@@ -139,7 +142,7 @@ export function ProjectPage({
         </section>
       )}
 
-      {project.links.length > 0 ? (
+      {!isPerformance && (project.links.length > 0 ? (
         <section className="project-links section-shell" aria-labelledby="project-media">
           <p className="eyebrow" id="project-media">{content.common.media}</p>
           <div>
@@ -150,7 +153,7 @@ export function ProjectPage({
             ))}
           </div>
         </section>
-      ) : <section className="project-links section-shell"><p className="eyebrow">{content.common.media}</p><p className="project-credits-pending">{content.common.updating}</p></section>}
+      ) : <section className="project-links section-shell"><p className="eyebrow">{content.common.media}</p><p className="project-credits-pending">{content.common.updating}</p></section>)}
 
       {isCollectionProject && <nav className="project-pagination section-shell" aria-label={collection.stripLabel}>
         {previousKey ? <a href={projectRouteFor(locale, previousKey)}><span>{content.common.previous}</span><strong>← {content.projects[previousKey].title}</strong></a> : <span />}

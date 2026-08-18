@@ -14,8 +14,6 @@ export type RouteKey =
   | "screenFightingOverACap"
   | "screenCantigas"
   | "learning"
-  | "learningWorkshops"
-  | "learningResidency"
   | "debates"
   | "debateFirstEdition"
   | "history"
@@ -60,14 +58,6 @@ export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
     en: "/en/screen/songs-from-my-bundle",
   },
   learning: { "pt-BR": "/atividades-formativas", en: "/en/learning" },
-  learningWorkshops: {
-    "pt-BR": "/atividades-formativas/oficinas",
-    en: "/en/learning/workshops",
-  },
-  learningResidency: {
-    "pt-BR": "/atividades-formativas/residencia",
-    en: "/en/learning/residency",
-  },
   debates: { "pt-BR": "/debates-mediados", en: "/en/conversations" },
   debateFirstEdition: {
     "pt-BR": "/debates-mediados/primeira-edicao",

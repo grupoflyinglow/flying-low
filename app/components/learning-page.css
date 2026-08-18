@@ -1,0 +1,122 @@
+.learning-page-offerings {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 9%;
+  grid-template-columns: .8fr 2.2fr;
+  padding-top: 30px;
+}
+
+.learning-page-offerings > div > .eyebrow,
+.learning-page-offering header > .eyebrow {
+  color: var(--red);
+}
+
+.learning-page-offerings h2,
+.learning-page-offering h3,
+.learning-page-offering h4 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -.07em;
+  text-transform: uppercase;
+}
+
+.learning-page-offerings h2 {
+  font-size: clamp(52px, 6.7vw, 108px);
+  line-height: .82;
+  margin: 44px 0 0;
+}
+
+.learning-page-offering-list {
+  display: grid;
+  gap: 100px;
+}
+
+.learning-page-offering {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 48px 9%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding-top: 26px;
+}
+
+.learning-page-offering header,
+.learning-page-offering-body {
+  display: grid;
+  gap: 22px;
+}
+
+.learning-page-offering h3 {
+  color: var(--red);
+  font-size: clamp(48px, 5.5vw, 86px);
+  line-height: .8;
+  margin: 18px 0 0;
+}
+
+.learning-page-offering h4 {
+  font-size: clamp(32px, 3.6vw, 56px);
+  line-height: .88;
+  margin: 0;
+}
+
+.learning-page-offering p {
+  color: var(--smoke);
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.learning-page-offering header > p:last-child {
+  color: var(--ink);
+}
+
+.learning-page-offering-facts {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+}
+
+.learning-page-offering-facts > div {
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 140px;
+  padding: 18px 22px 0;
+}
+
+.learning-page-offering-facts dt {
+  color: var(--red);
+  font-family: var(--mono);
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.learning-page-offering-facts dd {
+  font-family: var(--display);
+  font-size: clamp(24px, 2.4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: .92;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.learning-page-cta { margin-top: -52px; }
+
+@media (max-width: 760px) {
+  .learning-page-offerings,
+  .learning-page-offering {
+    display: block;
+  }
+
+  .learning-page-offerings { padding-top: 28px; }
+  .learning-page-offerings h2 { margin: 45px 0 50px; }
+  .learning-page-offering-list { gap: 72px; }
+  .learning-page-offering { padding-top: 24px; }
+  .learning-page-offering-body { margin-top: 42px; }
+  .learning-page-offering-facts { grid-template-columns: 1fr; margin-top: 42px; }
+  .learning-page-offering-facts > div { border-left: 0; border-top: 1px solid var(--line); min-height: 0; padding: 20px 0 30px; }
+  .learning-page-cta { margin-top: -26px; }
+}

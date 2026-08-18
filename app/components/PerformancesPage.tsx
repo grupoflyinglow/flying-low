@@ -2,15 +2,23 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef } from "react";
-import { getEditorialContent, projectRouteFor } from "../editorial-content";
+import {
+  getEditorialContent,
+  projectRouteFor,
+  type CollectionKey,
+} from "../editorial-content";
 import { getImageDimensions } from "../image-dimensions";
 import { useLocale } from "./LocaleProvider";
 import { SiteNav } from "./SiteNav";
 
-export function PerformancesPage() {
+export function PerformancesPage({
+  collectionKey = "espetaculos",
+}: {
+  collectionKey?: Extract<CollectionKey, "espetaculos" | "audiovisual">;
+}) {
   const { locale } = useLocale();
   const content = getEditorialContent(locale);
-  const collection = content.collections.espetaculos;
+  const collection = content.collections[collectionKey];
   const railRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -69,7 +77,7 @@ export function PerformancesPage() {
   }, []);
 
   return (
-    <main className="editorial-page performances-page" id="main-content" tabIndex={-1}>
+    <main className={`editorial-page performances-page performances-page--${collectionKey}`} id="main-content" tabIndex={-1}>
       <SiteNav />
       <h1 className="sr-only">{collection.eyebrow}</h1>
 

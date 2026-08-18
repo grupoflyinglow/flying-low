@@ -17,10 +17,9 @@ export default function Grupo() {
         <p className="archive-intro">{t.group.intro}</p>
       </section>
 
-      <section className="members-section section-shell" aria-labelledby="members-title">
+      <section className="members-section section-shell" aria-label={content.membersEyebrow}>
         <div className="members-heading">
           <p className="eyebrow">{content.membersEyebrow}</p>
-          <h2 id="members-title">{content.membersHeading}</h2>
           <p>{content.membersIntro}</p>
         </div>
         {content.membersVisible && <div className="members-list">

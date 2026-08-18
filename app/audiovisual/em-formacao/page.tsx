@@ -1,5 +1,5 @@
-import { ProjectPage } from "../../components/ProjectPage";
+import { EmFormacaoPage } from "../../components/EmFormacaoPage";
 
 export default function EmFormacao() {
-  return <ProjectPage collectionKey="audiovisual" projectKey="emFormacao" />;
+  return <EmFormacaoPage />;
 }

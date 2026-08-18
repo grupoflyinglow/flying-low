@@ -28,8 +28,6 @@ const projectKeyByRoute: Partial<Record<RouteKey, ProjectKey>> = {
   screenEvenTrash: "evenInTheTrash",
   screenFightingOverACap: "fightingOverACap",
   screenCantigas: "cantigas",
-  learningWorkshops: "oficinas",
-  learningResidency: "residencia",
   debateFirstEdition: "debatePrimeiraEdicao",
 };
 

@@ -244,6 +244,14 @@ img { display: block; max-width: 100%; }
 .collection-hero h1, .history-hero h1, .agenda-page-hero h1 { font-family: var(--display); font-size: clamp(68px, 8.7vw, 142px); font-weight: 800; grid-column: 2; letter-spacing: -.07em; line-height: .84; margin: 0; max-width: 1120px; text-transform: uppercase; }
 .collection-hero > p:last-child, .history-hero > p:last-child, .agenda-page-hero > p:last-child { color: var(--smoke); font-size: 20px; grid-column: 2; line-height: 1.48; margin: 18px 0 0; max-width: 720px; }
 
+.learning-page { padding-bottom: 150px; }
+.learning-page-hero, .debates-page-hero { border-bottom: 1px solid var(--line); display: grid; gap: 9%; grid-template-columns: .8fr 2.2fr; padding: 130px 0 105px; }
+.learning-page-hero .eyebrow, .debates-page-hero .eyebrow { color: var(--red); }
+.learning-page-hero > p:last-child, .debates-page-hero > p:last-child { color: var(--smoke); font-size: clamp(28px, 3.5vw, 52px); font-weight: 500; grid-column: 2; letter-spacing: -.045em; line-height: 1.05; margin: 0; max-width: 880px; }
+.learning-page-story { display: grid; gap: 28px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 110px 0 130px; }
+.learning-page-story p { color: var(--smoke); font-size: 20px; line-height: 1.55; margin: 0; }
+.learning-page-story p:first-child { color: var(--ink); font-size: clamp(24px, 2.4vw, 34px); grid-column: 1 / -1; line-height: 1.36; max-width: 1040px; }
+
 .project-strip { border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); overflow-x: auto; overscroll-behavior-inline: contain; padding: 30px 0 34px; scroll-snap-type: inline mandatory; scrollbar-color: var(--red) var(--coal); scrollbar-width: thin; }
 .project-strip-track { display: grid; gap: 20px; grid-auto-columns: min(42vw, 590px); grid-auto-flow: column; padding: 0 max(40px, calc((100vw - 1360px) / 2)); width: max-content; }
 .strip-card { display: grid; gap: 13px; grid-template-columns: 44px 1fr; min-width: 0; scroll-snap-align: start; }
@@ -287,6 +295,7 @@ img { display: block; max-width: 100%; }
 .project-hero-copy > p:not(.eyebrow) { font-size: clamp(18px, 2vw, 28px); font-weight: 500; line-height: 1.35; margin: 38px 0 0; max-width: 620px; }
 .project-hero-copy .project-status { margin-top: 28px; width: fit-content; }
 .project-teaser-card { display: block; isolation: isolate; margin-top: 34px; overflow: hidden; position: relative; width: min(100%, 720px); }
+.project-teaser-card--performance { width: 100%; }
 .project-teaser-card img { aspect-ratio: 16 / 9; display: block; filter: saturate(.86) contrast(1.12); object-fit: cover; transition: filter .45s ease, transform .7s cubic-bezier(.2,.8,.2,1); width: 100%; }
 .project-teaser-card:hover img, .project-teaser-card:focus-visible img { filter: saturate(1.08) contrast(1.06); transform: scale(1.05); }
 .project-teaser-card:focus-visible { outline: 2px solid var(--red); outline-offset: 5px; }
@@ -523,6 +532,13 @@ img { display: block; max-width: 100%; }
   .collection-hero, .history-hero, .agenda-page-hero { display: block; padding: 90px 0 75px; }
   .collection-hero h1, .history-hero h1, .agenda-page-hero h1 { margin-top: 45px; }
   .collection-hero > p:last-child, .history-hero > p:last-child, .agenda-page-hero > p:last-child { margin-top: 35px; }
+  .learning-page { padding-bottom: 95px; }
+  .learning-page-hero, .debates-page-hero { display: block; }
+  .learning-page-hero, .debates-page-hero { padding: 90px 0 75px; }
+  .learning-page-hero > p:last-child, .debates-page-hero > p:last-child { margin-top: 45px; }
+  .learning-page-story { display: block; padding: 85px 0 95px; }
+  .learning-page-story p { margin-bottom: 28px; }
+  .learning-page-story p:last-child { margin-bottom: 0; }
   .project-strip { padding: 20px 0 24px; }
   .project-strip-track { grid-auto-columns: 84vw; padding: 0 20px; }
   .strip-card { grid-template-columns: 32px 1fr; }
@@ -596,7 +612,7 @@ img { display: block; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .skip-link, .menu-links a, .hero-youtube, .hero-primary-cta, .gate-photo, .footer-contact, .collective-image-link::after, .collective-image img, .strip-media::after, .strip-card img { transition: none; }
+  .skip-link, .menu-links a, .hero-video, .hero-primary-cta, .gate-photo, .footer-contact, .collective-image-link::after, .collective-image img, .strip-media::after, .strip-card img { transition: none; }
   .menu-links a:hover { padding-left: 0; }
   .hero-primary-cta:hover { transform: none; }
   .work-gate:hover .gate-photo { transform: none; }
