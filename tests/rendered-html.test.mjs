@@ -446,7 +446,7 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
   assert.match(meninoHtml, /Foto · Sarará Rodrigues/);
   assert.match(meninoHtml, /Acervo · Fundação Cultural Cassiano Ricardo/);
   for (const [filename, width, height, loading] of [
-    ["assum-01.webp", 1920, 1080, "eager"],
+    ["assum-01.webp", 1920, 1080, "lazy"],
     ["assum-02.webp", 1920, 1080, "lazy"],
     ["assum-03.webp", 1920, 1080, "lazy"],
     ["assum-04.webp", 3235, 2537, "lazy"],
