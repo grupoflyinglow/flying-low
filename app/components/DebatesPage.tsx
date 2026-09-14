@@ -15,9 +15,9 @@ export function DebatesPage() {
   return (
     <main className="editorial-page collection-page debates-page" id="main-content" tabIndex={-1}>
       <SiteNav />
-      <section className="debates-page-hero section-shell" aria-labelledby="debates-intro">
-        <p className="eyebrow">{collection.eyebrow}</p>
-        <p id="debates-intro">{collection.intro}</p>
+      <section className="debates-page-hero section-shell" aria-labelledby="debates-heading">
+        <h1 className="eyebrow" id="debates-heading">{collection.eyebrow}</h1>
+        <p>{collection.intro}</p>
       </section>
       <div className="collection-projects section-shell">
         {collection.projectKeys.map((projectKey, index) => {

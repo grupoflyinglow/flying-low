@@ -192,6 +192,19 @@ test("server-renders English at translated URLs without a Portuguese first paint
   assert.match(performancesHtml, /hrefLang="en" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
 });
 
+test("renders one primary heading for the collective and conversations pages", async () => {
+  for (const [pathname, heading] of [
+    ["/grupo", "Sobre o Flying Low"],
+    ["/en/collective", "About Flying Low"],
+    ["/debates-mediados", "Debates mediados"],
+    ["/en/conversations", "Moderated conversations"],
+  ]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, new RegExp(`<h1[^>]*>${heading}</h1>`), pathname);
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1, pathname);
+  }
+});
+
 test("lists both dance films directly under Audiovisual", async () => {
   for (const [pathname, projects, removedGroupPath] of [
     [

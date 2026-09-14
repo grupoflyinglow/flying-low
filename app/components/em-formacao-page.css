@@ -75,7 +75,7 @@
 
 .em-formacao-season-intro h2 {
   font-family: var(--display);
-  font-size: clamp(52px, 5.8vw, 92px);
+  font-size: clamp(48px, 4.4vw, 64px);
   font-weight: 800;
   letter-spacing: -.065em;
   line-height: .84;

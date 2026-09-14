@@ -20,17 +20,24 @@ export function PerformancesPage({
   const content = getEditorialContent(locale);
   const collection = content.collections[collectionKey];
   const railRef = useRef<HTMLElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const rail = railRef.current;
+    const sticky = stickyRef.current;
     const track = trackRef.current;
-    if (!rail || !track) return;
+    if (!rail || !sticky || !track) return;
 
     const compactLayout = window.matchMedia("(max-width: 760px), (prefers-reduced-motion: reduce)");
     let frame = 0;
+    let focusFrame = 0;
     let railTop = 0;
     let travel = 0;
+
+    const resetNativeHorizontalScroll = () => {
+      if (!compactLayout.matches && sticky.scrollLeft !== 0) sticky.scrollLeft = 0;
+    };
 
     const updatePosition = () => {
       window.cancelAnimationFrame(frame);
@@ -60,19 +67,48 @@ export function PerformancesPage({
       updatePosition();
     };
 
+    const focusCover = (event: FocusEvent) => {
+      const cover = event.target;
+      if (compactLayout.matches || travel <= 0 || !(cover instanceof HTMLAnchorElement) || !cover.classList.contains("performance-cover")) return;
+
+      const currentOffset = Math.min(travel, Math.max(0, window.scrollY - railTop));
+      const inset = 14;
+      const left = cover.offsetLeft - currentOffset;
+      const right = left + cover.offsetWidth;
+      const nextOffset = right > window.innerWidth - inset
+        ? cover.offsetLeft + cover.offsetWidth - window.innerWidth + inset
+        : left < inset
+          ? cover.offsetLeft - inset
+          : currentOffset;
+
+      resetNativeHorizontalScroll();
+      window.scrollTo({ top: railTop + Math.min(travel, Math.max(0, nextOffset)), behavior: "instant" });
+      updatePosition();
+      window.cancelAnimationFrame(focusFrame);
+      focusFrame = window.requestAnimationFrame(() => {
+        resetNativeHorizontalScroll();
+        updatePosition();
+      });
+    };
+
     const resizeObserver = new ResizeObserver(updateLayout);
     resizeObserver.observe(track);
     window.addEventListener("resize", updateLayout);
     window.addEventListener("scroll", updatePosition, { passive: true });
     compactLayout.addEventListener("change", updateLayout);
+    sticky.addEventListener("focusin", focusCover);
+    sticky.addEventListener("scroll", resetNativeHorizontalScroll, { passive: true });
     updateLayout();
 
     return () => {
       window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(focusFrame);
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateLayout);
       window.removeEventListener("scroll", updatePosition);
       compactLayout.removeEventListener("change", updateLayout);
+      sticky.removeEventListener("focusin", focusCover);
+      sticky.removeEventListener("scroll", resetNativeHorizontalScroll);
     };
   }, []);
 
@@ -82,7 +118,7 @@ export function PerformancesPage({
       <h1 className="sr-only">{collection.eyebrow}</h1>
 
       <section className="performances-rail" ref={railRef} aria-label={collection.stripLabel}>
-        <div className="performances-rail-sticky">
+        <div className="performances-rail-sticky" ref={stickyRef}>
           <div className="performances-track" ref={trackRef}>
             {collection.projectKeys.map((projectKey, index) => {
               const project = content.projects[projectKey];
