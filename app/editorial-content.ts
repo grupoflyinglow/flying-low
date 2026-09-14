@@ -84,7 +84,7 @@ export type EditorialProject = {
   eyebrow: string;
   year: string;
   status?: string;
-  presentation?: "poster" | "portrait";
+  presentation?: "poster";
   summary: string;
   synopsisHeading?: string;
   body: string[];
@@ -93,6 +93,7 @@ export type EditorialProject = {
   heroImage?: string;
   heroImageAlt?: string;
   heroImageCredit?: string;
+  heroImagePosition?: string;
   secondaryImage?: string;
   secondaryImageCredit?: string;
   gallery?: ProjectImage[];
@@ -373,9 +374,9 @@ const ptBR: EditorialContent = {
     },
     revoada: {
       title: "Em Revoada",
+      heroImagePosition: "center 35%",
       eyebrow: "Espetáculo",
       year: "2026",
-      presentation: "portrait",
       summary: "Entre os pés no chão e os voos altos, breaking, mitologia, samples e blues se encontram à beira do salto.",
       body: [
         "Em Revoada parte dos movimentos sincrônicos primordiais para o desenvolvimento humano e chega até as danças do Hip Hop, convidando diversos artistas para juntos tensionarem o espaço que existe entre os pés no chão e os voos altos - onde prevalece a liberdade. Costurado por figuras mitológicas e o cotidiano de uma grande cidade, com uma atmosfera preenchida de samples e blues, a obra fricciona a dualidade olhando do alto, à beira do abismo, e questiona: o que vem primeiro, o salto ou a queda?",
@@ -740,7 +741,7 @@ const ptBR: EditorialContent = {
     events: [
       {
         title: "Em Revoada",
-        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Comprar ingressos" },
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Ver ingressos" },
         dates: [
           { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "20h", label: "estreia dia 18" },
           { day: "20", weekday: "domingo", month: "setembro", time: "18h" },
@@ -752,7 +753,7 @@ const ptBR: EditorialContent = {
       },
       {
         title: "Em Revoada",
-        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Comprar ingressos" },
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Ver ingressos" },
         dates: [
           { day: "01", weekday: "quinta", month: "outubro", time: "20h" },
           { day: "02", weekday: "sexta", month: "outubro", time: "20h", label: "sessão com Libras" },
@@ -914,9 +915,9 @@ const en: EditorialContent = {
     },
     revoada: {
       title: "Em Revoada",
+      heroImagePosition: "center 35%",
       eyebrow: "Performance",
       year: "2026",
-      presentation: "portrait",
       summary: "From feet planted on the ground to soaring flights, breaking, mythology, samples and blues meet at the edge of the leap.",
       body: [
         "Em Revoada moves from the primal synchronised movements of human development to Hip Hop dances, inviting a range of artists to explore the tension between feet planted on the ground and soaring flights, where freedom prevails. Woven through with mythological figures and the everyday life of a great city, and steeped in samples and blues, the work rubs against this duality from on high, at the edge of the abyss, asking: which comes first, the leap or the fall?",
@@ -1281,7 +1282,7 @@ const en: EditorialContent = {
     events: [
       {
         title: "Em Revoada",
-        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Get tickets" },
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "View tickets" },
         dates: [
           { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "8 pm", label: "premiere on the 18th" },
           { day: "20", weekday: "Sunday", month: "September", time: "6 pm" },
@@ -1293,7 +1294,7 @@ const en: EditorialContent = {
       },
       {
         title: "Em Revoada",
-        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Get tickets" },
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "View tickets" },
         dates: [
           { day: "01", weekday: "Thursday", month: "October", time: "8 pm" },
           { day: "02", weekday: "Friday", month: "October", time: "8 pm", label: "Libras · Brazilian Sign Language" },

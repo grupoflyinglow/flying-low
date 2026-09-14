@@ -50,7 +50,7 @@ export function ProjectPage({
         </div>
         <div className={`project-hero-media ${project.presentation ? `is-${project.presentation}` : ""}`}>
           {heroImage ? (
-            <img {...getImageDimensions(heroImage)} src={heroImage} alt={heroImageAlt} loading="eager" fetchPriority="high" decoding="async" />
+            <img {...getImageDimensions(heroImage)} src={heroImage} alt={heroImageAlt} style={project.heroImagePosition ? { objectPosition: project.heroImagePosition } : undefined} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
             <div className="editorial-placeholder"><span>{project.placeholderLabel}</span></div>
           )}
