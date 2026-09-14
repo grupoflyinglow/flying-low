@@ -219,7 +219,6 @@ img { display: block; max-width: 100%; }
 .performance-cover::after, .performance-chapter-media::after { border: 1px solid transparent; border-radius: inherit; content: ""; inset: 0; pointer-events: none; position: absolute; transition: border-color .25s ease; z-index: 4; }
 .performance-cover:hover::after, .performance-cover:focus-visible::after, .performance-cover:active::after, .performance-chapter-media:hover::after, .performance-chapter-media:focus-visible::after, .performance-chapter-media:active::after { border-color: var(--red); }
 .performance-cover img, .performance-cover-placeholder { height: 100%; object-fit: cover; transition: filter .35s ease, transform .7s cubic-bezier(.2,.8,.2,1); width: 100%; }
-.performance-cover--portrait img { object-fit: contain; }
 .performance-cover:hover img, .performance-cover:focus-visible img, .performance-cover:active img { filter: saturate(1.08) contrast(1.04); transform: scale(1.015); }
 .performance-cover-placeholder { align-items: center; background: repeating-linear-gradient(120deg, var(--coal) 0 32px, var(--black) 33px 64px); color: var(--red); display: flex; font-family: var(--display); font-size: clamp(72px, 10vw, 160px); font-weight: 800; justify-content: center; letter-spacing: -.08em; text-transform: uppercase; }
 .performance-cover-shade { background: linear-gradient(180deg, rgba(0,0,0,.42), transparent 30%, rgba(0,0,0,.78)); inset: 0; position: absolute; z-index: 1; }
@@ -232,7 +231,6 @@ img { display: block; max-width: 100%; }
 .performance-chapter { border-top: 1px solid var(--line); padding-top: 14px; }
 .performance-chapter-media { border-radius: 16px; display: block; height: min(84svh, 980px); isolation: isolate; margin: 0 14px; overflow: hidden; position: relative; }
 .performance-chapter-media img, .performance-chapter-media .performance-cover-placeholder { filter: saturate(.88) contrast(1.08); height: 100%; object-fit: cover; transition: filter .35s ease, transform .8s cubic-bezier(.2,.8,.2,1); width: 100%; }
-.performance-chapter--portrait .performance-chapter-media img { filter: none; object-fit: contain; }
 .performance-chapter-media:hover img, .performance-chapter-media:focus-visible img, .performance-chapter-media:active img { filter: saturate(1.03) contrast(1.04); transform: scale(1.01); }
 .performance-chapter:nth-child(2) .performance-chapter-media img { object-position: center 38%; }
 .performance-chapter:nth-child(3) .performance-chapter-media img { object-position: center 34%; }
@@ -318,13 +316,6 @@ img { display: block; max-width: 100%; }
 .project-page--poster .project-hero-media.is-poster img { filter: none; height: auto; max-height: calc(100svh - 145px); object-fit: contain; opacity: 1; width: auto; }
 .project-page--poster .project-hero-credit { bottom: 12px; color: var(--black); right: 18px; }
 
-.project-page--portrait .project-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); }
-.project-page--portrait .project-hero-copy { margin: 0; padding-left: max(40px, calc((100vw - 1360px) / 2)); padding-right: 32px; width: 100%; }
-.project-page--portrait .project-hero h1 { font-size: clamp(52px, 7.3vw, 124px); }
-.project-page--portrait .project-hero-media { align-items: center; display: flex; justify-content: center; padding: 32px 40px 72px 0; position: relative; }
-.project-page--portrait .project-hero-media::after { display: none; }
-.project-page--portrait .project-hero-media img { height: auto; max-height: calc(100svh - 192px); object-fit: contain; opacity: 1; width: 100%; }
-.project-page--portrait .project-hero-credit { bottom: 24px; left: 0; right: 40px; }
 
 .project-story { display: grid; gap: 10%; grid-template-columns: 1fr 2.2fr; padding: 145px 0 130px; }
 .project-story-label .eyebrow { color: var(--red); position: sticky; top: 95px; }
@@ -569,11 +560,6 @@ img { display: block; max-width: 100%; }
   .project-page--poster .project-hero h1 { font-size: clamp(72px, 21vw, 118px); }
   .project-page--poster .project-hero-media.is-poster { min-height: 0; padding: 20px; }
   .project-page--poster .project-hero-media.is-poster img { max-height: none; width: 100%; }
-  .project-page--portrait .project-hero { display: block; }
-  .project-page--portrait .project-hero-copy { min-height: 0; padding: 55px 24px 40px; }
-  .project-page--portrait .project-hero-media { padding: 0 24px 70px; }
-  .project-page--portrait .project-hero-media img { max-height: none; }
-  .project-page--portrait .project-hero-credit { left: 24px; right: 24px; }
   .project-story, .project-video, .project-facts, .project-credits, .project-links { display: block; padding: 90px 0; }
   .project-performance-teaser { padding: 24px 0 90px; }
   .project-story-label .eyebrow { margin-bottom: 45px; position: static; }

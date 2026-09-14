@@ -3,7 +3,7 @@ const imageDimensions: Record<string, { width: number; height: number; srcSet?: 
     width: 871,
     height: 1200,
     srcSet: "/images/em-revoada/em-revoada-cover.webp 871w, /images/em-revoada/em-revoada-hernandes-06.webp 1741w",
-    sizes: "(max-width: 760px) 86vw, (max-width: 1440px) 62vw, 840px",
+    sizes: "100vw",
   },
   "/images/em-revoada/em-revoada-hernandes-06.webp": { width: 1741, height: 2400 },
   "/images/em-revoada/em-revoada-ricardo-ura.jpg": { width: 1080, height: 1350 },
