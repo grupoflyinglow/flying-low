@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
+import { HomeVideo } from "./components/HomeVideo";
 import { SiteNav } from "./components/SiteNav";
 import { useLocale } from "./components/LocaleProvider";
 import { getEditorialContent } from "./editorial-content";
@@ -19,7 +20,6 @@ function getReducedMotionSnapshot() {
 export default function Home() {
   const { locale, t } = useLocale();
   const agenda = getEditorialContent(locale).agenda;
-  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
@@ -30,20 +30,7 @@ export default function Home() {
     <main id="main-content" tabIndex={-1}>
       <section className="hero" aria-labelledby="hero-title">
         {!prefersReducedMotion && (
-          <video
-            className={`hero-video ${heroVideoReady ? "is-ready" : ""}`}
-            aria-hidden="true"
-            tabIndex={-1}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            onCanPlay={() => setHeroVideoReady(true)}
-          >
-            <source media="(max-width: 760px)" src="/video/flying-low-home-mobile.mp4" type="video/mp4" />
-            <source src="/video/flying-low-home.mp4" type="video/mp4" />
-          </video>
+          <HomeVideo title={locale === "pt-BR" ? "Flying Low — vídeo de apresentação" : "Flying Low — introduction video"} />
         )}
         <div className="hero-wash" />
         <SiteNav light />

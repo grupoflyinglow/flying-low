@@ -99,14 +99,13 @@ test("renders the 2026 schedule and the simplified home composition", async () =
   assert.match(agenda, /Menino Assum Preto/);
 });
 
-test("uses optimized local home-video sources", async () => {
-  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const sources = [...home.matchAll(/<source\b[^>]*\bsrc="([^"]+)"[^>]*\/>/g)];
-
-  assert.deepEqual(sources.map((source) => source[1]), [
-    "/video/flying-low-home-mobile.mp4",
-    "/video/flying-low-home.mp4",
-  ]);
+test("defers home video until the browser can check reduced motion", async () => {
+  for (const pathname of ["/", "/en"]) {
+    const html = await (await render(pathname)).text();
+    assert.doesNotMatch(html, /<video\b|<iframe\b/, pathname);
+    assert.match(html, /class="hero"/, pathname);
+    assert.match(html, /class="hero-primary-cta"/, pathname);
+  }
 });
 
 test("server-renders the complete information architecture in Portuguese", async () => {
