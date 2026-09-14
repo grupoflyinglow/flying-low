@@ -96,6 +96,7 @@ export type EditorialProject = {
   heroImagePosition?: string;
   secondaryImage?: string;
   secondaryImageCredit?: string;
+  secondaryImagePosition?: string;
   gallery?: ProjectImage[];
   galleryLabel?: string;
   galleryCredit?: string;
@@ -292,6 +293,7 @@ const ptBR: EditorialContent = {
       heroImageAlt: "Intérprete de Menino Assum Preto em silhueta diante do palco",
       heroImageCredit: "Foto · Sarará Rodrigues",
       secondaryImage: "/images/menino-assum-preto/assum-04.webp",
+      secondaryImagePosition: "center top",
       imageAlt: "Intérpretes de Menino Assum Preto em cena",
       galleryLabel: "Registros de cena",
       gallery: [
@@ -839,6 +841,7 @@ const en: EditorialContent = {
       heroImageAlt: "Menino Assum Preto performer silhouetted against the stage",
       heroImageCredit: "Photo · Sarará Rodrigues",
       secondaryImage: "/images/menino-assum-preto/assum-04.webp",
+      secondaryImagePosition: "center top",
       imageAlt: "Performers from Menino Assum Preto on stage",
       galleryLabel: "Stage records",
       gallery: [
