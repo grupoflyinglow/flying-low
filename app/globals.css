@@ -32,7 +32,7 @@ img { display: block; max-width: 100%; }
 .wordmark img { height: 46px; object-fit: contain; width: auto; }
 .desktop-nav { align-items: center; display: flex; gap: clamp(10px, 1.35vw, 22px); justify-content: center; min-width: 0; }
 .desktop-nav a { align-items: center; border-bottom: 1px solid transparent; display: inline-flex; font-family: var(--mono); font-size: 16px; letter-spacing: -.035em; min-height: 44px; padding: 7px 0 5px; white-space: nowrap; }
-.desktop-nav a:hover { border-bottom-color: var(--red); color: var(--red); }
+.desktop-nav a:hover, .desktop-nav a[aria-current="page"] { border-bottom-color: var(--red); color: var(--red); }
 .nav-actions { align-items: center; display: flex; gap: 22px; justify-self: end; }
 .language-switch { align-items: center; display: flex; font-family: var(--mono); font-size: 16px; gap: 2px; letter-spacing: .04em; }
 .language-switch a { align-items: center; border-bottom: 1px solid transparent; display: flex; justify-content: center; min-height: 44px; min-width: 44px; padding: 4px; }
@@ -51,6 +51,7 @@ img { display: block; max-width: 100%; }
 .menu-links { align-content: center; display: grid; font-family: var(--display); gap: 4px; grid-template-columns: 1fr 1fr; margin: 70px auto; max-width: 1180px; position: relative; width: 100%; }
 .menu-links a { align-items: baseline; border-bottom: 1px solid var(--line); display: grid; gap: 18px; grid-template-columns: 42px 1fr; padding: 12px 0 9px; transition: color .2s ease, padding-left .25s ease; }
 .menu-links a:hover { color: var(--red); padding-left: 8px; }
+.menu-links a[aria-current="page"] { color: var(--red); }
 .menu-links a > span { color: var(--red); font-family: var(--mono); font-size: 16px; }
 .menu-links strong { font-size: clamp(42px, 5vw, 74px); font-weight: 800; letter-spacing: -.065em; line-height: .83; text-transform: uppercase; }
 .menu-foot { align-items: end; border-top: 1px solid var(--line); display: flex; font-family: var(--mono); font-size: 16px; justify-content: space-between; padding-top: 18px; position: relative; }

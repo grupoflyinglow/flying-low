@@ -286,6 +286,10 @@ test("renders minimalist contact routes, footer socials, and localized navigatio
   assert.match(home, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/contato">Contato<\/a>/);
   assert.match(home, /<nav class="menu-links"[^>]*>[\s\S]*href="\/contato"[^>]*>[\s\S]*<strong>Contato<\/strong>/);
 
+  const performances = await (await render("/espetaculos")).text();
+  assert.match(performances, /<nav class="desktop-nav"[^>]*>[\s\S]*aria-current="page" href="\/espetaculos">Espetáculos<\/a>/);
+  assert.match(performances, /<nav class="menu-links"[^>]*>[\s\S]*aria-current="page" href="\/espetaculos"[^>]*>[\s\S]*<strong>Espetáculos<\/strong>/);
+
   const englishHome = await (await render("/en")).text();
   assert.match(englishHome, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/en\/contact">Contact<\/a>/);
   assert.match(englishHome, /<nav class="menu-links"[^>]*>[\s\S]*href="\/en\/contact"[^>]*>[\s\S]*<strong>Contact<\/strong>/);

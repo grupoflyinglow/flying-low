@@ -22,7 +22,7 @@ export function ContactPage() {
       <section className="contact-page-links section-shell" aria-label={t.contact.eyebrow}>
         <p className="eyebrow">{t.contact.emailLabel}</p>
         <div className="contact-page-link-list">
-          <a href="mailto:producaoflyinglow@gmail.com">producaoflyinglow@gmail.com <span aria-hidden="true">↗</span></a>
+          <a href="mailto:producaoflyinglow@gmail.com"><span className="contact-link-label">producaoflyinglow<wbr />@gmail.com</span><span aria-hidden="true">↗</span></a>
         </div>
       </section>
       <section className="contact-page-links section-shell" aria-label={t.contact.socialLabel}>
