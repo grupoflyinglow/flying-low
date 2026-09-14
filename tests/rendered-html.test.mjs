@@ -58,55 +58,48 @@ test("server-renders Portuguese as the primary language", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
-test("renders the 2026 schedule and the simplified home composition", async () => {
-  const homeResponse = await render();
-  const home = await homeResponse.text();
-  assert.match(home, /class="agenda-home-events"/);
-  assert.match(home, /class="agenda-date-day">01—04/);
-  assert.match(home, /class="agenda-date-day">15—18/);
-  assert.match(home, /class="agenda-date-weekday">sexta e sábado/);
-  assert.match(home, /class="agenda-date-weekday">quinta a domingo/);
-  assert.match(home, /Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP/);
-  assert.match(home, /class="agenda-date-day">18—19[\s\S]*class="agenda-date-time">19h/);
-  assert.match(home, /class="agenda-date-day">20[\s\S]*class="agenda-date-time">18h/);
-  assert.match(home, /class="agenda-date-day">25—26[\s\S]*class="agenda-date-time">19h/);
-  assert.match(home, /class="agenda-date-day">27[\s\S]*class="agenda-date-time">18h/);
-  assert.match(home, /Nome final a confirmar/);
-  assert.match(home, /Horário a confirmar/);
-  assert.doesNotMatch(home, /class="collective-image-link"/);
-  assert.doesNotMatch(home, /Conhecer o grupo/);
-  assert.doesNotMatch(home, /class="manifesto/);
-  assert.doesNotMatch(home, /class="featured-work/);
-  assert.doesNotMatch(home, /class="practice-grid/);
-  assert.doesNotMatch(home, /Em destaque · 2019|Criação em movimento/);
-
-  const agendaResponse = await render("/agenda");
-  assert.equal(agendaResponse.status, 200);
-  const agenda = await agendaResponse.text();
-  assert.match(agenda, /class="agenda-board-events"/);
-  assert.match(agenda, /class="agenda-date-day">18—19/);
-  assert.match(agenda, /class="agenda-date-day">20/);
-  assert.match(agenda, /class="agenda-date-day">25—26/);
-  assert.match(agenda, /class="agenda-date-day">27/);
-  assert.match(agenda, /class="agenda-date-label">estreia dia 18/);
-  assert.match(agenda, /class="agenda-date-month">setembro/);
-  assert.match(agenda, /class="agenda-date-day">18—19[\s\S]*class="agenda-date-time">19h/);
-  assert.match(agenda, /class="agenda-date-day">20[\s\S]*class="agenda-date-time">18h/);
-  assert.match(agenda, /class="agenda-date-day">25—26[\s\S]*class="agenda-date-time">19h/);
-  assert.match(agenda, /class="agenda-date-day">27[\s\S]*class="agenda-date-time">18h/);
-  assert.match(agenda, /class="agenda-event-address">Rua Ana Cintra, 213/);
-  assert.match(agenda, /Nome final a confirmar/);
-  assert.match(agenda, /Menino Assum Preto/);
+test("renders the confirmed season and ticket availability in both languages", async () => {
+  const ticketUrl = "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716";
+  for (const [pathname, english] of [["/", false], ["/agenda", false], ["/en", true], ["/en/agenda", true]]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    const articles = [...html.matchAll(/<article class="agenda-(?:home|board)-event"[^>]*>([\s\S]*?)<\/article>/g)].map((match) => match[1]);
+    assert.equal(articles.length, 3, pathname);
+    const expectedDates = [
+      [["18—19", "20h"], ["20", "18h"], ["25—26", "20h"], ["27", "18h"]],
+      [["01", "20h"], ["02", "20h"], ["03", "20h"], ["04", "18h"]],
+      [["15—17", "20h"], ["18", "18h"]],
+    ];
+    for (const [index, article] of articles.entries()) {
+      const days = [...article.matchAll(/class="agenda-date-day">([^<]+)/g)].map((match) => match[1]);
+      const times = [...article.matchAll(/class="agenda-date-time">([^<]+)/g)].map((match) => match[1]);
+      assert.deepEqual(days, expectedDates[index].map(([day]) => day), pathname);
+      assert.deepEqual(times, expectedDates[index].map(([, time]) => english ? time === "20h" ? "8 pm" : "6 pm" : time), pathname);
+      assert.ok(article.includes(index === 2 ? "Menino Assum Preto" : "Em Revoada"), pathname);
+      assert.ok(article.includes("Teatro Galpão do Folias"), pathname);
+      assert.ok(article.includes("R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP"), pathname);
+      if (index < 2) assert.ok(article.includes(`href="${ticketUrl}"`), pathname);
+      else {
+        assert.ok(article.includes(english ? "Tickets available soon" : "Ingressos disponíveis em breve"), pathname);
+        assert.doesNotMatch(article, /agenda-ticket-link/, pathname);
+      }
+    }
+    const octoberDates = articles[1].split('class="agenda-date">').slice(1);
+    assert.match(octoberDates[1], /Libras/, pathname);
+    for (const index of [0, 2, 3]) assert.doesNotMatch(octoberDates[index], /Libras/, pathname);
+    assert.doesNotMatch(html, /Nome final a confirmar|Horário a confirmar|Final title to be confirmed|Time to be confirmed/, pathname);
+    assert.doesNotMatch(html, /class="collective-image-link"|class="manifesto|class="featured-work|class="practice-grid/, pathname);
+  }
 });
 
-test("uses optimized local home-video sources", async () => {
-  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const sources = [...home.matchAll(/<source\b[^>]*\bsrc="([^"]+)"[^>]*\/>/g)];
-
-  assert.deepEqual(sources.map((source) => source[1]), [
-    "/video/flying-low-home-mobile.mp4",
-    "/video/flying-low-home.mp4",
-  ]);
+test("defers home video until the browser can check reduced motion", async () => {
+  for (const pathname of ["/", "/en"]) {
+    const html = await (await render(pathname)).text();
+    assert.doesNotMatch(html, /<video\b|<iframe\b/, pathname);
+    assert.match(html, /class="hero"/, pathname);
+    assert.match(html, /class="hero-primary-cta"/, pathname);
+  }
 });
 
 test("server-renders the complete information architecture in Portuguese", async () => {
@@ -115,7 +108,7 @@ test("server-renders the complete information architecture in Portuguese", async
     ["/espetaculos", "Menino Assum Preto"],
     ["/espetaculos/menino-assum-preto", "Menino Assum Preto"],
     ["/espetaculos/as-pegadas-do-kurupyra", "As Pegadas do Kurupyra"],
-    ["/espetaculos/revoada", "Estreia em 18 de setembro de 2026"],
+    ["/espetaculos/revoada", "o salto ou a queda"],
     ["/audiovisual", "Em Formação"],
     ["/audiovisual/concepcoes-marginais", "A margem como lugar de invenção"],
     ["/audiovisual/em-formacao", "Em Formação"],
@@ -150,7 +143,7 @@ test("server-renders English at translated URLs without a Portuguese first paint
     ["/en/performances", "Menino Assum Preto"],
     ["/en/performances/menino-assum-preto", "Menino Assum Preto"],
     ["/en/performances/the-footprints-of-kurupyra", "As Pegadas do Kurupyra"],
-    ["/en/performances/revoada", "Premieres on 18 September 2026"],
+    ["/en/performances/revoada", "the leap or the fall"],
     ["/en/screen", "In Formation"],
     ["/en/screen/marginal-conceptions", "The margin as a place of invention."],
     ["/en/screen/in-formation", "In Formation"],
@@ -301,7 +294,7 @@ test("renders minimalist contact routes, footer socials, and localized navigatio
 test("renders the revised Grupo copy as paragraphs without retired research headlines", async () => {
   for (const [pathname, firstParagraph, lastParagraph, retiredHeading, retiredMembersHeading] of [
     ["/grupo", "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica", "Lai Machado na produção.", "O que move a pesquisa.", "Cinco artistas, uma criação compartilhada."],
-    ["/en/collective", "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language", "with Lai Machado in production.", "What drives the work.", "Five artists, one shared practice."],
+    ["/en/collective", "A collective of artists from São Paulo’s peripheries that researches breaking as a performance language", "with Lai Machado in production.", "What drives the work.", "Five artists, one shared practice."],
   ]) {
     const html = await (await render(pathname)).text();
     assert.match(html, new RegExp(firstParagraph), pathname);
@@ -374,10 +367,10 @@ test("gives every performance detail page an image hero without retired summarie
   for (const [pathname, title, heroImage, removedSummary] of [
     ["/espetaculos/menino-assum-preto", "Menino Assum Preto", "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp", "Um manifesto em movimento"],
     ["/espetaculos/as-pegadas-do-kurupyra", "As Pegadas do Kurupyra", "/images/kurupyra/kurupyra-317.webp", "Uma travessia guiada pelos encantados"],
-    ["/espetaculos/revoada", "Revoada", "/images/flying-low-stage-amber.jpg", "Estreia em 18 de setembro de 2026"],
+    ["/espetaculos/revoada", "Em Revoada", "/images/em-revoada/em-revoada-cover.webp", "Estreia em 18 de setembro de 2026"],
     ["/en/performances/menino-assum-preto", "Menino Assum Preto", "/images/menino-assum-preto/menino-assum-preto-sarara-rodrigues-236.webp", "A manifesto in motion about labour"],
     ["/en/performances/the-footprints-of-kurupyra", "As Pegadas do Kurupyra", "/images/kurupyra/kurupyra-317.webp", "A journey guided by enchanted beings"],
-    ["/en/performances/revoada", "Revoada", "/images/flying-low-stage-amber.jpg", "Premieres on 18 September 2026"],
+    ["/en/performances/revoada", "Em Revoada", "/images/em-revoada/em-revoada-cover.webp", "Premieres on 18 September 2026"],
   ]) {
     const html = await (await render(pathname)).text();
     const bodyHtml = html.split("</head>")[1] ?? html;
@@ -470,9 +463,9 @@ test("renders clickable video thumbnails, Kurupyra photo credits, and full techn
 
   const revoada = await render("/espetaculos/revoada");
   const revoadaHtml = await revoada.text();
-  assert.match(revoadaHtml, /Ficha técnica em atualização\./);
-  assert.match(revoadaHtml, /src="\/images\/flying-low-stage-amber\.jpg"/);
-  assert.match(revoadaHtml, /19h às sextas e sábados · 18h aos domingos/);
+  assert.doesNotMatch(revoadaHtml, /Ficha técnica em atualização\./);
+  assert.match(revoadaHtml, /src="\/images\/em-revoada\/em-revoada-cover\.webp"/);
+  assert.match(revoadaHtml, /20h às quintas, sextas e sábados · 18h aos domingos/);
 
   const concepcoes = await render("/audiovisual/concepcoes-marginais");
   const concepcoesHtml = await concepcoes.text();
@@ -614,9 +607,6 @@ test("keeps complete Portuguese and English copy in one typed dictionary", async
   assert.match(editorial, /Ricardo Ura/);
   assert.match(editorial, /@grupo_flyinglow/);
   assert.match(editorial, /label: "premiere on the 18th"/);
-  assert.match(editorial, /day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed"/);
-  assert.match(editorial, /address: "Address to be confirmed"/);
-  assert.match(editorial, /venue: "Venue to be confirmed"/);
   assert.doesNotMatch(provider, /localStorage|useSyncExternalStore|document\.documentElement\.lang/);
   assert.match(provider, /locale: Locale/);
   assert.match(routes, /en: "\/en\/performances\/the-footprints-of-kurupyra"/);
@@ -664,4 +654,44 @@ test("keeps interaction and motion safeguards in the visual system", async () =>
   assert.match(layout, /icon:\s*\[\{ url:\s*"\/brand\/favicon\.png"/);
   assert.match(layout, /apple:\s*\[\{ url:\s*"\/brand\/app-icon\.png"/);
   assert.doesNotMatch(layout, /favicon\.svg/);
+});
+
+
+test("publishes Em Revoada first with all six images, individual credits and the complete technical sheet", async () => {
+  const expectedImages = [
+    "em-revoada-hernandes-06.webp", "em-revoada-ricardo-ura.jpg", "em-revoada-hernandes-02.webp",
+    "em-revoada-hernandes-11.webp", "em-revoada-hernandes-05.webp", "em-revoada-season.jpg",
+  ];
+  for (const [collectionPath, detailPath, groupPath, english] of [
+    ["/espetaculos", "/espetaculos/revoada", "/grupo", false],
+    ["/en/performances", "/en/performances/revoada", "/en/collective", true],
+  ]) {
+    const collection = await (await render(collectionPath)).text();
+    const covers = [...collection.matchAll(/class="performance-cover(?: [^"]*)?" href="([^"]+)"/g)].map((match) => match[1]);
+    assert.equal(covers[0], detailPath);
+    const detail = await (await render(detailPath)).text();
+    assert.match(detail, /<h1>Em Revoada<\/h1>/);
+    assert.ok(detail.includes(english ? "the leap or the fall?" : "o salto ou a queda?"));
+    const gallery = detail.match(/class="project-gallery-grid">([\s\S]*?)<\/section>/)?.[1] ?? "";
+    const figures = [...gallery.matchAll(/<figure[^>]*>([\s\S]*?)<\/figure>/g)].map((match) => match[1]);
+    assert.equal(figures.length, 6);
+    for (const [index, figure] of figures.entries()) {
+      assert.ok(figure.includes(`/images/em-revoada/${expectedImages[index]}`));
+      assert.match(figure, /loading="lazy"/);
+      if (index === 5) assert.doesNotMatch(figure, /figcaption/);
+      else assert.ok(figure.includes(index === 1 ? "Design · Ricardo Ura" : "Hernandes · @ronyhernandes"));
+    }
+    const credits = detail.match(/class="project-credits-list">([\s\S]*?)<\/dl>/)?.[1] ?? "";
+    assert.equal((credits.match(/class="project-credit-row"/g) ?? []).length, 21);
+    for (const name of ["Clara Prates", "Gustavo Zanela", "Bruna Tovian", "Willian Sampaio", "Aimé Césaire", "Incluir Pela Arte", "Marrese Assessoria", "Lai Machado | Monstra Produções", "Ana Carolina Yamamoto", "Zeme Produções Artísticas"]) assert.ok(credits.includes(name), name);
+    assert.ok(detail.includes(english ? "All ages" : "Livre"));
+    assert.doesNotMatch(detail, /Em atualização|Being updated|Registros em atualização/);
+    const group = await (await render(groupPath)).text();
+    assert.ok(group.includes(english ? "Founded in 2016 at Núcleo Luz by Lee Anderson and Eddie Guedes" : "Formado em 2016 no Núcleo Luz por Lee Anderson e Eddie Guedes"));
+    assert.ok(group.includes(english ? "VAI Programme in 2018" : "Programa VAI em 2018"));
+  }
+  for (const filename of expectedImages) {
+    const bytes = await readFile(new URL(`../public/images/em-revoada/${filename}`, import.meta.url));
+    assert.ok(bytes.length > 1000, filename);
+  }
 });

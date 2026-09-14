@@ -1,4 +1,16 @@
-const imageDimensions: Record<string, { width: number; height: number }> = {
+const imageDimensions: Record<string, { width: number; height: number; srcSet?: string; sizes?: string }> = {
+  "/images/em-revoada/em-revoada-cover.webp": {
+    width: 871,
+    height: 1200,
+    srcSet: "/images/em-revoada/em-revoada-cover.webp 871w, /images/em-revoada/em-revoada-hernandes-06.webp 1741w",
+    sizes: "(max-width: 760px) 86vw, (max-width: 1440px) 62vw, 840px",
+  },
+  "/images/em-revoada/em-revoada-hernandes-06.webp": { width: 1741, height: 2400 },
+  "/images/em-revoada/em-revoada-ricardo-ura.jpg": { width: 1080, height: 1350 },
+  "/images/em-revoada/em-revoada-hernandes-02.webp": { width: 1600, height: 2400 },
+  "/images/em-revoada/em-revoada-hernandes-11.webp": { width: 1600, height: 2400 },
+  "/images/em-revoada/em-revoada-hernandes-05.webp": { width: 1600, height: 2400 },
+  "/images/em-revoada/em-revoada-season.jpg": { width: 1600, height: 838 },
   "/images/flying-low-assum-preto.jpg": { width: 2500, height: 1667 },
   "/images/flying-low-collective.jpg": { width: 800, height: 533 },
   "/images/flying-low-portrait.jpg": { width: 1067, height: 1600 },

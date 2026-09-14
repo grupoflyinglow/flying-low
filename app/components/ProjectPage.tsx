@@ -38,7 +38,7 @@ export function ProjectPage({
     : "project-synopsis";
 
   return (
-    <main className={`editorial-page project-page ${project.presentation === "poster" ? "project-page--poster" : ""}`} id="main-content" tabIndex={-1}>
+    <main className={`editorial-page project-page ${project.presentation ? `project-page--${project.presentation}` : ""}`} id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="project-hero">
         <div className="section-shell project-hero-copy">
@@ -48,7 +48,7 @@ export function ProjectPage({
           {!isPerformance && <p>{project.summary}</p>}
           {project.status && <span className="project-status">{project.status}</span>}
         </div>
-        <div className={`project-hero-media ${project.presentation === "poster" ? "is-poster" : ""}`}>
+        <div className={`project-hero-media ${project.presentation ? `is-${project.presentation}` : ""}`}>
           {heroImage ? (
             <img {...getImageDimensions(heroImage)} src={heroImage} alt={heroImageAlt} loading="eager" fetchPriority="high" decoding="async" />
           ) : (
@@ -117,7 +117,7 @@ export function ProjectPage({
       {project.gallery && project.gallery.length > 0 ? (
         <section className="project-gallery section-shell" aria-labelledby="project-gallery">
           <div className="project-gallery-heading"><p className="eyebrow" id="project-gallery">{project.galleryLabel ?? content.common.gallery}</p>{project.galleryCredit && <p>{project.galleryCredit}</p>}</div>
-          <div className="project-gallery-grid">{project.gallery.map((image) => <figure className={image.poster ? "is-poster" : image.portrait ? "is-portrait" : undefined} key={image.src}><img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />{image.credit && <figcaption>{image.credit}</figcaption>}</figure>)}</div>
+          <div className="project-gallery-grid">{project.gallery.map((image) => <figure className={[image.poster ? "is-poster" : image.portrait ? "is-portrait" : "", image.uncropped ? "is-uncropped" : "", image.wide ? "is-wide" : ""].filter(Boolean).join(" ") || undefined} key={image.src}><img {...getImageDimensions(image.src)} src={image.src} alt={image.alt} loading="lazy" decoding="async" />{image.credit && <figcaption>{image.credit}</figcaption>}</figure>)}</div>
         </section>
       ) : <section className="project-gallery section-shell"><p className="project-credits-pending">{content.common.galleryPending}</p></section>}
 
