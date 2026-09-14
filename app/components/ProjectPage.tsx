@@ -97,7 +97,7 @@ export function ProjectPage({
       {project.secondaryImage && (
         <section className="project-secondary-image section-shell">
           <figure>
-            <img {...getImageDimensions(project.secondaryImage)} src={project.secondaryImage} alt="" loading="lazy" decoding="async" />
+            <img {...getImageDimensions(project.secondaryImage)} src={project.secondaryImage} alt="" loading="lazy" decoding="async" style={project.secondaryImagePosition ? { objectPosition: project.secondaryImagePosition } : undefined} />
             {project.secondaryImageCredit && <figcaption>{project.secondaryImageCredit}</figcaption>}
           </figure>
         </section>
