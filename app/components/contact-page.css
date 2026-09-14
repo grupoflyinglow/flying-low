@@ -30,7 +30,23 @@
 
 .contact-page .contact-page-link-list a {
   font-size: clamp(30px, 4vw, 64px);
+  gap: 16px;
   min-height: 72px;
+}
+
+.contact-page .contact-page-link-list {
+  min-width: 0;
+}
+
+.contact-page .contact-link-label {
+  color: inherit;
+  font: inherit;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.contact-page .contact-page-link-list a > [aria-hidden] {
+  flex-shrink: 0;
 }
 
 @media (max-width: 760px) {

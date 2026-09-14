@@ -13,7 +13,7 @@ export default function Grupo() {
     <main className="editorial-page group-page" id="main-content" tabIndex={-1}>
       <SiteNav />
       <section className="archive-hero section-shell">
-        <p className="eyebrow">{t.group.eyebrow}</p>
+        <h1 className="eyebrow">{t.group.eyebrow}</h1>
         <p className="archive-intro">{t.group.intro}</p>
       </section>
 

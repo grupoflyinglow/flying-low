@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { alternateLocalePath, routeFor } from "../route-localization";
+import { alternateLocalePath, routeFor, routeKeyFromPathname } from "../route-localization";
 import { useLocale } from "./LocaleProvider";
 
 function LanguageSwitch({ className = "" }: { className?: string }) {
@@ -34,6 +34,8 @@ function LanguageSwitch({ className = "" }: { className?: string }) {
 export function SiteNav({ light = false }: { light?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDialogElement>(null);
+  const pathname = usePathname();
+  const currentRouteKey = routeKeyFromPathname(pathname);
   const { locale, t } = useLocale();
   const items = [
     { routeKey: "group", label: t.nav.group, desktopLabel: t.nav.group },
@@ -75,7 +77,7 @@ export function SiteNav({ light = false }: { light?: boolean }) {
       <nav className="desktop-nav" aria-label={t.nav.mainNavigation}>
         {items.map((item) => {
           const href = routeFor(locale, item.routeKey);
-          return <a href={href} key={href}>{item.desktopLabel}</a>;
+          return <a aria-current={currentRouteKey === item.routeKey ? "page" : undefined} href={href} key={href}>{item.desktopLabel}</a>;
         })}
       </nav>
       <div className="nav-actions">
@@ -97,7 +99,7 @@ export function SiteNav({ light = false }: { light?: boolean }) {
             {items.map((item, index) => {
               const href = routeFor(locale, item.routeKey);
               return (
-                <a href={href} key={href} onClick={closeMenu}>
+                <a aria-current={currentRouteKey === item.routeKey ? "page" : undefined} href={href} key={href} onClick={closeMenu}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <strong>{item.label}</strong>
                 </a>

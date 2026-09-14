@@ -192,6 +192,19 @@ test("server-renders English at translated URLs without a Portuguese first paint
   assert.match(performancesHtml, /hrefLang="en" href="https:\/\/flying-low-dance\.vtrpldn\.chatgpt\.site\/en\/performances"/);
 });
 
+test("renders one primary heading for the collective and conversations pages", async () => {
+  for (const [pathname, heading] of [
+    ["/grupo", "Sobre o Flying Low"],
+    ["/en/collective", "About Flying Low"],
+    ["/debates-mediados", "Debates mediados"],
+    ["/en/conversations", "Moderated conversations"],
+  ]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, new RegExp(`<h1[^>]*>${heading}</h1>`), pathname);
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1, pathname);
+  }
+});
+
 test("lists both dance films directly under Audiovisual", async () => {
   for (const [pathname, projects, removedGroupPath] of [
     [
@@ -285,6 +298,10 @@ test("renders minimalist contact routes, footer socials, and localized navigatio
   assert.match(home, /https:\/\/www\.youtube\.com\/@grupoflyinglow2473/);
   assert.match(home, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/contato">Contato<\/a>/);
   assert.match(home, /<nav class="menu-links"[^>]*>[\s\S]*href="\/contato"[^>]*>[\s\S]*<strong>Contato<\/strong>/);
+
+  const performances = await (await render("/espetaculos")).text();
+  assert.match(performances, /<nav class="desktop-nav"[^>]*>[\s\S]*aria-current="page" href="\/espetaculos">Espetáculos<\/a>/);
+  assert.match(performances, /<nav class="menu-links"[^>]*>[\s\S]*aria-current="page" href="\/espetaculos"[^>]*>[\s\S]*<strong>Espetáculos<\/strong>/);
 
   const englishHome = await (await render("/en")).text();
   assert.match(englishHome, /<nav class="desktop-nav"[^>]*>[\s\S]*href="\/en\/contact">Contact<\/a>/);
