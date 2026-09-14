@@ -57,6 +57,8 @@ type ProjectImage = {
   credit?: string;
   portrait?: boolean;
   poster?: boolean;
+  uncropped?: boolean;
+  wide?: boolean;
 };
 
 type ProjectVideo = {
@@ -82,7 +84,7 @@ export type EditorialProject = {
   eyebrow: string;
   year: string;
   status?: string;
-  presentation?: "poster";
+  presentation?: "poster" | "portrait";
   summary: string;
   synopsisHeading?: string;
   body: string[];
@@ -172,6 +174,7 @@ type EditorialContent = {
     events: Array<{
       title: string;
       note?: string;
+      tickets?: Link;
       dates: Array<{
         day: string;
         weekday: string;
@@ -248,7 +251,7 @@ const ptBR: EditorialContent = {
       heading: "Obras que nascem do corpo e do território.",
       intro: "No palco, o breaking encontra memória, ancestralidade e imaginação para contar histórias de liberdade, confinamento e outros futuros possíveis.",
       stripLabel: "Espetáculos do Flying Low",
-      projectKeys: ["meninoAssumPreto", "kurupyra", "revoada"],
+      projectKeys: ["revoada", "meninoAssumPreto", "kurupyra"],
     },
     audiovisual: {
       eyebrow: "Audiovisual",
@@ -369,22 +372,53 @@ const ptBR: EditorialContent = {
       ],
     },
     revoada: {
-      title: "Revoada",
-      eyebrow: "Novo trabalho",
+      title: "Em Revoada",
+      eyebrow: "Espetáculo",
       year: "2026",
-      status: "Em atualização",
-      summary: "Estreia em 18 de setembro de 2026, no Teatro Galpão do Folias.",
+      presentation: "portrait",
+      summary: "Entre os pés no chão e os voos altos, breaking, mitologia, samples e blues se encontram à beira do salto.",
       body: [
-        "O novo trabalho do Flying Low estreia em setembro de 2026 no Teatro Galpão do Folias, em São Paulo.",
-        "Informações sobre a criação serão publicadas conforme o processo avançar.",
+        "Em Revoada parte dos movimentos sincrônicos primordiais para o desenvolvimento humano e chega até as danças do Hip Hop, convidando diversos artistas para juntos tensionarem o espaço que existe entre os pés no chão e os voos altos - onde prevalece a liberdade. Costurado por figuras mitológicas e o cotidiano de uma grande cidade, com uma atmosfera preenchida de samples e blues, a obra fricciona a dualidade olhando do alto, à beira do abismo, e questiona: o que vem primeiro, o salto ou a queda?",
       ],
-      image: sharedImages.amber,
-      secondaryImage: sharedImages.portrait,
-      imageAlt: "Flying Low em processo cênico",
+      image: "/images/em-revoada/em-revoada-cover.webp",
+      imageCredit: "Foto · Hernandes · @ronyhernandes",
+      imageAlt: "Elenco de Em Revoada saltando sobre uma escadaria no centro de São Paulo",
+      gallery: [
+        { src: "/images/em-revoada/em-revoada-hernandes-06.webp", alt: "Elenco de Em Revoada saltando sobre uma escadaria no centro de São Paulo", uncropped: true, credit: "Foto · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-ricardo-ura.jpg", alt: "Cartaz de Em Revoada, com uma figura dançando sobre fundo amarelo", uncropped: true, credit: "Design · Ricardo Ura" },
+        { src: "/images/em-revoada/em-revoada-hernandes-02.webp", alt: "Retrato do elenco de Em Revoada reunido em uma escadaria", uncropped: true, credit: "Foto · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-hernandes-11.webp", alt: "Mãos do elenco de Em Revoada erguendo um corpo vestido de jeans", uncropped: true, credit: "Foto · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-hernandes-05.webp", alt: "Elenco de Em Revoada visto de cima, sobre uma calçada de pedras", uncropped: true, credit: "Foto · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-season.jpg", alt: "Arte de divulgação da temporada de Em Revoada no Galpão do Folias", uncropped: true, wide: true },
+      ],
+      credits: [
+        { role: "Direção Artística", names: "Marina Esteves, Emerson Silva, Manuel Victor e Ricardo Ura" },
+        { role: "Coreografia", names: "Emerson Silva e Ricardo Ura, com a colaboração de Carol Gracindo, Fioot Diamond, Jhow Wallace, Lee Anderson, Manuel Victor, Marina Esteves, Maya Souza, Moises Matos, Odri Campos, Pac Lari e Vaguinho Ferreira" },
+        { role: "Estudos dramatúrgicos", names: "Emerson Silva, Fioot Diamond, Lee Anderson, Marina Esteves, Manuel Victor, Ricardo Ura e Willian Sampaio" },
+        { role: "Elenco", names: "Carol Gracindo, Emerson Silva, Fioot Diamond, Jhow Wallace, Lee Anderson, Manuel Victor, Maya Souza, Moises Matos, Odri Campos, Pac Lari, Ricardo Ura e Vaguinho Ferreira" },
+        { role: "Dramaturgismo", names: "Willian Sampaio" },
+        { role: "Figurino", names: "Clara Prates" },
+        { role: "Assistência de figurino", names: "Gustavo Zanela" },
+        { role: "Desenho e operação de luz", names: "Bruna Tovian" },
+        { role: "Direção Musical", names: "Marina Esteves" },
+        { role: "Criação, Produção e Interpretação Musical ao vivo", names: "Jorge Boog e Tiago Penalva" },
+        { role: "Fotografia", names: "Hernandes" },
+        { role: "Identidade Visual e Design Gráfico", names: "Ricardo Ura" },
+        { role: "Redes Sociais", names: "Bruno Reis e Giovana Sernaglia" },
+        { role: "Formação em acessibilidade", names: "Incluir Pela Arte" },
+        { role: "Interlocuções textuais", names: "Aimé Césaire, Willian Sampaio e Marina Esteves" },
+        { role: "Assessoria de Imprensa", names: "Marrese Assessoria" },
+        { role: "Assessoria Jurídica", names: "Lai Machado" },
+        { role: "Coordenação de produção e Gestão de Projeto", names: "Lai Machado | Monstra Produções" },
+        { role: "Assistência de produção", names: "Ana Carolina Yamamoto" },
+        { role: "Administrativo", names: "Zeme Produções Artísticas" },
+        { role: "Idealização", names: "Grupo Flying Low e Monstra Produções" },
+      ],
       facts: [
+        { label: "Classificação indicativa", value: "Livre" },
         { label: "Estreia", value: "18 de setembro de 2026" },
-        { label: "Horários", value: "19h às sextas e sábados · 18h aos domingos" },
-        { label: "Local", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
+        { label: "Horários", value: "20h às quintas, sextas e sábados · 18h aos domingos" },
+        { label: "Local", value: "Teatro Galpão do Folias · R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP" },
       ],
       links: [],
     },
@@ -588,7 +622,7 @@ const ptBR: EditorialContent = {
   group: {
     membersEyebrow: "Quem são",
     membersIntro: [
-      "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2018, o Flying Low surgiu com a criação do espetáculo “Menino Assum Preto”, contemplada pelo Programa VAI, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação, que são marca do coletivo.",
+      "Um coletivo de artistas das periferias de São Paulo que pesquisa o breaking como linguagem cênica, cruzando danças urbanas, dramaturgias do corpo e práticas colaborativas de criação. Formado em 2016 no Núcleo Luz por Lee Anderson e Eddie Guedes, o Flying Low surgiu com a pesquisa do que veio a se tornar o espetáculo “Menino Assum Preto”, contemplado pelo Programa VAI em 2018, marcando o início da trajetória autoral e da abordagem coreográfica voltada às estéticas periféricas e modos coletivos de criação, que são marca do coletivo.",
       "Desde então, o grupo desenvolveu projetos que articulam cena, audiovisual e formação, como: “Cantigas do Meu Matulão” (Prêmio Aldir Blanc – 2020), voltado à criação em vídeo-dança; “Na Manha com Flying Low” (PROAC 31/2021), com ações pedagógicas e a série documental “Em Formação”; e “Circula Assum” (PROAC 04/2023), que levou o espetáculo “Menino Assum Preto” a sete cidades do estado de São Paulo, com o apoio da marca Converse.",
       "Em 2022, estreou seu segundo espetáculo, “As Pegadas do Kurupyra”, cruzando o breaking com histórias dos seres encantados dos povos originários do Brasil e da diáspora africana. Além dos espetáculos, desde 2021 o grupo conduz oficinas e residências por meio do projeto “Voando com Flying Low”, no qual compartilha suas metodologias de pesquisa e ensino de breaking.",
       "Em 2026 estreia seu mais novo trabalho cênico, com mais sete artistas em cena, em uma parceria de co-direção com Marina Esteves, dentro do projeto “Flying Low em Revoada”, contemplado pelo 38º Fomento à Dança para a Cidade de São Paulo.",
@@ -676,7 +710,7 @@ const ptBR: EditorialContent = {
         title: "Residência",
         body: [
           "A residência parte das perguntas e experiências trazidas por cada grupo. Jogos de composição, escrita de corpo, improvisação e dramaturgia organizam um processo coletivo de investigação.",
-          "Conforme a duração e o contexto, o percurso pode se abrir ao público ou culminar em uma apresentação. A residência também pode servir de laboratório para pesquisas ligadas a Concepções Marginais e Revoada.",
+          "Conforme a duração e o contexto, o percurso pode se abrir ao público ou culminar em uma apresentação. A residência também pode servir de laboratório para pesquisas ligadas a Concepções Marginais e Em Revoada.",
         ],
       },
     ],
@@ -700,34 +734,43 @@ const ptBR: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Próximos encontros.",
-    intro: "Apresentações confirmadas para setembro e outubro de 2026. Horários e locais ainda em definição serão atualizados aqui.",
+    intro: "Em Revoada e Menino Assum Preto no Teatro Galpão do Folias, em São Paulo, em setembro e outubro de 2026.",
     when: "Quando · 2026",
     where: "Onde",
     events: [
       {
-        title: "Revoada",
-        note: "Nome final a confirmar",
+        title: "Em Revoada",
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Comprar ingressos" },
         dates: [
-          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "19h", label: "estreia dia 18" },
+          { day: "18—19", weekday: "sexta e sábado", month: "setembro", time: "20h", label: "estreia dia 18" },
           { day: "20", weekday: "domingo", month: "setembro", time: "18h" },
-          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "19h" },
+          { day: "25—26", weekday: "sexta e sábado", month: "setembro", time: "20h" },
           { day: "27", weekday: "domingo", month: "setembro", time: "18h" },
         ],
         venue: "Teatro Galpão do Folias",
-        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
       {
-        title: "Revoada",
-        note: "Nome final a confirmar",
-        dates: [{ day: "01—04", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
-        venue: "Local a confirmar",
-        address: "Endereço a confirmar",
+        title: "Em Revoada",
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Comprar ingressos" },
+        dates: [
+          { day: "01", weekday: "quinta", month: "outubro", time: "20h" },
+          { day: "02", weekday: "sexta", month: "outubro", time: "20h", label: "sessão com Libras" },
+          { day: "03", weekday: "sábado", month: "outubro", time: "20h" },
+          { day: "04", weekday: "domingo", month: "outubro", time: "18h" },
+        ],
+        venue: "Teatro Galpão do Folias",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", weekday: "quinta a domingo", month: "outubro", time: "Horário a confirmar" }],
+        note: "Ingressos disponíveis em breve",
+        dates: [
+          { day: "15—17", weekday: "quinta a sábado", month: "outubro", time: "20h" },
+          { day: "18", weekday: "domingo", month: "outubro", time: "18h" },
+        ],
         venue: "Teatro Galpão do Folias",
-        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
     ],
   },
@@ -755,7 +798,7 @@ const en: EditorialContent = {
       heading: "Works born from body and territory.",
       intro: "On stage, breaking meets memory, ancestry, and imagination to tell stories of freedom, confinement, and other possible futures.",
       stripLabel: "Flying Low performances",
-      projectKeys: ["meninoAssumPreto", "kurupyra", "revoada"],
+      projectKeys: ["revoada", "meninoAssumPreto", "kurupyra"],
     },
     audiovisual: {
       eyebrow: "Screen work",
@@ -870,22 +913,53 @@ const en: EditorialContent = {
       ],
     },
     revoada: {
-      title: "Revoada",
-      eyebrow: "New work",
+      title: "Em Revoada",
+      eyebrow: "Performance",
       year: "2026",
-      status: "Being updated",
-      summary: "Premieres on 18 September 2026 at Teatro Galpão do Folias.",
+      presentation: "portrait",
+      summary: "From feet planted on the ground to soaring flights, breaking, mythology, samples and blues meet at the edge of the leap.",
       body: [
-        "Flying Low’s new work premieres in September 2026 at Teatro Galpão do Folias in São Paulo.",
-        "More about the creation will be published as the process unfolds.",
+        "Em Revoada moves from the primal synchronised movements of human development to Hip Hop dances, inviting a range of artists to explore the tension between feet planted on the ground and soaring flights, where freedom prevails. Woven through with mythological figures and the everyday life of a great city, and steeped in samples and blues, the work rubs against this duality from on high, at the edge of the abyss, asking: which comes first, the leap or the fall?",
       ],
-      image: sharedImages.amber,
-      secondaryImage: sharedImages.portrait,
-      imageAlt: "Flying Low in a stage process",
+      image: "/images/em-revoada/em-revoada-cover.webp",
+      imageCredit: "Photo · Hernandes · @ronyhernandes",
+      imageAlt: "The cast of Em Revoada jumping above a staircase in central São Paulo",
+      gallery: [
+        { src: "/images/em-revoada/em-revoada-hernandes-06.webp", alt: "The cast of Em Revoada jumping above a staircase in central São Paulo", uncropped: true, credit: "Photo · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-ricardo-ura.jpg", alt: "Em Revoada poster with a dancing figure against a yellow background", uncropped: true, credit: "Design · Ricardo Ura" },
+        { src: "/images/em-revoada/em-revoada-hernandes-02.webp", alt: "Portrait of the Em Revoada cast gathered on a staircase", uncropped: true, credit: "Photo · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-hernandes-11.webp", alt: "Hands of the Em Revoada cast lifting a body dressed in denim", uncropped: true, credit: "Photo · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-hernandes-05.webp", alt: "The Em Revoada cast seen from above on a stone pavement", uncropped: true, credit: "Photo · Hernandes · @ronyhernandes" },
+        { src: "/images/em-revoada/em-revoada-season.jpg", alt: "Artwork for the Em Revoada season at Galpão do Folias", uncropped: true, wide: true },
+      ],
+      credits: [
+        { role: "Artistic Direction", names: "Marina Esteves, Emerson Silva, Manuel Victor and Ricardo Ura" },
+        { role: "Choreography", names: "Emerson Silva and Ricardo Ura, in collaboration with Carol Gracindo, Fioot Diamond, Jhow Wallace, Lee Anderson, Manuel Victor, Marina Esteves, Maya Souza, Moises Matos, Odri Campos, Pac Lari and Vaguinho Ferreira" },
+        { role: "Dramaturgical Studies", names: "Emerson Silva, Fioot Diamond, Lee Anderson, Marina Esteves, Manuel Victor, Ricardo Ura and Willian Sampaio" },
+        { role: "Cast", names: "Carol Gracindo, Emerson Silva, Fioot Diamond, Jhow Wallace, Lee Anderson, Manuel Victor, Maya Souza, Moises Matos, Odri Campos, Pac Lari, Ricardo Ura and Vaguinho Ferreira" },
+        { role: "Dramaturgy", names: "Willian Sampaio" },
+        { role: "Costume Design", names: "Clara Prates" },
+        { role: "Costume Design Assistant", names: "Gustavo Zanela" },
+        { role: "Lighting Design and Operation", names: "Bruna Tovian" },
+        { role: "Musical Direction", names: "Marina Esteves" },
+        { role: "Music Creation, Production, and Live Performance", names: "Jorge Boog and Tiago Penalva" },
+        { role: "Photography", names: "Hernandes" },
+        { role: "Visual Identity and Graphic Design", names: "Ricardo Ura" },
+        { role: "Social Media", names: "Bruno Reis and Giovana Sernaglia" },
+        { role: "Accessibility Training", names: "Incluir Pela Arte" },
+        { role: "Textual Dialogues", names: "Aimé Césaire, Willian Sampaio and Marina Esteves" },
+        { role: "Press Relations", names: "Marrese Assessoria" },
+        { role: "Legal Counsel", names: "Lai Machado" },
+        { role: "Production Coordination and Project Management", names: "Lai Machado | Monstra Produções" },
+        { role: "Production Assistance", names: "Ana Carolina Yamamoto" },
+        { role: "Administration", names: "Zeme Produções Artísticas" },
+        { role: "Concept", names: "Grupo Flying Low and Monstra Produções" },
+      ],
       facts: [
+        { label: "Age rating", value: "All ages" },
         { label: "Premiere", value: "18 September 2026" },
-        { label: "Times", value: "7 pm on Fridays and Saturdays · 6 pm on Sundays" },
-        { label: "Venue", value: "Teatro Galpão do Folias · R. Ana Cintra, 213" },
+        { label: "Times", value: "8 pm on Thursdays, Fridays and Saturdays · 6 pm on Sundays" },
+        { label: "Venue", value: "Teatro Galpão do Folias · R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP" },
       ],
       links: [],
     },
@@ -1089,7 +1163,7 @@ const en: EditorialContent = {
   group: {
     membersEyebrow: "Who they are",
     membersIntro: [
-      "A collective of artists from São Paulo’s peripheries, researching breaking as a stage language through urban dances, bodily dramaturgies, and collaborative practices of creation. Formed in 2018, Flying Low emerged with the creation of the performance “Menino Assum Preto,” supported by the VAI Programme. It marked the beginning of the collective’s authorial trajectory and choreographic approach, rooted in peripheral aesthetics and collective modes of creation.",
+      "A collective of artists from São Paulo’s peripheries that researches breaking as a performance language, bringing urban dances into dialogue with dramaturgies of the body and collaborative creative practices. Founded in 2016 at Núcleo Luz by Lee Anderson and Eddie Guedes, Flying Low emerged from the research that would become the performance “Menino Assum Preto”, which received support from the VAI Programme in 2018. It marked the beginning of the collective’s authorial trajectory and of a choreographic approach centred on peripheral aesthetics and collective modes of creation, hallmarks of Flying Low.",
       "Since then, the group has developed projects that connect stage, screen, and learning: “Cantigas do Meu Matulão” (Aldir Blanc Award – 2020), a dance-film creation project; “Na Manha com Flying Low” (PROAC 31/2021), with educational actions and the documentary series “Em Formação”; and “Circula Assum” (PROAC 04/2023), which brought “Menino Assum Preto” to seven cities across the state of São Paulo with support from Converse.",
       "In 2022, it premiered its second performance, “As Pegadas do Kurupyra,” bringing breaking into dialogue with stories of enchanted beings from Brazil’s Indigenous peoples and the African diaspora. Alongside its performances, since 2021 the group has led workshops and residencies through “Voando com Flying Low,” sharing its research and teaching methods for breaking.",
       "In 2026, it premieres its newest stage work, with seven additional artists onstage and co-direction by Marina Esteves, within “Flying Low em Revoada,” supported by the 38th Fomento à Dança para a Cidade de São Paulo.",
@@ -1177,7 +1251,7 @@ const en: EditorialContent = {
         title: "Residency",
         body: [
           "The residency begins with the questions and experiences brought by each group. Composition games, body writing, improvisation, and dramaturgy organise a collective process of inquiry.",
-          "Depending on its duration and context, the process may open to the public or culminate in a presentation. The residency can also serve as a laboratory for research connected to Concepções Marginais and Revoada.",
+          "Depending on its duration and context, the process may open to the public or culminate in a presentation. The residency can also serve as a laboratory for research connected to Concepções Marginais and Em Revoada.",
         ],
       },
     ],
@@ -1201,34 +1275,43 @@ const en: EditorialContent = {
   agenda: {
     eyebrow: "Agenda",
     heading: "Upcoming encounters.",
-    intro: "Confirmed performances for September and October 2026. Times and venues still to be confirmed will be updated here.",
+    intro: "Em Revoada and Menino Assum Preto at Teatro Galpão do Folias, in São Paulo, in September and October 2026.",
     when: "When · 2026",
     where: "Where",
     events: [
       {
-        title: "Revoada",
-        note: "Final title to be confirmed",
+        title: "Em Revoada",
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Get tickets" },
         dates: [
-          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "7 pm", label: "premiere on the 18th" },
+          { day: "18—19", weekday: "Friday and Saturday", month: "September", time: "8 pm", label: "premiere on the 18th" },
           { day: "20", weekday: "Sunday", month: "September", time: "6 pm" },
-          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "7 pm" },
+          { day: "25—26", weekday: "Friday and Saturday", month: "September", time: "8 pm" },
           { day: "27", weekday: "Sunday", month: "September", time: "6 pm" },
         ],
         venue: "Teatro Galpão do Folias",
-        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
       {
-        title: "Revoada",
-        note: "Final title to be confirmed",
-        dates: [{ day: "01—04", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
-        venue: "Venue to be confirmed",
-        address: "Address to be confirmed",
+        title: "Em Revoada",
+        tickets: { href: "https://www.sympla.com.br/evento/espetaculo-em-revoada---grupo-flying-low/3576716", label: "Get tickets" },
+        dates: [
+          { day: "01", weekday: "Thursday", month: "October", time: "8 pm" },
+          { day: "02", weekday: "Friday", month: "October", time: "8 pm", label: "Libras · Brazilian Sign Language" },
+          { day: "03", weekday: "Saturday", month: "October", time: "8 pm" },
+          { day: "04", weekday: "Sunday", month: "October", time: "6 pm" },
+        ],
+        venue: "Teatro Galpão do Folias",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
       {
         title: "Menino Assum Preto",
-        dates: [{ day: "15—18", weekday: "Thursday to Sunday", month: "October", time: "Time to be confirmed" }],
+        note: "Tickets available soon",
+        dates: [
+          { day: "15—17", weekday: "Thursday to Saturday", month: "October", time: "8 pm" },
+          { day: "18", weekday: "Sunday", month: "October", time: "6 pm" },
+        ],
         venue: "Teatro Galpão do Folias",
-        address: "Rua Ana Cintra, 213 · Santa Cecília · São Paulo, SP",
+        address: "R. Ana Cintra, 213 · Campos Elíseos · São Paulo/SP",
       },
     ],
   },

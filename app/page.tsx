@@ -78,6 +78,7 @@ export default function Home() {
                   {event.note && <p>{event.note}</p>}
                   <strong>{event.venue}</strong>
                   <address className="agenda-event-address">{event.address}</address>
+                  {event.tickets && <a className="text-link agenda-ticket-link" href={event.tickets.href} target="_blank" rel="noreferrer">{event.tickets.label} <span aria-hidden="true">↗</span></a>}
                 </div>
               </article>
             ))}

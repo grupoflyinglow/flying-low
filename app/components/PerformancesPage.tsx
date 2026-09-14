@@ -87,7 +87,7 @@ export function PerformancesPage({
             {collection.projectKeys.map((projectKey, index) => {
               const project = content.projects[projectKey];
               return (
-                <a className="performance-cover" href={projectRouteFor(locale, projectKey)} key={projectKey}>
+                <a className={`performance-cover${project.presentation === "portrait" ? " performance-cover--portrait" : ""}`} href={projectRouteFor(locale, projectKey)} key={projectKey}>
                   {project.image ? (
                     <img
                       {...getImageDimensions(project.image)}
@@ -118,7 +118,7 @@ export function PerformancesPage({
           const chapterImage = project.secondaryImage || project.image;
 
           return (
-            <article className="performance-chapter" key={projectKey}>
+            <article className={`performance-chapter${project.presentation === "portrait" ? " performance-chapter--portrait" : ""}`} key={projectKey}>
               <a className="performance-chapter-media" href={projectRouteFor(locale, projectKey)}>
                 {chapterImage ? (
                   <img

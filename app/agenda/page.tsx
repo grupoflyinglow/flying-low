@@ -41,6 +41,7 @@ export default function Agenda() {
                 <h2>{event.title}</h2>
                 <p className="agenda-event-venue">{event.venue}</p>
                 <address className="agenda-event-address">{event.address}</address>
+                {event.tickets && <a className="text-link agenda-ticket-link" href={event.tickets.href} target="_blank" rel="noreferrer">{event.tickets.label} <span aria-hidden="true">↗</span></a>}
               </div>
             </article>
           ))}
